@@ -3,245 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>شركة GASTS | الفخامة الرقمية</title>
+<title>شركة GASTS | فخامة الإعلان</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --gold: #d4af37;
-  --dark-bg: #090a0f;
-  --glass: rgba(255, 255, 255, 0.07);
+    --gold: #d4af37;
+    --gold-bright: #f9e272;
+    --dark-bg: #050507;
+    --glass: rgba(255, 255, 255, 0.03);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Cairo', sans-serif;
-  background: radial-gradient(circle at top, #1b2735 0%, var(--dark-bg) 100%);
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+    background: var(--dark-bg);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    perspective: 1000px;
 }
 
-/* خلفية النجوم */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.2;
-  z-index: -1;
+/* خلفية النجوم المتحركة خفيفاً */
+.bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, #1a2a44 0%, var(--dark-bg) 80%),
+        url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: -1;
+    transition: transform 0.1s ease-out; /* سيتحرك مع الماوس عبر JS */
 }
 
-/* حاوية المحتوى الرئيسي */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* كرت التوثيق - تصميم عصري */
+.license-badge {
+    position: relative;
+    margin: 20px auto;
+    padding: 12px 25px;
+    background: var(--glass);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    cursor: pointer;
 }
+.license-badge:hover { border-color: var(--gold); transform: translateY(-3px); }
 
-/* وثيقة العمل الحر - متكيفة */
-.license-card {
-  background: var(--glass);
-  border: 1px solid var(--gold);
-  border-radius: 15px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 20px;
-  backdrop-filter: blur(10px);
-  width: fit-content;
-}
-
-.license-card img { width: 35px; }
-.license-info span { display: block; font-size: 11px; opacity: 0.8; }
-.license-info strong { color: var(--gold); font-size: 14px; }
-
-/* الهيدر والشعار */
+/* الهيدر الرئيسي */
 header {
-  text-align: center;
-  margin: 40px 0;
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeInDown 1s ease;
 }
 
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap; /* للسماح بالنزول سطر في الشاشات الصغيرة جداً */
+.logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.logo-badge {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--gold), #f9e272);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  font-weight: 900;
-  font-size: 24px;
+.company-tag {
+    color: var(--gold);
+    font-size: 20px;
+    letter-spacing: 5px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.main-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--transition);
+}
+
+.logo-diamond {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: 900;
+    font-size: 28px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
 
 .logo-text {
-  font-size: clamp(35px, 8vw, 60px);
-  font-weight: 900;
-  margin: 0;
-  background: linear-gradient(to bottom, #fff, #bbb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.company-prefix {
-  font-size: clamp(18px, 4vw, 26px);
-  color: var(--gold);
-  font-weight: 600;
+    font-size: clamp(45px, 10vw, 80px);
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(to bottom, #fff 30%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
 }
 
 /* المحتوى */
-.hero-content {
-  text-align: center;
-  max-width: 700px;
+.hero {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.hero-content p {
-  font-size: 18px;
-  line-height: 1.6;
-  opacity: 0.9;
+.hero p {
+    font-size: clamp(16px, 4vw, 20px);
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 30px;
 }
 
-/* الأزرار */
-.btn-tiktok {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: #000;
-  color: #fff;
-  padding: 15px 35px;
-  border-radius: 50px;
-  text-decoration: none;
-  border: 2px solid #ff0050;
-  font-weight: bold;
-  margin: 20px 0;
-  transition: 0.3s;
+/* زر تيك توك التفاعلي */
+.tiktok-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 45px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 18px;
+    overflow: hidden;
+    transition: var(--transition);
 }
 
-.btn-tiktok:active { transform: scale(0.95); }
-
-/* صندوق الإعلانات */
-.ads-box {
-  width: 100%;
-  max-width: 600px;
-  background: var(--glass);
-  border: 1px dashed rgba(212, 175, 55, 0.3);
-  border-radius: 25px;
-  padding: 40px 20px;
-  margin-top: 30px;
-  text-align: center;
+.tiktok-btn:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.2);
 }
 
-/* شريط التواصل السفلي - ذكي للجوال */
-.contact-bar {
-  width: 100%;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(15px);
-  border-top: 1px solid var(--gold);
-  padding: 15px;
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: auto;
+/* صندوق الإعلانات الزجاجي */
+.glass-card {
+    margin: 50px 20px;
+    padding: 40px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: var(--transition);
+}
+.glass-card:hover { background: rgba(255,255,255,0.05); }
+
+/* شريط التواصل السفلي */
+.footer-contact {
+    margin-top: auto;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(212,175,55,0.1);
 }
 
 .contact-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+.contact-link:hover { color: var(--gold); transform: translateX(-5px); }
+
+/* أنيميشن */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.contact-link:hover { color: var(--gold); }
-
-/* تعديلات الكمبيوتر */
-@media (min-width: 769px) {
-  .license-card { position: absolute; left: 40px; top: 40px; }
-  .contact-bar { 
-    position: fixed; 
-    bottom: 30px; 
-    right: 30px; 
-    width: auto; 
-    border: 1px solid var(--gold);
-    border-radius: 15px;
-    flex-direction: column;
-    padding: 20px;
-  }
+/* تحسينات الكمبيوتر */
+@media (min-width: 992px) {
+    .license-badge { position: fixed; top: 40px; left: 40px; margin: 0; }
+    .hero { margin-top: 40px; }
+    .footer-contact { padding: 40px 100px; }
 }
 
-footer { padding: 20px; font-size: 12px; opacity: 0.5; }
+/* تحسينات الجوال */
+@media (max-width: 768px) {
+    .main-logo { flex-direction: column; gap: 5px; }
+    .footer-contact { flex-direction: column; text-align: center; }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="license-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" alt="MHRSD">
-    <div class="license-info">
-      <span>توثيق رسمي</span>
-      <strong>وثيقة عمل حر</strong>
-    </div>
-  </div>
+<div class="bg-overlay" id="stars"></div>
 
-  <header>
-    <div class="logo-wrap">
-      <span class="company-prefix">شركة</span>
-      <div class="logo-badge">G</div>
-      <h1 class="logo-text">GASTS</h1>
+<div class="license-badge">
+    <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="30" alt="">
+    <div style="text-align: right;">
+        <div style="font-size: 10px; opacity: 0.7;">رخصة حكومية</div>
+        <div style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر معتمدة</div>
     </div>
-    <div style="color: var(--gold); font-weight: bold; margin-top: 10px; letter-spacing: 1px;">Luxury Advertising Solutions</div>
-  </header>
+</div>
 
-  <div class="hero-content">
-    <p>وجهتكم الأولى في المملكة العربية السعودية للإعلانات الفاخرة والخدمات التجارية الموثقة.</p>
+<header>
+    <div class="logo-section">
+        <span class="company-tag">شركة</span>
+        <div class="main-logo" id="logo">
+            <div class="logo-diamond">G</div>
+            <h1 class="logo-text">GASTS</h1>
+        </div>
+    </div>
+</header>
+
+<div class="hero">
+    <p>التميز في خدمات الإعلان والحلول التجارية الفاخرة.<br>رؤية جديدة لعام 2026 تبدأ من هنا.</p>
     
-    <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok" target="_blank">
-      تيك توك الرسمي ✔
+    <a href="https://www.tiktok.com/@gasts.sa" class="tiktok-btn">
+        <span>تيك توك الرسمي</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
     </a>
 
-    <div class="ads-box">
-      <h3 style="color: var(--gold); margin: 0 0 10px 0;">قريباً</h3>
-      <p style="margin: 0; font-size: 15px;">يتم الآن تجهيز أكبر منصة إعلانية في المنطقة.</p>
+    <div class="glass-card">
+        <h2 style="color: var(--gold); margin-top: 0;">منصة الإعلانات</h2>
+        <p style="margin-bottom: 0;">بوابة حصرية ستفتح أبوابها قريباً لعرض أرقى المنتجات.</p>
     </div>
-  </div>
-
-  <footer>
-    © 2026 شركة GASTS | جميع الحقوق محفوظة
-  </footer>
 </div>
 
-<div class="contact-bar">
-  <a href="mailto:hamed.work.sa@gmail.com" class="contact-link">
-    <span>✉</span> hamed.work.sa@gmail.com
-  </a>
-  <a href="https://wa.me/966536996062" class="contact-link" style="color: #25D366;">
-    <span>📱</span> 0536996062
-  </a>
+<div class="footer-contact">
+    <div style="opacity: 0.5; font-size: 13px;">© 2026 شركة GASTS LUXURY</div>
+    
+    <div style="display: flex; gap: 25px; flex-wrap: wrap; justify-content: center;">
+        <a href="mailto:hamed.work.sa@gmail.com" class="contact-link">
+            <span>✉</span> hamed.work.sa@gmail.com
+        </a>
+        <a href="https://wa.me/966536996062" class="contact-link" style="font-weight: bold; color: var(--gold);">
+            <span>📱</span> 0536996062
+        </a>
+    </div>
 </div>
+
+<script>
+    // تأثير حركة الخلفية واللوجو مع الماوس (للكمبيوتر)
+    document.addEventListener('mousemove', (e) => {
+        if (window.innerWidth > 768) {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.getElementById('stars').style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+            document.getElementById('logo').style.transform = `rotateY(${moveX * 2}deg) rotateX(${-moveY * 2}deg)`;
+        }
+    });
+
+    // تأثير النبض عند الضغط على أي زر
+    document.querySelectorAll('a, .glass-card').forEach(button => {
+        button.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        button.addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+    });
+</script>
 
 </body>
 </html>
