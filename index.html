@@ -8,186 +8,272 @@
     <style>
         :root {
             --gold: #d4af37;
-            --gold-bright: #f9e272;
-            --dark-bg: #050608;
-            --glass: rgba(255, 255, 255, 0.03);
+            --gold-light: #f9e272;
+            --dark: #05080a;
+            --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(212, 175, 55, 0.2);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Cairo', sans-serif;
-            background-color: var(--dark-bg);
+            background-color: var(--dark);
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
         }
 
-        /* خلفية النجوم المتحركة */
-        .cosmic-bg {
+        /* خلفية السديم المتحركة */
+        .nebula-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #0f172a 0%, #050608 100%);
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            overflow: hidden;
         }
-        .cosmic-bg::after {
+
+        .nebula-bg::after {
             content: "";
-            position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
             background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            animation: slowRotate 150s linear infinite;
-            opacity: 0.2;
+            animation: rotateBG 180s linear infinite;
+            opacity: 0.3;
         }
-        @keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        @keyframes rotateBG {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
         /* بطاقة التوثيق */
-        .license-header { padding: 20px; display: flex; justify-content: center; }
+        .license-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
         .license-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             border: 1px solid var(--border);
-            padding: 8px 25px;
-            border-radius: 50px;
-            display: flex; align-items: center; gap: 12px;
+            padding: 8px 20px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-        header { text-align: center; padding: 30px 20px; }
-        .diamond-g {
+        /* الهيدر */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .logo-container {
+            display: inline-block;
+            position: relative;
+        }
+        .diamond-icon {
             width: 80px; height: 80px;
             background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+            background-size: 200% 200%;
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center; justify-content: center;
             color: #000; font-weight: 900; font-size: 35px;
-            margin: 0 auto 10px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            animation: shimmer 3s infinite;
         }
-        .logo-main-text {
-            font-size: clamp(55px, 15vw, 100px);
-            font-weight: 900; margin: 0; line-height: 0.9;
-            background: linear-gradient(to bottom, #fff 50%, var(--gold) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .logo-text {
+            font-size: clamp(50px, 15vw, 90px);
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
+        /* المحتوى الرئيسي */
         .main-content {
-            flex: 1; text-align: center; padding: 0 25px;
-            max-width: 850px; margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .hero-desc {
+            max-width: 600px;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
         }
 
-        /* زر تيك توك */
-        .tiktok-pill {
-            background: #fff; color: #000; padding: 15px 40px;
-            border-radius: 50px; text-decoration: none; font-weight: 800;
-            display: inline-flex; align-items: center; gap: 10px;
-            margin-bottom: 40px; transition: 0.4s;
+        /* زر تيك توك الفاخر */
+        .btn-tiktok {
+            background: #fff;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            margin-bottom: 40px;
         }
-        .tiktok-pill:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        .btn-tiktok:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
 
-        /* كرت المنصة - التصميم المعاد */
-        .platform-card {
-            background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(255,255,255,0.01));
-            border: 1px solid var(--border);
+        /* كرت العرض قريباً */
+        .coming-soon-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(20px);
-            padding: 45px 30px;
-            border-radius: 40px;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 100%;
             margin-bottom: 50px;
             position: relative;
             overflow: hidden;
         }
-        .platform-card::before {
-            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
-            animation: pulse 4s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        /* منطقة الإيميل التفاعلية */
-        .contact-box { margin: 40px 0; }
-        .inquiry-label { display: block; color: var(--gold); font-weight: 700; letter-spacing: 5px; margin-bottom: 15px; font-size: 13px; }
-        .email-capsule {
-            display: inline-flex; align-items: center; gap: 15px;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 18px 35px; border-radius: 100px;
-            color: #fff; text-decoration: none; font-size: clamp(1rem, 4.5vw, 1.6rem);
-            transition: all 0.4s ease;
-        }
-        .email-capsule:hover {
-            border-color: var(--gold-bright);
-            background: rgba(212,175,55,0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(212,175,55,0.2);
+        .coming-soon-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: sweep 5s infinite;
         }
 
-        footer { padding: 30px; opacity: 0.4; font-size: 11px; text-align: center; letter-spacing: 2px; }
+        /* الفوتر */
+        footer {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-items: center;
+        }
+        .contact-item {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            padding: 15px;
+            border-radius: 15px;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+        }
+        .contact-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+        }
 
-        @media (min-width: 992px) {
-            .license-header { position: absolute; top: 40px; left: 40px; }
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes sweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* تحسينات الشاشات */
+        @media (min-width: 768px) {
+            .license-wrapper { position: absolute; top: 30px; left: 30px; }
+            header { padding: 80px 20px 40px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cosmic-bg"></div>
+    <div class="nebula-bg"></div>
 
-    <div class="license-header">
+    <div class="license-wrapper">
         <div class="license-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="28" alt="">
-            <div style="text-align: right;">
+            <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="28" alt="Verified">
+            <div>
                 <div style="font-size: 10px; opacity: 0.6;">ترخيص معتمد</div>
-                <div style="font-size: 12px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية</div>
+                <div style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية</div>
             </div>
         </div>
     </div>
 
     <header>
-        <div style="color: var(--gold); letter-spacing: 10px; font-size: 12px; font-weight: 700;">شركة</div>
-        <div class="diamond-g">G</div>
-        <h1 class="logo-main-text">GASTS</h1>
+        <div class="logo-container">
+            <div class="diamond-icon">G</div>
+            <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
+            <h1 class="logo-text">GASTS</h1>
+        </div>
     </header>
 
     <div class="main-content">
-        <p style="color: #aaa; line-height: 1.8; margin-bottom: 30px;">
-            نصنع الفخامة في كل تفاصيل هويتكم الإعلانية.<br>
-            رؤية مبتكرة لعام 2026 تبدأ من هنا.
+        <p class="hero-desc">
+            نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم. 
+            <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
         </p>
 
-        <a href="https://www.tiktok.com/@gasts.sa" class="tiktok-pill">
+        <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
             <span>عالمنا على تيك توك</span>
         </a>
 
-        <div class="platform-card">
-            <h2 style="color: var(--gold); margin-top: 0; font-weight: 900; letter-spacing: 2px;">منصة GASTS</h2>
-            <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff; font-weight: 300;">ترقبوا إطلاق أضخم منصة عرض للمنتجات الفاخرة قريباً.</p>
-        </div>
-
-        <div class="contact-box">
-            <span class="inquiry-label">للتواصل والاستفسار</span>
-            <a href="mailto:gasts.work@outlook.sa" class="email-capsule" id="magnetic-email">
-                <span>✉</span>
-                <span>gasts.work@outlook.sa</span>
-            </a>
+        <div class="coming-soon-card">
+            <h2 style="color: var(--gold); margin-top: 0; font-weight: 900;">منصة GASTS</h2>
+            <p style="margin-bottom: 0; opacity: 0.9;">ترقبوا إطلاق أضخم منصة عرض للمنتجات الفاخرة قريباً.</p>
         </div>
     </div>
 
     <footer>
-        © 2026 GASTS LUXURY GROUP | ALL RIGHTS RESERVED
+        <div class="footer-grid">
+            <div style="text-align: center; font-size: 13px; opacity: 0.5;">
+                © 2026 GASTS LUXURY GROUP
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="mailto:gasts.work@outlook.sa" class="contact-item">
+                    <span>✉</span> gasts.work@outlook.sa
+                </a>
+            </div>
+        </div>
     </footer>
 
     <script>
-        const email = document.getElementById('magnetic-email');
         document.addEventListener('mousemove', (e) => {
-            const rect = email.getBoundingClientRect();
-            const x = e.clientX - (rect.left + rect.width / 2);
-            const y = e.clientY - (rect.top + rect.height / 2);
-            if (Math.abs(x) < 150 && Math.abs(y) < 150) {
-                email.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-            } else {
-                email.style.transform = `translate(0, 0)`;
-            }
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
 </body>
