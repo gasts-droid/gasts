@@ -72,7 +72,6 @@
             transition: 0.3s;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
 
         /* الهيدر */
         header {
@@ -122,7 +121,6 @@
             margin-bottom: 30px;
         }
 
-        /* زر تيك توك الفاخر */
         .btn-tiktok {
             background: #fff;
             color: #000;
@@ -133,16 +131,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: var(--transition);
+            transition: 0.4s;
             box-shadow: 0 0 20px rgba(255,255,255,0.1);
             margin-bottom: 40px;
         }
-        .btn-tiktok:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
-        }
+        .btn-tiktok:hover { transform: scale(1.05); }
 
-        /* كرت العرض قريباً */
         .coming-soon-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
             border: 1px solid rgba(255,255,255,0.1);
@@ -153,62 +147,56 @@
             width: 100%;
             margin-bottom: 50px;
             position: relative;
-            overflow: hidden;
-        }
-        .coming-soon-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            animation: sweep 5s infinite;
         }
 
-        /* الفوتر */
+        /* الفوتر - التواصل المحدث */
         footer {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            padding: 40px 20px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px);
+            padding: 50px 20px;
             border-top: 1px solid var(--border);
+            text-align: center;
         }
-        .footer-grid {
-            max-width: 1000px;
+        .contact-container {
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            align-items: center;
         }
-        .contact-item {
+        .inquiry-label {
+            display: block;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .email-link {
             color: #fff;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 1rem;
-            padding: 10px;
-            border-radius: 15px;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            font-weight: 300;
             transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
             background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            border: 1px solid transparent;
         }
-        .contact-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
+        .email-link:hover {
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.05);
+            border-color: var(--border);
+            transform: translateY(-5px);
         }
 
-        /* Animations */
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        @keyframes sweep {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
 
-        /* تحسينات الشاشات */
         @media (min-width: 768px) {
             .license-wrapper { position: absolute; top: 30px; left: 30px; }
             header { padding: 80px 20px 40px; }
@@ -255,29 +243,23 @@
     </div>
 
     <footer>
-        <div class="footer-grid">
-            <div style="text-align: center; font-size: 13px; opacity: 0.5;">
-                © 2026 GASTS LUXURY GROUP
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <a href="mailto:hamed.work.sa@gmail.com" class="contact-item">
-                    <span>✉</span> hamed.work.sa@gmail.com
-                </a>
-                <a href="https://wa.me/966536996062" class="contact-item" style="border: 1px solid var(--border);">
-                    <span style="font-size: 1.2rem;">📱</span> 
-                    <span style="font-weight: bold; color: var(--gold-light);">0536996062</span>
-                </a>
+        <div class="contact-container">
+            <span class="inquiry-label">للتواصل والاستفسار</span>
+            <a href="mailto:gasts.work@outlook.sa" class="email-link">
+                <span style="font-size: 1.5rem;">✉</span>
+                <span>gasts.work@outlook.sa</span>
+            </a>
+            <div style="margin-top: 30px; font-size: 12px; opacity: 0.4; letter-spacing: 2px;">
+                © 2026 GASTS LUXURY GROUP | ALL RIGHTS RESERVED
             </div>
         </div>
     </footer>
 
     <script>
-        // تأثير حركة خفيف مع الماوس لزيادة الفخامة
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
 </body>
