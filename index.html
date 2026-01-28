@@ -23,31 +23,41 @@
             color: #fff;
             min-height: 100vh;
             display: flex; flex-direction: column;
-            align-items: center; /* توسيط المحتوى أفقياً */
+            align-items: center;
             overflow-x: hidden;
-            perspective: 1000px;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
         }
 
+        /* خلفية السديم المتحركة */
         .nebula-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         }
-
         .nebula-bg::after {
-            content: "";
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            animation: rotateBG 180s linear infinite;
-            opacity: 0.2;
+            animation: rotateBG 180s linear infinite; opacity: 0.3;
         }
-
         @keyframes rotateBG { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        header { text-align: center; padding: 40px 20px; width: 100%; }
-        
+        /* وثيقة العمل الحر */
+        .license-wrapper { padding: 20px; display: flex; justify-content: center; width: 100%; }
+        .license-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 100px;
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* الهوية والشعار */
+        header { text-align: center; padding: 40px 20px; transition: 0.3s ease-out; }
         .diamond-icon {
             width: 80px; height: 80px;
             background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
@@ -58,140 +68,138 @@
             color: #000; font-weight: 900; font-size: 35px;
             animation: shimmer 3s infinite;
         }
-
         .logo-text {
             font-size: clamp(50px, 15vw, 90px);
             font-weight: 900; margin: 0; line-height: 1;
             background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        .main-content {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 20px;
+        /* المربع المضيء (Coming Soon Card) */
+        .coming-soon-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            border: 1px solid var(--gold);
+            backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 30px;
+            max-width: 500px; width: 90%;
+            margin: 30px auto;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            animation: glowPulse 3s infinite alternate;
+        }
+        @keyframes glowPulse {
+            from { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); border-color: var(--border); }
+            to { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); border-color: var(--gold); }
         }
 
+        /* الأزرار والحقول */
         .auth-btn {
             background: var(--gold); color: #000;
-            padding: 14px 45px; border-radius: 50px;
+            padding: 12px 40px; border-radius: 50px;
             font-weight: 800; border: none; cursor: pointer;
-            transition: 0.3s; margin: 20px auto; font-family: 'Cairo';
-            display: block; width: fit-content;
+            transition: 0.3s; margin: 20px auto; display: block;
         }
-        .auth-btn:hover { transform: translateY(-3px); box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
+        .auth-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
 
-        .ad-form-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 30px; border-radius: 25px;
-            backdrop-filter: blur(15px);
-            margin: 20px auto; width: 100%; max-width: 450px;
-            text-align: center;
+        .ad-form {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 25px; border-radius: 20px; width: 90%; max-width: 450px;
+            margin-bottom: 30px; text-align: center;
         }
-
-        .coming-soon-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-            border: 1px solid var(--border);
-            backdrop-filter: blur(20px);
-            padding: 30px; border-radius: 30px;
-            max-width: 500px; width: 90%;
-            margin: 20px auto 50px;
-            text-align: center;
-        }
-
         .ad-input {
-            width: 100%; padding: 12px; margin: 10px 0;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border); border-radius: 12px;
-            color: #fff; font-family: 'Cairo'; text-align: center;
+            width: 100%; padding: 12px; margin: 8px 0;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 10px; color: #fff; text-align: center; font-family: 'Cairo';
         }
 
         .ads-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px; width: 100%; padding: 40px 0;
+            gap: 25px; width: 100%; max-width: 1100px; padding: 20px;
         }
-
         .ad-card {
             background: var(--glass); border: 1px solid var(--border);
-            border-radius: 20px; overflow: hidden; text-align: center; transition: 0.3s;
+            border-radius: 20px; overflow: hidden; transition: 0.3s; text-align: center;
         }
-        .ad-card img { width: 100%; height: 220px; object-fit: cover; }
+        .ad-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .ad-card img { width: 100%; height: 200px; object-fit: cover; }
+
+        #chat-window {
+            position: fixed; bottom: 20px; left: 20px; width: 300px; height: 400px;
+            background: #0a0e14; border: 1px solid var(--gold);
+            border-radius: 15px; display: none; flex-direction: column; z-index: 1000;
+        }
 
         @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .hero-desc { max-width: 600px; margin: 0 auto 20px; opacity: 0.8; text-align: center; }
-        
-        #chat-window {
-            position: fixed; bottom: 20px; left: 20px; width: 320px; height: 450px;
-            background: #080c12; border: 1px solid var(--gold);
-            border-radius: 20px; display: none; flex-direction: column; z-index: 2000;
-        }
     </style>
 </head>
 <body>
 
     <div class="nebula-bg" id="bg"></div>
 
+    <div class="license-wrapper">
+        <div class="license-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="28">
+            <div>
+                <div style="font-size: 10px; opacity: 0.6;">ترخيص معتمد</div>
+                <div style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية</div>
+            </div>
+        </div>
+    </div>
+
     <header id="header">
         <div class="logo-container">
             <div class="diamond-icon">G</div>
-            <span style="color: var(--gold); letter-spacing: 8px; font-size: 11px; font-weight: bold;">LUXURY AGENCY</span>
+            <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
             <h1 class="logo-text">GASTS</h1>
         </div>
     </header>
 
-    <div class="main-content">
+    <div style="width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 1;">
+        
         <button id="loginBtn" class="auth-btn">تسجيل دخول للمنصة</button>
 
-        <div id="dashboard" style="display:none; width: 100%;">
-            <div class="ad-form-card">
-                <img id="avatar" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--gold); margin: 0 auto 15px; display: block;" />
-                <h4 id="name" style="margin:5px 0; color: var(--gold);"></h4>
-                <p id="email" style="font-size:12px; opacity:0.6; margin-bottom: 15px;"></p>
-                <button id="logoutBtn" class="auth-btn" style="padding:8px 25px; font-size:13px; margin-top: 5px;">تسجيل الخروج</button>
+        <div id="userSection" style="display:none; width: 100%; max-width: 450px;">
+            <div class="ad-form">
+                <img id="userAvatar" style="width:70px; border-radius:50%; border:2px solid var(--gold); margin-bottom:10px;">
+                <h3 id="userName" style="margin:0; color:var(--gold);"></h3>
+                <button id="logoutBtn" style="background:none; border:none; color:red; cursor:pointer; font-size:12px; font-family:'Cairo';">تسجيل خروج</button>
             </div>
 
-            <div class="ad-form-card" style="margin-top: 30px;">
-                <h3 style="color: var(--gold); margin-top:0;">أعلن عن منتجك</h3>
-                <input type="text" id="adTitle" placeholder="ما هو منتجك الفاخر؟" class="ad-input">
-                <textarea id="adDesc" placeholder="اكتب وصفاً جذاباً..." class="ad-input" rows="3"></textarea>
-                <input type="file" id="adImage" class="ad-input" accept="image/*" style="font-size: 11px;">
-                <button id="postAdBtn" class="auth-btn" style="width:100%; border-radius:12px;">نشر الإعلان الآن</button>
+            <div class="ad-form">
+                <h4 style="margin-top:0;">إضافة إعلان جديد</h4>
+                <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input">
+                <textarea id="adDesc" placeholder="وصف الإعلان (اكتب هنا تفاصيل منتجك)..." class="ad-input" rows="3"></textarea>
+                <input type="file" id="adImage" class="ad-input" accept="image/*">
+                <button id="submitAd" class="auth-btn" style="width:100%; margin:10px 0;">نشر الإعلان</button>
             </div>
         </div>
 
-        <div id="publicInfo">
-            <p class="hero-desc">نحن نصنع الهوية الفاخرة التي تليق بطموحاتكم.<br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.</p>
-            
-            <div style="display: flex; justify-content: center; width: 100%;">
-                <a href="https://www.tiktok.com/@gasts.sa" style="text-decoration:none; display:inline-flex; align-items:center; background:#fff; color:#000; padding:12px 30px; border-radius:50px; font-weight:bold; gap:10px; margin-bottom:20px;">
-                    <span>عالمنا على تيك توك</span>
-                </a>
-            </div>
+        <p style="text-align:center; max-width:500px; opacity:0.8; padding:0 20px;">
+            نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم.
+        </p>
 
-            <div class="coming-soon-card">
-                <h2 style="color: var(--gold); margin-top: 0; font-weight: 900;">منصة GASTS</h2>
-                <p style="margin-bottom: 0; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
-            </div>
+        <a href="https://www.tiktok.com/@gasts.sa" style="text-decoration:none; display:flex; align-items:center; gap:10px; background:#fff; color:#000; padding:10px 25px; border-radius:50px; font-weight:bold;">
+            <span>عالمنا على تيك توك</span>
+        </a>
+
+        <div class="coming-soon-card">
+            <h2 style="color: var(--gold); margin: 0 0 10px 0; font-weight: 900;">منصة GASTS</h2>
+            <p style="margin: 0; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
         </div>
 
         <div id="adsList" class="ads-grid"></div>
     </div>
 
     <div id="chat-window">
-        <div style="background:var(--gold); color:#000; padding:15px; font-weight:900; border-radius:20px 20px 0 0; display:flex; justify-content:space-between; align-items: center;">
-            <span>المحادثة المباشرة</span>
-            <button onclick="document.getElementById('chat-window').style.display='none'" style="border:none; background:none; cursor:pointer; font-size: 18px;">✕</button>
+        <div style="background:var(--gold); color:#000; padding:10px; font-weight:bold; display:flex; justify-content:space-between; border-radius:15px 15px 0 0;">
+            <span>محادثة فورية</span>
+            <button onclick="document.getElementById('chat-window').style.display='none'" style="border:none; background:none; cursor:pointer;">✕</button>
         </div>
-        <div id="chatMessages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;"></div>
-        <div style="padding:15px; display:flex; gap:8px; border-top:1px solid var(--border);">
-            <input type="text" id="chatInput" placeholder="اكتب رسالتك..." style="flex:1; background:transparent; border:1px solid var(--border); color:#fff; padding:8px; border-radius:10px;">
-            <button id="sendChat" style="background:var(--gold); border:none; padding:8px 15px; border-radius:10px; cursor:pointer;">➔</button>
+        <div id="chatBox" style="flex:1; padding:10px; overflow-y:auto; font-size:13px;"></div>
+        <div style="padding:10px; display:flex; gap:5px;">
+            <input type="text" id="msgInput" placeholder="اكتب هنا..." style="flex:1; border-radius:5px; border:1px solid var(--border); background:none; color:#fff; padding:5px;">
+            <button id="sendMsg" style="background:var(--gold); border:none; border-radius:5px; padding:0 10px;">➔</button>
         </div>
     </div>
 
@@ -216,26 +224,27 @@
         const storage = getStorage(app);
         const provider = new GoogleAuthProvider();
 
-        let userGlobal = null;
+        let currentUser = null;
 
-        // حركة الخلفية الهادئة
+        // تأثير البارالاكس
         document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.getElementById('bg').style.transform = `scale(1.05) translate(${moveX}px, ${moveY}px)`;
+            const moveX = (e.clientX - window.innerWidth/2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight/2) * 0.01;
+            document.getElementById('bg').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.getElementById('header').style.transform = `translate(${-moveX*2}px, ${-moveY*2}px)`;
         });
 
+        // مراقبة حالة المستخدم
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                userGlobal = user;
+                currentUser = user;
                 document.getElementById("loginBtn").style.display = "none";
-                document.getElementById("dashboard").style.display = "block";
-                document.getElementById("avatar").src = user.photoURL;
-                document.getElementById("name").textContent = user.displayName;
-                document.getElementById("email").textContent = user.email;
+                document.getElementById("userSection").style.display = "block";
+                document.getElementById("userAvatar").src = user.photoURL;
+                document.getElementById("userName").textContent = user.displayName;
             } else {
                 document.getElementById("loginBtn").style.display = "block";
-                document.getElementById("dashboard").style.display = "none";
+                document.getElementById("userSection").style.display = "none";
             }
             loadAds();
         });
@@ -243,24 +252,22 @@
         document.getElementById("loginBtn").onclick = () => signInWithPopup(auth, provider);
         document.getElementById("logoutBtn").onclick = () => signOut(auth);
 
-        document.getElementById("postAdBtn").onclick = async () => {
+        // رفع الإعلان
+        document.getElementById("submitAd").onclick = async () => {
             const title = document.getElementById("adTitle").value;
             const desc = document.getElementById("adDesc").value;
             const file = document.getElementById("adImage").files[0];
-            if (!title || !file) return alert("يرجى إكمال بيانات الإعلان");
+            if(!title || !file) return alert("أكمل البيانات");
 
-            try {
-                const storageRef = ref(storage, `ads/${Date.now()}`);
-                const snap = await uploadBytes(storageRef, file);
-                const url = await getDownloadURL(snap.ref);
-                await addDoc(collection(db, "ads"), {
-                    title, desc, imageUrl: url,
-                    uid: userGlobal.uid,
-                    time: serverTimestamp()
-                });
-                alert("تم نشر إعلانك بنجاح!");
-                location.reload();
-            } catch (err) { alert("خطأ في الرفع، تأكد من إعدادات Firebase Storage"); }
+            const imgRef = ref(storage, `ads/${Date.now()}`);
+            await uploadBytes(imgRef, file);
+            const url = await getDownloadURL(imgRef);
+
+            await addDoc(collection(db, "ads"), {
+                title, desc, url, uid: currentUser.uid, time: serverTimestamp()
+            });
+            alert("تم النشر!");
+            location.reload();
         };
 
         function loadAds() {
@@ -269,14 +276,14 @@
                 const list = document.getElementById("adsList");
                 list.innerHTML = "";
                 snap.forEach(doc => {
-                    const data = doc.data();
+                    const d = doc.data();
                     list.innerHTML += `
                         <div class="ad-card">
-                            <img src="${data.imageUrl}">
+                            <img src="${d.url}">
                             <div style="padding:15px;">
-                                <h4 style="color:var(--gold); margin:0;">${data.title}</h4>
-                                <p style="font-size:12px; opacity:0.7;">${data.desc}</p>
-                                <button onclick="window.startChat('${data.uid}')" class="auth-btn" style="width:100%; padding:8px; font-size:12px; margin-top:10px;">تواصل الآن</button>
+                                <h4 style="color:var(--gold); margin:0;">${d.title}</h4>
+                                <p style="font-size:12px; opacity:0.8;">${d.desc}</p>
+                                <button onclick="window.openChat()" class="auth-btn" style="width:100%; padding:5px; font-size:12px;">تواصل الآن</button>
                             </div>
                         </div>
                     `;
@@ -284,8 +291,8 @@
             });
         }
 
-        window.startChat = (id) => {
-            if (!userGlobal) return alert("سجل دخولك للتواصل مع المعلن");
+        window.openChat = () => {
+            if(!currentUser) return alert("سجل دخولك أولاً");
             document.getElementById("chat-window").style.display = "flex";
         };
     </script>
