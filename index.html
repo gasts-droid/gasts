@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شركة GASTS | فخامة وأمان</title>
+    <title>شركة GASTS | الإعلان الفاخر</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -26,19 +26,12 @@
             overflow-x: hidden;
         }
 
-        /* خلفية السديم المتحركة */
         .nebula-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         }
-        .nebula-bg::after {
-            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            animation: rotateBG 180s linear infinite; opacity: 0.3;
-        }
-        @keyframes rotateBG { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* وثيقة العمل الحر */
         .license-wrapper { padding: 20px; display: flex; justify-content: center; width: 100%; }
@@ -49,10 +42,8 @@
             padding: 8px 20px;
             border-radius: 100px;
             display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* الشعار والتصميم العلوي */
         header { text-align: center; padding: 30px 20px; }
         .diamond-icon {
             width: 70px; height: 70px;
@@ -70,7 +61,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* المربع المضيء المحمي */
+        /* المربع المضيء */
         .coming-soon-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
             border: 1px solid var(--gold);
@@ -82,12 +73,8 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
             animation: glowPulse 2s infinite alternate;
         }
-        @keyframes glowPulse {
-            from { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
-            to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-        }
+        @keyframes glowPulse { from { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); } to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); } }
 
-        /* الأزرار والحقول */
         .auth-btn {
             background: var(--gold); color: #000;
             padding: 12px 35px; border-radius: 50px;
@@ -96,7 +83,16 @@
             font-family: 'Cairo';
         }
         .auth-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
-        .auth-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+
+        .tiktok-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #fff; color: #000; text-decoration: none;
+            padding: 10px 25px; border-radius: 50px; font-weight: bold;
+            margin: 15px 0; transition: 0.3s;
+        }
+        .tiktok-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,0.3); }
+
+        .email-link { color: var(--gold); text-decoration: none; font-size: 14px; margin-top: 10px; display: block; opacity: 0.8; }
 
         .ad-form {
             background: var(--glass); border: 1px solid var(--border);
@@ -109,14 +105,13 @@
             border-radius: 10px; color: #fff; text-align: center; font-family: 'Cairo';
         }
 
-        /* شبكة الإعلانات */
         .ads-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px; width: 100%; max-width: 1100px; padding: 20px;
         }
         .ad-card {
             background: var(--glass); border: 1px solid var(--border);
-            border-radius: 20px; overflow: hidden; transition: 0.3s; text-align: center;
+            border-radius: 20px; overflow: hidden; text-align: center;
         }
         .ad-card img { width: 100%; height: 200px; object-fit: cover; }
 
@@ -137,6 +132,7 @@
     <header>
         <div class="diamond-icon">G</div>
         <h1 class="logo-text">GASTS</h1>
+        <a href="mailto:gasts.work@outlook.com" class="email-link">gasts.work@outlook.com</a>
     </header>
 
     <button id="loginBtn" class="auth-btn">تسجيل دخول للمنصة</button>
@@ -149,21 +145,24 @@
         </div>
 
         <div class="ad-form">
-            <h3 style="margin:0 0 15px; color: var(--gold); font-size: 18px;">نشر إعلان جديد</h3>
+            <h3 style="margin:0 0 15px; color: var(--gold);">نشر إعلان جديد</h3>
             <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input" maxlength="40">
-            <textarea id="adDesc" placeholder="وصف المنتج (يُمنع الروابط)" class="ad-input" rows="3" maxlength="200"></textarea>
-            
-            <div style="font-size: 11px; color: #aaa; margin-bottom: 5px;">الصور المدعومة: JPG, PNG, WEBP (الأقصى 3MB)</div>
+            <textarea id="adDesc" placeholder="وصف المنتج..." class="ad-input" rows="3" maxlength="200"></textarea>
             <input type="file" id="adImage" class="ad-input" accept="image/jpeg, image/png, image/webp">
-            
             <button id="submitAd" class="auth-btn" style="width:100%;">نشر الآن</button>
             <p id="statusMsg" style="font-size:12px; margin-top:10px;"></p>
         </div>
     </div>
 
+    <div style="text-align: center;">
+        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" class="tiktok-btn">
+            <span>عالمنا على تيك توك</span>
+        </a>
+    </div>
+
     <div class="coming-soon-card">
         <h2 style="color: var(--gold); margin: 0; font-size: 22px;">منصة GASTS الإعلانية</h2>
-        <p style="margin: 10px 0 0; font-size: 14px; opacity: 0.9;">الوجهة الوحيدة التي تضمن لمنتجك الفخامة والانتشار في بيئة آمنة 100%.</p>
+        <p style="margin: 10px 0 0; font-size: 14px; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
     </div>
 
     <div id="adsList" class="ads-grid"></div>
@@ -174,7 +173,6 @@
         import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
             apiKey: "AIzaSyAj9-v2keOetxOTi9Bb9GbiGhJeSH5Wcgs",
             authDomain: "gastssa.firebaseapp.com",
@@ -192,7 +190,6 @@
 
         let currentUser = null;
 
-        // وظيفة حماية النصوص (XSS Protection)
         const cleanHTML = (str) => str.replace(/[^\w. ]/gi, (c) => `&#${c.charCodeAt(0)};`);
 
         onAuthStateChanged(auth, (user) => {
@@ -212,7 +209,6 @@
         document.getElementById("loginBtn").onclick = () => signInWithPopup(auth, provider);
         document.getElementById("logoutBtn").onclick = () => signOut(auth);
 
-        // نظام النشر المحصن
         document.getElementById("submitAd").onclick = async () => {
             const title = document.getElementById("adTitle").value.trim();
             const desc = document.getElementById("adDesc").value.trim();
@@ -220,27 +216,20 @@
             const btn = document.getElementById("submitAd");
             const status = document.getElementById("statusMsg");
 
-            // 1. فلترة الحقول الفارغة
             if (!title || !file) return alert("يرجى إدخال العنوان والصورة!");
-
-            // 2. فلترة أمنية لنوع الملف
+            
             const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-            if (!allowedTypes.includes(file.type)) return alert("الملف المرفوع ليس صورة مدعومة!");
-
-            // 3. تحديد حجم الملف (3MB)
-            if (file.size > 3 * 1024 * 1024) return alert("حجم الصورة يتجاوز الحد المسموح (3MB)");
+            if (!allowedTypes.includes(file.type)) return alert("الملف ليس صورة مدعومة!");
+            if (file.size > 3 * 1024 * 1024) return alert("حجم الصورة يتجاوز 3MB");
 
             try {
                 btn.disabled = true;
-                status.textContent = "جاري الفحص الأمني والرفع...";
-
-                // رفع الصورة بمسار محمي
+                status.textContent = "جاري الفحص والرفع...";
                 const fileName = `secure_ads/${currentUser.uid}_${Date.now()}`;
                 const storageRef = ref(storage, fileName);
                 const snapshot = await uploadBytes(storageRef, file, { contentType: file.type });
                 const url = await getDownloadURL(snapshot.ref);
 
-                // حفظ البيانات بتنظيف شامل
                 await addDoc(collection(db, "ads"), {
                     title: cleanHTML(title),
                     desc: cleanHTML(desc),
@@ -251,13 +240,11 @@
                 });
 
                 status.style.color = "#4BB543";
-                status.textContent = "✅ تم النشر بأمان وفخامة!";
-                setTimeout(() => location.reload(), 2000);
-
+                status.textContent = "✅ تم النشر بنجاح!";
+                setTimeout(() => location.reload(), 1500);
             } catch (err) {
-                console.error(err);
                 status.style.color = "#ff4d4d";
-                status.textContent = "حدث خطأ أمني: تأكد من إعدادات القواعد في Firebase.";
+                status.textContent = "خطأ في النشر.";
             } finally {
                 btn.disabled = false;
             }
