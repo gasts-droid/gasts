@@ -76,6 +76,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+document.body.style.display = "none";
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -83,10 +84,13 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
+  document.body.style.display = "block";
+
   document.getElementById("avatar").src = user.photoURL;
   document.getElementById("name").textContent = user.displayName;
   document.getElementById("email").textContent = user.email;
 });
+
 
 document.getElementById("logoutBtn").onclick = async () => {
   await signOut(auth);
