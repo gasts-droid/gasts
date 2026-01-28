@@ -1,122 +1,91 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شركة GASTS | فخامة الإعلان</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #d4af37;
-            --gold-light: #f9e272;
-            --dark: #05080a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(212, 175, 55, 0.2);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>شركة GASTS | فخامة الإعلان</title>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--dark);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        .nebula-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-        }
-
-        header { text-align: center; padding: 60px 20px; }
-
-        .diamond-icon {
-            width: 80px; height: 80px;
-            background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center; justify-content: center;
-            color: #000; font-weight: 900; font-size: 35px;
-        }
-
-        .logo-text {
-            font-size: clamp(50px, 15vw, 90px);
-            font-weight: 900;
-            margin: 0;
-            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .main-content {
-            flex: 1;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .hero-desc {
-            max-width: 600px;
-            margin: 30px auto;
-            opacity: 0.8;
-            line-height: 1.8;
-        }
-
-        #loginBtn {
-            margin-top: 20px;
-            background: #d4af37;
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
-
-        footer {
-            background: rgba(0,0,0,0.6);
-            padding: 30px 20px;
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.6;
-        }
-    </style>
+<style>
+:root {
+    --gold:#d4af37;
+    --dark:#05080a;
+    --glass:rgba(255,255,255,0.05);
+    --border:rgba(212,175,55,0.2);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    background:var(--dark);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+.nebula-bg{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%);
+    z-index:-1;
+}
+header{text-align:center;padding:60px 20px}
+.logo-text{
+    font-size:80px;
+    font-weight:900;
+    background:linear-gradient(to bottom,#fff 40%,var(--gold));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.main-content{
+    flex:1;
+    text-align:center;
+    padding:20px;
+}
+button{
+    background:var(--gold);
+    color:#000;
+    padding:14px 32px;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+}
+footer{
+    padding:30px;
+    text-align:center;
+    opacity:.5;
+}
+</style>
 </head>
+
 <body>
 
 <div class="nebula-bg"></div>
 
 <header>
-    <div class="diamond-icon">G</div>
     <h1 class="logo-text">GASTS</h1>
 </header>
 
 <div class="main-content">
-    <button id="loginBtn">تسجيل دخول بحساب Google</button>
 
-    <p class="hero-desc">
-        نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم.
-    </p>
+<button id="loginBtn">تسجيل دخول</button>
+
+<p style="margin-top:30px;opacity:.7">
+منصة إعلانات فاخرة — قريبًا بإذن الله
+</p>
+
 </div>
 
 <footer>
-    © 2026 GASTS LUXURY GROUP
+© 2026 GASTS
 </footer>
 
-<!-- Firebase Logic -->
+<!-- 🔥 Firebase (سكربت واحد فقط) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAj9-v2keOetxOTi9Bb9GbiGhJeSH5Wcgs",
@@ -129,32 +98,16 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-document.getElementById("loginBtn").addEventListener("click", async () => {
+document.getElementById("loginBtn").onclick = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
-
-    if (!snap.exists()) {
-      await setDoc(userRef, {
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        createdAt: new Date()
-      });
-    }
-
-    alert("مرحباً " + user.displayName);
-
-  } catch (err) {
-    alert(err.message);
+    await signInWithPopup(auth, provider);
+    window.location.href = "profile.html";
+  } catch (e) {
+    alert(e.message);
   }
-});
+};
 </script>
 
 </body>
