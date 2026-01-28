@@ -238,8 +238,9 @@
         </div>
     </header>
 
-    <div class="main-content">
-       <button id="loginBtn" style="
+   <div class="main-content" id="publicPage">
+
+  <button id="loginBtn" style="
     margin-top:20px;
     background:#d4af37;
     color:#000;
@@ -248,11 +249,37 @@
     font-weight:bold;
     border:none;
     cursor:pointer;
-">
-تسجيل دخول
-</button>
+  ">
+    تسجيل دخول
+  </button>
 
-        <p class="hero-desc">
+  <!-- 👇 هنا تضيف الكود -->
+  <div id="dashboard" style="display:none; padding:20px; text-align:center">
+
+    <h2>حسابي</h2>
+
+    <img id="avatar" style="width:90px;border-radius:50%" />
+    <p id="name"></p>
+    <p id="email"></p>
+
+    <button id="logoutBtn"
+      style="
+        margin-top:20px;
+        background:#d4af37;
+        color:#000;
+        padding:10px 25px;
+        border-radius:25px;
+        font-weight:bold;
+        border:none;
+        cursor:pointer;
+      ">
+      تسجيل خروج
+    </button>
+
+  </div>
+  <!-- 👆 هنا ينتهي -->
+
+  <p class="hero-desc">
             نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم. 
             <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
         </p>
