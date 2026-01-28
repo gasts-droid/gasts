@@ -2,167 +2,70 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شركة GASTS | الإعلان الفاخر</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GASTS | الفخامة والانتشار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark: #05080a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(212, 175, 55, 0.2);
-        }
+        :root { --gold: #d4af37; --dark: #05080a; --glass: rgba(255, 255, 255, 0.05); --border: rgba(212, 175, 55, 0.2); }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background: var(--dark); color: #fff; display: flex; flex-direction: column; align-items: center; }
+        .nebula-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
+        
+        .license-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--border); padding: 8px 20px; border-radius: 100px; margin: 20px; display: flex; align-items: center; gap: 10px; }
+        .coming-soon-card { background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); border: 1px solid var(--gold); padding: 30px; border-radius: 30px; max-width: 500px; width: 90%; text-align: center; animation: glow 2s infinite alternate; margin: 20px auto; }
+        @keyframes glow { from { box-shadow: 0 0 5px var(--gold); } to { box-shadow: 0 0 20px var(--gold); } }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        header { text-align: center; padding: 20px; }
+        .logo-text { font-size: 70px; font-weight: 900; margin: 0; background: linear-gradient(#fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .auth-btn { background: var(--gold); color: #000; padding: 12px 40px; border-radius: 50px; font-weight: 800; border: none; cursor: pointer; margin: 10px auto; display: block; font-family: 'Cairo'; transition: 0.3s; }
+        .whatsapp-btn { background: #25d366; color: #fff; padding: 8px 20px; border-radius: 50px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 10px; font-size: 13px; }
+        
+        .ad-form { background: var(--glass); border: 1px solid var(--border); padding: 25px; border-radius: 20px; width: 90%; max-width: 450px; margin: 20px auto; text-align: center; }
+        .ad-input { width: 100%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 10px; color: #fff; text-align: center; font-family: 'Cairo'; }
 
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--dark);
-            color: #fff;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        .nebula-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-        }
-
-        /* وثيقة العمل الحر */
-        .license-wrapper { padding: 20px; display: flex; justify-content: center; width: 100%; }
-        .license-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            padding: 8px 20px;
-            border-radius: 100px;
-            display: flex; align-items: center; gap: 12px;
-        }
-
-        header { text-align: center; padding: 30px 20px; }
-        .diamond-icon {
-            width: 70px; height: 70px;
-            background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            margin: 0 auto 15px;
-            display: flex; align-items: center; justify-content: center;
-            color: #000; font-weight: 900; font-size: 30px;
-            animation: shimmer 3s infinite;
-        }
-        .logo-text {
-            font-size: clamp(40px, 12vw, 80px);
-            font-weight: 900; margin: 0;
-            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        /* المربع المضيء */
-        .coming-soon-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-            border: 1px solid var(--gold);
-            backdrop-filter: blur(20px);
-            padding: 30px; border-radius: 30px;
-            max-width: 500px; width: 90%;
-            margin: 20px auto;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-            animation: glowPulse 2s infinite alternate;
-        }
-        @keyframes glowPulse { from { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); } to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); } }
-
-        .auth-btn {
-            background: var(--gold); color: #000;
-            padding: 12px 35px; border-radius: 50px;
-            font-weight: 800; border: none; cursor: pointer;
-            margin: 10px auto; display: block; transition: 0.3s;
-            font-family: 'Cairo';
-        }
-        .auth-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
-
-        .tiktok-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: #fff; color: #000; text-decoration: none;
-            padding: 10px 25px; border-radius: 50px; font-weight: bold;
-            margin: 15px 0; transition: 0.3s;
-        }
-        .tiktok-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,0.3); }
-
-        .email-link { color: var(--gold); text-decoration: none; font-size: 14px; margin-top: 10px; display: block; opacity: 0.8; }
-
-        .ad-form {
-            background: var(--glass); border: 1px solid var(--border);
-            padding: 25px; border-radius: 20px; width: 90%; max-width: 450px;
-            margin: 10px auto 30px; text-align: center;
-        }
-        .ad-input {
-            width: 100%; padding: 12px; margin: 8px 0;
-            background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-            border-radius: 10px; color: #fff; text-align: center; font-family: 'Cairo';
-        }
-
-        .ads-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px; width: 100%; max-width: 1100px; padding: 20px;
-        }
-        .ad-card {
-            background: var(--glass); border: 1px solid var(--border);
-            border-radius: 20px; overflow: hidden; text-align: center;
-        }
+        .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; padding: 20px; }
+        .ad-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; text-align: center; padding-bottom: 15px; }
         .ad-card img { width: 100%; height: 200px; object-fit: cover; }
-
-        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     </style>
 </head>
 <body>
 
     <div class="nebula-bg"></div>
 
-    <div class="license-wrapper">
-        <div class="license-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="25">
-            <span style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية معتمدة</span>
-        </div>
+    <div class="license-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="25">
+        <span style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية معتمدة</span>
     </div>
 
     <header>
-        <div class="diamond-icon">G</div>
         <h1 class="logo-text">GASTS</h1>
-        <a href="mailto:gasts.work@outlook.com" class="email-link">gasts.work@outlook.com</a>
+        <div style="margin-top: 10px; font-size: 14px; color: var(--gold);">gasts.work@outlook.com</div>
+        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" style="text-decoration:none; background:#fff; color:#000; padding:8px 20px; border-radius:50px; display:inline-block; margin-top:15px; font-weight:bold;">عالمنا على تيك توك</a>
     </header>
 
-    <button id="loginBtn" class="auth-btn">تسجيل دخول للمنصة</button>
+    <button id="loginBtn" class="auth-btn">تسجيل دخول</button>
 
     <div id="userSection" style="display:none; width: 100%;">
         <div class="ad-form">
             <img id="userAvatar" style="width:60px; border-radius:50%; border:2px solid var(--gold);">
-            <h4 id="userName" style="margin:10px 0 5px;"></h4>
-            <button id="logoutBtn" style="color:#ff4d4d; background:none; border:none; cursor:pointer; font-family:'Cairo';">خروج آمن</button>
+            <h4 id="userName" style="margin:10px 0;"></h4>
+            <button id="logoutBtn" style="color:red; background:none; border:none; cursor:pointer; font-family:'Cairo';">خروج</button>
         </div>
 
         <div class="ad-form">
-            <h3 style="margin:0 0 15px; color: var(--gold);">نشر إعلان جديد</h3>
+            <h3 style="color:var(--gold); margin-top:0;">نشر إعلان جديد</h3>
             <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input" maxlength="40">
-            <textarea id="adDesc" placeholder="وصف المنتج..." class="ad-input" rows="3" maxlength="200"></textarea>
-            <input type="file" id="adImage" class="ad-input" accept="image/jpeg, image/png, image/webp">
+            <textarea id="adDesc" placeholder="وصف الإعلان..." class="ad-input" rows="3" maxlength="200"></textarea>
+            <input type="number" id="adPhone" placeholder="رقم الواتساب (مثال: 9665xxxxx)" class="ad-input">
+            <input type="file" id="adImage" class="ad-input" accept="image/*">
             <button id="submitAd" class="auth-btn" style="width:100%;">نشر الآن</button>
-            <p id="statusMsg" style="font-size:12px; margin-top:10px;"></p>
+            <p id="statusMsg" style="font-size:12px; margin-top:10px; color:var(--gold);"></p>
         </div>
     </div>
 
-    <div style="text-align: center;">
-        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" class="tiktok-btn">
-            <span>عالمنا على تيك توك</span>
-        </a>
-    </div>
-
     <div class="coming-soon-card">
-        <h2 style="color: var(--gold); margin: 0; font-size: 22px;">منصة GASTS الإعلانية</h2>
-        <p style="margin: 10px 0 0; font-size: 14px; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
+        <h2 style="color: var(--gold); margin: 0;">منصة GASTS</h2>
+        <p style="margin: 10px 0 0; font-size: 14px;">بيئة إعلانية فاخرة وآمنة تماماً.</p>
     </div>
 
     <div id="adsList" class="ads-grid"></div>
@@ -177,7 +80,7 @@
             apiKey: "AIzaSyAj9-v2keOetxOTi9Bb9GbiGhJeSH5Wcgs",
             authDomain: "gastssa.firebaseapp.com",
             projectId: "gastssa",
-            storageBucket: "gastssa.firebasestorage.app",
+            storageBucket: "gastssa.appspot.com",
             messagingSenderId: "80656562183",
             appId: "1:80656562183:web:8c99a7f175c3e31f9b92a2"
         };
@@ -188,13 +91,8 @@
         const storage = getStorage(app);
         const provider = new GoogleAuthProvider();
 
-        let currentUser = null;
-
-        const cleanHTML = (str) => str.replace(/[^\w. ]/gi, (c) => `&#${c.charCodeAt(0)};`);
-
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                currentUser = user;
                 document.getElementById("userSection").style.display = "block";
                 document.getElementById("loginBtn").style.display = "none";
                 document.getElementById("userAvatar").src = user.photoURL;
@@ -212,41 +110,34 @@
         document.getElementById("submitAd").onclick = async () => {
             const title = document.getElementById("adTitle").value.trim();
             const desc = document.getElementById("adDesc").value.trim();
+            const phone = document.getElementById("adPhone").value.trim();
             const file = document.getElementById("adImage").files[0];
-            const btn = document.getElementById("submitAd");
             const status = document.getElementById("statusMsg");
 
-            if (!title || !file) return alert("يرجى إدخال العنوان والصورة!");
-            
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-            if (!allowedTypes.includes(file.type)) return alert("الملف ليس صورة مدعومة!");
-            if (file.size > 3 * 1024 * 1024) return alert("حجم الصورة يتجاوز 3MB");
+            if (!title || !file || !phone) return alert("يرجى تعبئة كافة الحقول بما فيها رقم التواصل");
 
             try {
-                btn.disabled = true;
-                status.textContent = "جاري الفحص والرفع...";
-                const fileName = `secure_ads/${currentUser.uid}_${Date.now()}`;
-                const storageRef = ref(storage, fileName);
-                const snapshot = await uploadBytes(storageRef, file, { contentType: file.type });
+                document.getElementById("submitAd").disabled = true;
+                status.textContent = "جاري رفع الإعلان الفاخر...";
+
+                const storageRef = ref(storage, `ads/${Date.now()}`);
+                const snapshot = await uploadBytes(storageRef, file);
                 const url = await getDownloadURL(snapshot.ref);
 
                 await addDoc(collection(db, "ads"), {
-                    title: cleanHTML(title),
-                    desc: cleanHTML(desc),
+                    title: title,
+                    desc: desc,
+                    phone: phone,
                     imageUrl: url,
-                    uid: currentUser.uid,
-                    author: currentUser.displayName,
+                    author: auth.currentUser.displayName,
                     createdAt: serverTimestamp()
                 });
 
-                status.style.color = "#4BB543";
                 status.textContent = "✅ تم النشر بنجاح!";
-                setTimeout(() => location.reload(), 1500);
+                setTimeout(() => location.reload(), 1000);
             } catch (err) {
-                status.style.color = "#ff4d4d";
-                status.textContent = "خطأ في النشر.";
-            } finally {
-                btn.disabled = false;
+                alert("حدث خطأ، حاول مرة أخرى");
+                document.getElementById("submitAd").disabled = false;
             }
         };
 
@@ -257,15 +148,15 @@
                 list.innerHTML = "";
                 snap.forEach(doc => {
                     const d = doc.data();
-                    list.innerHTML += `
-                        <div class="ad-card">
-                            <img src="${d.imageUrl}" loading="lazy">
-                            <div style="padding:15px;">
-                                <h4 style="color:var(--gold); margin:0;">${d.title}</h4>
-                                <p style="font-size:12px; opacity:0.8; margin:10px 0;">${d.desc}</p>
-                                <button class="auth-btn" style="width:100%; padding:8px; font-size:11px; margin:0;">تواصل آمن</button>
-                            </div>
-                        </div>`;
+                    list.innerHTML += `<div class="ad-card">
+                        <img src="${d.imageUrl}">
+                        <div style="padding:15px;">
+                            <h4 style="color:var(--gold); margin:0;">${d.title}</h4>
+                            <p style="font-size:12px; opacity:0.8; height: 40px; overflow: hidden;">${d.desc}</p>
+                            <a href="https://wa.me/${d.phone}" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+                            <br><small style="display:block; margin-top:10px; opacity:0.5;">المعلن: ${d.author}</small>
+                        </div>
+                    </div>`;
                 });
             });
         }
