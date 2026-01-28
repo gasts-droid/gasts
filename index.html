@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GASTS | الفخامة والانتشار</title>
+    <title>GASTS | التصميم الأصلي المحمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,7 @@
             margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
             background-color: var(--dark);
-            /* خلفية النجوم الأصلية */
+            /* خلفية النجوم والفضاء الأصلية */
             background-image: 
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
@@ -28,6 +28,7 @@
             display: flex; flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* وثيقة العمل الملكية */
@@ -41,7 +42,7 @@
             display: flex; align-items: center; gap: 10px;
         }
 
-        header { text-align: center; padding: 50px 20px; width: 100%; }
+        header { text-align: center; padding: 40px 20px; width: 100%; }
         
         .diamond-icon {
             width: 80px; height: 80px;
@@ -53,29 +54,29 @@
         }
 
         .logo-text {
-            font-size: clamp(60px, 20vw, 120px); /* حجم ضخم ومهيب */
+            font-size: clamp(65px, 22vw, 130px); /* الحجم المهيب الأصلي */
             font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 1;
+            letter-spacing: -2px;
         }
 
-        .email-text { color: var(--gold); font-size: 16px; margin-top: 10px; opacity: 0.8; }
+        .email-text { color: var(--gold); font-size: 16px; margin-top: 10px; opacity: 0.9; }
 
-        /* زر تيك توك الأبيض الواضح */
+        /* زر تيك توك الأبيض الأصلي */
         .tiktok-btn {
             background: #ffffff;
-            color: #000000;
+            color: #000000 !important;
             text-decoration: none;
-            padding: 12px 30px;
+            padding: 12px 35px;
             border-radius: 50px;
             font-weight: 900;
             display: inline-block;
             margin-top: 25px;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.3);
             transition: 0.3s;
         }
-        .tiktok-btn:hover { transform: scale(1.05); }
 
         /* المربع المضيء الأصلي */
         .glow-card {
@@ -84,21 +85,22 @@
             padding: 40px;
             border-radius: 35px;
             width: 90%;
-            max-width: 700px;
+            max-width: 750px;
             text-align: center;
             margin: 40px 0;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
             animation: pulse 2s infinite alternate;
         }
-        @keyframes pulse { from { box-shadow: 0 0 10px var(--gold); } to { box-shadow: 0 0 30px var(--gold); } }
+        @keyframes pulse { from { box-shadow: 0 0 15px var(--gold); } to { box-shadow: 0 0 35px var(--gold); } }
 
-        /* الأزرار والنماذج */
+        /* الأزرار والفلترة */
         .main-btn {
             background: var(--gold); color: #000;
             padding: 15px 50px; border-radius: 50px;
             font-weight: 900; border: none; cursor: pointer;
-            font-family: 'Cairo'; font-size: 18px;
+            font-family: 'Cairo'; font-size: 18px; transition: 0.3s;
         }
+        .main-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
 
         .ad-form {
             background: rgba(255,255,255,0.05);
@@ -109,11 +111,11 @@
         }
         .ad-input {
             width: 100%; padding: 15px; margin: 10px 0;
-            background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+            background: rgba(0,0,0,0.6); border: 1px solid var(--border);
             border-radius: 12px; color: #fff; font-family: 'Cairo'; text-align: center;
         }
 
-        /* شبكة الإعلانات الواسعة */
+        /* شبكة الإعلانات المفتوحة */
         .ads-grid {
             display: grid;
             width: 95%;
@@ -128,7 +130,7 @@
             transition: 0.4s;
         }
         .ad-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .ad-card img { width: 100%; height: 250px; object-fit: cover; }
+        .ad-card img { width: 100%; height: 260px; object-fit: cover; }
 
         .wa-btn {
             background: #25d366; color: #fff;
@@ -162,19 +164,19 @@
         </div>
 
         <div class="ad-form">
-            <h3 style="color: var(--gold);">أنشئ إعلانك الآن</h3>
-            <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input">
-            <textarea id="adDesc" placeholder="تفاصيل المنتج..." class="ad-input" rows="3"></textarea>
-            <input type="number" id="adPhone" placeholder="واتساب (مثال: 9665...)" class="ad-input">
-            <input type="file" id="adImage" accept="image/*" class="ad-input">
+            <h3 style="color: var(--gold);">أنشئ إعلانك الفاخر</h3>
+            <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input" maxlength="50">
+            <textarea id="adDesc" placeholder="تفاصيل المنتج أو الخدمة..." class="ad-input" rows="3" maxlength="300"></textarea>
+            <input type="number" id="adPhone" placeholder="رقم الواتساب (9665...)" class="ad-input">
+            <input type="file" id="adImage" accept="image/jpeg, image/png, image/webp" class="ad-input">
             <button id="submitAd" class="main-btn" style="width:100%;">نشر بضمان GASTS</button>
             <p id="statusMsg" style="margin-top:10px; font-weight:bold;"></p>
         </div>
     </div>
 
     <div class="glow-card">
-        <h2 style="color: var(--gold); font-size: 30px; margin: 0;">منصة GASTS الإعلانية</h2>
-        <p style="font-size: 18px; margin-top: 15px; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
+        <h2 style="color: var(--gold); font-size: 32px; margin: 0; font-weight: 900;">منصة GASTS الإعلانية</h2>
+        <p style="font-size: 18px; margin-top: 15px; opacity: 0.9; line-height: 1.6;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
     </div>
 
     <div id="adsList" class="ads-grid"></div>
@@ -200,6 +202,9 @@
         const storage = getStorage(app);
         const provider = new GoogleAuthProvider();
 
+        // دالة تنظيف النصوص (الحماية من الاختراق)
+        const sanitize = (str) => str.replace(/<\/?[^>]+(>|$)/g, "").trim();
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("userSection").style.display = "block";
@@ -217,19 +222,22 @@
         document.getElementById("logoutBtn").onclick = () => signOut(auth);
 
         document.getElementById("submitAd").onclick = async () => {
-            const title = document.getElementById("adTitle").value;
-            const desc = document.getElementById("adDesc").value;
-            const phone = document.getElementById("adPhone").value;
+            const title = sanitize(document.getElementById("adTitle").value);
+            const desc = sanitize(document.getElementById("adDesc").value);
+            const phone = document.getElementById("adPhone").value.trim();
             const file = document.getElementById("adImage").files[0];
             const status = document.getElementById("statusMsg");
 
-            if (!title || !file || !phone) return alert("يرجى إدخال البيانات");
-            
+            if (!title || !file || !phone) return alert("يرجى إكمال جميع الحقول");
+            if (file.size > 3 * 1024 * 1024) return alert("الصورة كبيرة جداً! (الأقصى 3 ميجا)");
+
             try {
                 document.getElementById("submitAd").disabled = true;
-                status.textContent = "جاري الحماية والرفع...";
-                const storageRef = ref(storage, `ads/${Date.now()}`);
-                const snapshot = await uploadBytes(storageRef, file);
+                status.style.color = "var(--gold)";
+                status.textContent = "جاري الفحص الأمني ورفع الإعلان الفاخر...";
+
+                const storageRef = ref(storage, `secure_ads/${Date.now()}`);
+                const snapshot = await uploadBytes(storageRef, file, { contentType: file.type });
                 const url = await getDownloadURL(snapshot.ref);
 
                 await addDoc(collection(db, "ads"), {
@@ -237,10 +245,13 @@
                     author: auth.currentUser.displayName, createdAt: serverTimestamp()
                 });
 
-                status.style.color = "var(--gold)";
                 status.textContent = "✅ تم النشر بنجاح!";
-                setTimeout(() => location.reload(), 1000);
-            } catch (err) { alert("خطأ!"); document.getElementById("submitAd").disabled = false; }
+                setTimeout(() => location.reload(), 1200);
+            } catch (err) { 
+                alert("حدث خطأ، تأكد من اتصالك"); 
+                document.getElementById("submitAd").disabled = false;
+                status.textContent = "";
+            }
         };
 
         function loadAds() {
@@ -252,12 +263,12 @@
                     const d = doc.data();
                     list.innerHTML += `
                         <div class="ad-card">
-                            <img src="${d.imageUrl}">
+                            <img src="${d.imageUrl}" loading="lazy">
                             <div style="padding:20px;">
                                 <h3 style="color:var(--gold); margin:0;">${d.title}</h3>
-                                <p style="font-size:14px; opacity:0.8; height:45px; overflow:hidden;">${d.desc}</p>
+                                <p style="font-size:14px; opacity:0.8; height:45px; overflow:hidden; margin:10px 0;">${d.desc}</p>
                                 <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">تواصل عبر واتساب</a>
-                                <small style="opacity:0.4;">بواسطة: ${d.author}</small>
+                                <small style="opacity:0.3; font-size:10px;">المعلن: ${d.author}</small>
                             </div>
                         </div>`;
                 });
