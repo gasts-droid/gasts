@@ -2,193 +2,184 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GASTS | الفخامة الرقمية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GASTS | الفخامة والانتشار</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
             --dark: #05080a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(212, 175, 55, 0.2);
+            --border: rgba(212, 175, 55, 0.3);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
             background-color: var(--dark);
+            /* خلفية النجوم الأصلية */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
             color: #fff;
-            min-height: 100vh;
             display: flex; flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .nebula-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-        }
-
-        /* حاوية المحتوى لضبط الأبعاد */
-        .container {
-            width: 100%;
-            max-width: 1200px; /* للكمبيوتر */
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* وثيقة العمل */
+        /* وثيقة العمل الملكية */
         .license-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 100px;
-            margin: 20px 0;
-            display: flex; align-items: center; gap: 12px;
-            font-size: clamp(10px, 3vw, 14px);
+            margin-top: 30px;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        header { text-align: center; padding: 20px 0; }
+        header { text-align: center; padding: 50px 20px; width: 100%; }
         
         .diamond-icon {
-            width: clamp(60px, 15vw, 90px);
-            height: clamp(60px, 15vw, 90px);
+            width: 80px; height: 80px;
             background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            margin: 0 auto 10px;
+            margin: 0 auto 20px;
             display: flex; align-items: center; justify-content: center;
-            color: #000; font-weight: 900; font-size: clamp(25px, 6vw, 40px);
-            animation: shimmer 3s infinite;
+            color: #000; font-weight: 900; font-size: 35px;
         }
 
         .logo-text {
-            font-size: clamp(45px, 18vw, 100px); /* يتصغر للجوال ويكبر للشاشة */
-            font-weight: 900; margin: 0; line-height: 1;
+            font-size: clamp(60px, 20vw, 120px); /* حجم ضخم ومهيب */
+            font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1;
         }
 
-        /* المربع المضيء المتجاوب */
-        .coming-soon-card {
-            background: var(--glass);
+        .email-text { color: var(--gold); font-size: 16px; margin-top: 10px; opacity: 0.8; }
+
+        /* زر تيك توك الأبيض الواضح */
+        .tiktok-btn {
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 900;
+            display: inline-block;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .tiktok-btn:hover { transform: scale(1.05); }
+
+        /* المربع المضيء الأصلي */
+        .glow-card {
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--gold);
-            padding: clamp(15px, 5vw, 35px);
-            border-radius: 25px;
-            width: 100%;
-            max-width: 600px;
+            padding: 40px;
+            border-radius: 35px;
+            width: 90%;
+            max-width: 700px;
             text-align: center;
-            margin: 20px 0;
-            animation: glow 2s infinite alternate;
+            margin: 40px 0;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse { from { box-shadow: 0 0 10px var(--gold); } to { box-shadow: 0 0 30px var(--gold); } }
+
+        /* الأزرار والنماذج */
+        .main-btn {
+            background: var(--gold); color: #000;
+            padding: 15px 50px; border-radius: 50px;
+            font-weight: 900; border: none; cursor: pointer;
+            font-family: 'Cairo'; font-size: 18px;
         }
 
-        /* شبكة الإعلانات - ذكية جداً في الأبعاد */
+        .ad-form {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            padding: 30px; border-radius: 25px;
+            width: 90%; max-width: 500px; margin-bottom: 40px;
+            text-align: center;
+        }
+        .ad-input {
+            width: 100%; padding: 15px; margin: 10px 0;
+            background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+            border-radius: 12px; color: #fff; font-family: 'Cairo'; text-align: center;
+        }
+
+        /* شبكة الإعلانات الواسعة */
         .ads-grid {
             display: grid;
-            width: 100%;
-            /* عمود واحد للجوال، عمودين للتابلت، 3 أو 4 للكمبيوتر */
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-            gap: 20px;
-            padding: 20px 0;
+            width: 95%;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px; padding: 40px 0;
         }
 
         .ad-card {
-            background: var(--glass);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: 0.3s;
-            display: flex; flex-direction: column;
+            border-radius: 25px; overflow: hidden;
+            transition: 0.4s;
         }
+        .ad-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+        .ad-card img { width: 100%; height: 250px; object-fit: cover; }
 
-        .ad-card img {
-            width: 100%;
-            aspect-ratio: 16 / 10; /* أبعاد سينمائية للصورة */
-            object-fit: cover;
-        }
-
-        /* الأزرار والحقول */
-        .ad-form {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 30px;
-        }
-
-        .auth-btn {
-            background: var(--gold); color: #000;
-            padding: 14px 40px; border-radius: 50px;
-            font-weight: 800; border: none; cursor: pointer;
-            font-family: 'Cairo'; width: fit-content; margin: 10px auto;
-        }
-
-        .whatsapp-btn {
+        .wa-btn {
             background: #25d366; color: #fff;
-            padding: 10px; border-radius: 12px;
-            text-decoration: none; font-weight: bold;
-            display: block; margin-top: auto;
+            padding: 12px; text-decoration: none;
+            display: block; font-weight: bold; margin: 15px;
+            border-radius: 15px; text-align: center;
         }
-
-        @keyframes shimmer { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        @keyframes glow { from { box-shadow: 0 0 5px var(--gold); } to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); } }
     </style>
 </head>
 <body>
 
-    <div class="nebula-bg"></div>
-
-    <div class="container">
-        <div class="license-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="25">
-            <span>نظام GASTS المحمي | وثيقة عمل حر معتمدة</span>
-        </div>
-
-        <header>
-            <div class="diamond-icon">G</div>
-            <h1 class="logo-text">GASTS</h1>
-            <div style="color: var(--gold); font-size: 14px; margin-top: 5px;">gasts.work@outlook.com</div>
-            <a href="https://www.tiktok.com/@gasts.sa" target="_blank" style="color: #fff; text-decoration: none; font-size: 12px; opacity: 0.7; border: 1px solid; padding: 4px 12px; border-radius: 50px; margin-top: 10px; display: inline-block;">TIKTOK: gasts.sa</a>
-        </header>
-
-        <button id="loginBtn" class="auth-btn">دخول الأعضاء</button>
-
-        <div id="userSection" style="display:none; width: 100%; max-width: 500px;">
-            <div class="ad-form" style="display: flex; align-items: center; gap: 15px; padding: 15px;">
-                <img id="userAvatar" style="width:50px; border-radius:50%; border:2px solid var(--gold);">
-                <div style="flex-grow: 1; text-align: right;">
-                    <div id="userName" style="font-weight: bold;"></div>
-                    <button id="logoutBtn" style="color:red; background:none; border:none; cursor:pointer; font-family:'Cairo'; padding:0;">خروج</button>
-                </div>
-            </div>
-
-            <div class="ad-form">
-                <h3 style="color: var(--gold); margin-top: 0;">نشر إعلان جديد</h3>
-                <input type="text" id="adTitle" placeholder="العنوان" style="width:100%; padding:12px; margin-bottom:10px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:#fff; border-radius:10px; text-align: center;">
-                <textarea id="adDesc" placeholder="التفاصيل..." style="width:100%; padding:12px; margin-bottom:10px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:#fff; border-radius:10px; text-align: center; font-family:'Cairo';"></textarea>
-                <input type="number" id="adPhone" placeholder="واتساب (9665...)" style="width:100%; padding:12px; margin-bottom:10px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:#fff; border-radius:10px; text-align: center;">
-                <input type="file" id="adImage" accept="image/*" style="font-size:12px; margin-bottom:15px;">
-                <button id="submitAd" class="auth-btn" style="width:100%;">نشر بضمان GASTS</button>
-                <p id="statusMsg" style="font-size:12px; color:var(--gold); margin-top:10px;"></p>
-            </div>
-        </div>
-
-        <div class="coming-soon-card">
-            <h2 style="color: var(--gold); margin: 0; font-size: clamp(18px, 4vw, 26px);">الفخامة في العرض والانتشار</h2>
-            <p style="margin: 10px 0 0; font-size: clamp(12px, 3vw, 15px); opacity: 0.8;">المنصة الأولى التي تمنح إعلانك هيبة العلامات التجارية الكبرى.</p>
-        </div>
-
-        <div id="adsList" class="ads-grid"></div>
+    <div class="license-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="25">
+        <span style="font-weight: bold; color: var(--gold);">نظام GASTS المحمي | وثيقة عمل حر معتمدة</span>
     </div>
 
+    <header>
+        <div class="diamond-icon">G</div>
+        <h1 class="logo-text">GASTS</h1>
+        <div class="email-text">gasts.work@outlook.com</div>
+        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" class="tiktok-btn">عالمنا على تيك توك</a>
+    </header>
+
+    <button id="loginBtn" class="main-btn">دخول المنصة</button>
+
+    <div id="userSection" style="display:none; width: 100%; max-width: 500px;">
+        <div class="ad-form">
+            <img id="userAvatar" style="width:70px; border-radius:50%; border:2px solid var(--gold);">
+            <h3 id="userName"></h3>
+            <button id="logoutBtn" style="color:#ff4d4d; background:none; border:none; cursor:pointer; font-family:'Cairo';">خروج آمن</button>
+        </div>
+
+        <div class="ad-form">
+            <h3 style="color: var(--gold);">أنشئ إعلانك الآن</h3>
+            <input type="text" id="adTitle" placeholder="عنوان الإعلان" class="ad-input">
+            <textarea id="adDesc" placeholder="تفاصيل المنتج..." class="ad-input" rows="3"></textarea>
+            <input type="number" id="adPhone" placeholder="واتساب (مثال: 9665...)" class="ad-input">
+            <input type="file" id="adImage" accept="image/*" class="ad-input">
+            <button id="submitAd" class="main-btn" style="width:100%;">نشر بضمان GASTS</button>
+            <p id="statusMsg" style="margin-top:10px; font-weight:bold;"></p>
+        </div>
+    </div>
+
+    <div class="glow-card">
+        <h2 style="color: var(--gold); font-size: 30px; margin: 0;">منصة GASTS الإعلانية</h2>
+        <p style="font-size: 18px; margin-top: 15px; opacity: 0.9;">قاستس هي الوجهة الإعلانية الأفضل والوحيدة التي تضمن لمنتجك الفخامة والانتشار بلا أخطاء.</p>
+    </div>
+
+    <div id="adsList" class="ads-grid"></div>
+
     <script type="module">
-        // ... (نفس كود Firebase السابق تماماً)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -232,11 +223,11 @@
             const file = document.getElementById("adImage").files[0];
             const status = document.getElementById("statusMsg");
 
-            if (!title || !file || !phone) return alert("يرجى ملء البيانات");
-
+            if (!title || !file || !phone) return alert("يرجى إدخال البيانات");
+            
             try {
                 document.getElementById("submitAd").disabled = true;
-                status.textContent = "جاري المعالجة الفاخرة...";
+                status.textContent = "جاري الحماية والرفع...";
                 const storageRef = ref(storage, `ads/${Date.now()}`);
                 const snapshot = await uploadBytes(storageRef, file);
                 const url = await getDownloadURL(snapshot.ref);
@@ -246,9 +237,10 @@
                     author: auth.currentUser.displayName, createdAt: serverTimestamp()
                 });
 
+                status.style.color = "var(--gold)";
                 status.textContent = "✅ تم النشر بنجاح!";
                 setTimeout(() => location.reload(), 1000);
-            } catch (err) { alert("خطأ في النشر"); document.getElementById("submitAd").disabled = false; }
+            } catch (err) { alert("خطأ!"); document.getElementById("submitAd").disabled = false; }
         };
 
         function loadAds() {
@@ -260,11 +252,12 @@
                     const d = doc.data();
                     list.innerHTML += `
                         <div class="ad-card">
-                            <img src="${d.imageUrl}" loading="lazy">
-                            <div style="padding:15px; flex-grow:1; display:flex; flex-direction:column;">
-                                <h4 style="color:var(--gold); margin:0 0 10px 0;">${d.title}</h4>
-                                <p style="font-size:12px; opacity:0.7; margin-bottom:15px;">${d.desc}</p>
-                                <a href="https://wa.me/${d.phone}" target="_blank" class="whatsapp-btn">واتساب المالك</a>
+                            <img src="${d.imageUrl}">
+                            <div style="padding:20px;">
+                                <h3 style="color:var(--gold); margin:0;">${d.title}</h3>
+                                <p style="font-size:14px; opacity:0.8; height:45px; overflow:hidden;">${d.desc}</p>
+                                <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">تواصل عبر واتساب</a>
+                                <small style="opacity:0.4;">بواسطة: ${d.author}</small>
                             </div>
                         </div>`;
                 });
