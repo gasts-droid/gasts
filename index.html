@@ -300,31 +300,12 @@ const provider = new GoogleAuthProvider();
 document.getElementById("loginBtn").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    alert("تم تسجيل الدخول: " + result.user.displayName);
+   window.location.href = "profile.html";
   } catch (e) {
     alert(e.message);
   }
 });
 </script>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAj9-v2keOetxOTi9Bb9GbiGhJeSH5Wcgs",
-  authDomain: "gastssa.firebaseapp.com",
-  projectId: "gastssa",
-  storageBucket: "gastssa.firebasestorage.app",
-  messagingSenderId: "80656562183",
-  appId: "1:80656562183:web:8c99a7f175c3e31f9b92a2",
-  measurementId: "G-34SSHFRZSX"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-</script>
 </body>
 </html>
