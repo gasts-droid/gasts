@@ -78,18 +78,6 @@
             transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 40px;
         }
 
-        .coming-soon-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-            border: 1px solid var(--border); backdrop-filter: blur(20px); padding: 40px;
-            border-radius: 30px; max-width: 500px; width: 100%; margin-bottom: 50px;
-            position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .coming-soon-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-        }
-
         .ad-form-box {
             background: var(--glass); border: 1px solid var(--border); padding: 25px;
             border-radius: 25px; width: 100%; max-width: 450px; margin-bottom: 30px;
@@ -230,45 +218,57 @@
         if(!title || !file || !phone || !desc) return alert("يرجى تعبئة كافة الحقول الفاخرة");
         
         try {
-            status.textContent = "جاري رفع إعلانك...";
+            status.textContent = "جاري الحماية والرفع...";
+            
+            // 1. محاولة رفع الصورة
             const storageRef = ref(storage, `ads/${Date.now()}_${auth.currentUser.uid}`);
             const snapshot = await uploadBytes(storageRef, file);
             const url = await getDownloadURL(snapshot.ref);
 
-            // تعديل المسميات هنا لتطابق القواعد في الصورة تماماً
+            // 2. إرسال البيانات (مطابقة تاماً لسطر 20-23 في القواعد)
             await addDoc(collection(db, "ads"), {
-                title: title.replace(/[<>]/g, ""), 
-                description: desc.replace(/[<>]/g, ""), // تم تغييره من desc إلى description
+                title: title.replace(/[<>]/g, "").trim(), // فلترة العناوين
+                description: desc.replace(/[<>]/g, "").trim(), // تغيير الاسم لـ description وفلترته
                 phone: phone,
                 imageUrl: url,
                 author: auth.currentUser.displayName,
-                userId: auth.currentUser.uid, // إضافة معرف المستخدم للامتثال للقواعد
-                createdAt: serverTimestamp() // إضافة التوقيت الزمني للامتثال للقواعد
+                userId: auth.currentUser.uid, // مطلوب في سطر 20 من القواعد
+                createdAt: serverTimestamp() // مطلوب في سطر 21 من القواعد
             });
 
             status.textContent = "✅ تم النشر بنجاح!";
             document.getElementById("adTitle").value = "";
             document.getElementById("adDesc").value = "";
             document.getElementById("adPhone").value = "";
+            document.getElementById("adImage").value = "";
         } catch (e) {
             console.error(e);
-            alert("فشل الرفع، تأكدي من القواعد في Firebase: " + e.message);
+            // معالجة الخطأ بناءً على صورة الـ Storage التي أرسلتها
+            if(e.message.includes("billing") || e.message.includes("upgrade")) {
+                alert("خطأ: حساب Storage يتطلب الترقية أو ربط بطاقة دفع لتفعيل رفع الصور.");
+            } else {
+                alert("فشل الرفع: تأكدي من تطابق البيانات مع القواعد (Firestore Rules).");
+            }
+            status.textContent = "❌ فشل النشر";
         }
     };
 
     function loadAds() {
+        // ترتيب الإعلانات حسب وقت الإنشاء كما هو مطلوب
         const q = query(collection(db, "ads"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snap) => {
             const list = document.getElementById("adsList");
             list.innerHTML = "";
             snap.forEach(doc => {
                 const d = doc.data();
+                // دعم المسميين القديم والجديد للوصف لضمان عدم اختفاء الإعلانات القديمة
+                const displayDesc = d.description || d.desc || "";
                 list.innerHTML += `
                     <div class="ad-item">
                         <img src="${d.imageUrl}" style="width:100%; height:200px; object-fit:cover">
                         <div style="padding:15px">
                             <h4 style="color:var(--gold); margin:0">${d.title}</h4>
-                            <p style="font-size:12px; opacity:0.8">${d.description || d.desc}</p>
+                            <p style="font-size:12px; opacity:0.8">${displayDesc}</p>
                             <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">دردشة عبر واتساب</a>
                         </div>
                     </div>`;
