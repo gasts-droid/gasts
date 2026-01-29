@@ -29,7 +29,6 @@
                 radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
         }
 
-        /* خلفية السديم المتحركة */
         .nebula-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
@@ -45,7 +44,6 @@
 
         @keyframes rotateBG { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* بطاقة التوثيق */
         .license-wrapper { padding: 20px; display: flex; justify-content: center; }
         .license-card {
             background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--border);
@@ -54,7 +52,6 @@
         }
         .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-        /* الهيدر */
         header { text-align: center; padding: 40px 20px; }
         .logo-container { display: inline-block; position: relative; }
         .diamond-icon {
@@ -72,18 +69,15 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        /* المحتوى الرئيسي */
         .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center; }
         .hero-desc { max-width: 600px; color: rgba(255,255,255,0.7); font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px; }
 
-        /* زر تيك توك */
         .btn-tiktok {
             background: #fff; color: #000; padding: 15px 40px; border-radius: 50px;
             text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 10px;
             transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 40px;
         }
 
-        /* كرت العرض التفاعلي (تمت إضافة تأثير اقتراب الماوس هنا) */
         .coming-soon-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
             border: 1px solid var(--border); backdrop-filter: blur(20px); padding: 40px;
@@ -95,17 +89,7 @@
             border-color: var(--gold);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
         }
-        .coming-soon-card h2, .coming-soon-card p { transition: 0.4s ease; }
-        .coming-soon-card:hover h2 { transform: scale(1.05); color: #fff; }
-        .coming-soon-card:hover p { color: var(--gold); }
 
-        .coming-soon-card::before {
-            content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            animation: sweep 5s infinite;
-        }
-
-        /* --- إضافات تقنية للمنصة --- */
         .ad-form-box {
             background: var(--glass); border: 1px solid var(--border); padding: 25px;
             border-radius: 25px; width: 100%; max-width: 450px; margin-bottom: 30px;
@@ -131,9 +115,6 @@
 
         footer { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 40px 20px; border-top: 1px solid var(--border); }
         @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes sweep { 0% { left: -100%; } 100% { left: 100%; } }
-
-        @media (min-width: 768px) { .license-wrapper { position: absolute; top: 30px; left: 30px; } header { padding: 80px 20px 40px; } }
     </style>
 </head>
 <body>
@@ -189,23 +170,14 @@
         </p>
 
         <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
             <span>عالمنا على تيك توك</span>
         </a>
-
-        <div class="coming-soon-card">
-            <h2 style="color: var(--gold); margin-top: 0; font-weight: 900;">منصة GASTS</h2>
-            <p style="margin-bottom: 0; opacity: 0.9;">ترقبوا إطلاق أضخم منصة عرض للمنتجات الفاخرة قريباً.</p>
-        </div>
 
         <div id="adsList" class="ads-container"></div>
     </div>
 
     <footer>
-        <div class="footer-grid">
-            <div style="text-align: center; font-size: 13px; opacity: 0.5;">© 2026 GASTS LUXURY GROUP</div>
-            <a href="mailto:gasts.work@outlook.sa" style="color:#fff; text-decoration:none">✉ gasts.work@outlook.sa</a>
-        </div>
+        <div style="text-align: center; font-size: 13px; opacity: 0.5;">© 2026 GASTS LUXURY GROUP</div>
     </footer>
 
 <script type="module">
@@ -229,7 +201,6 @@
     const storage = getStorage(app);
     const provider = new GoogleAuthProvider();
 
-    // مراقبة حالة المستخدم
     onAuthStateChanged(auth, (user) => {
         const loginBtn = document.getElementById("loginBtn");
         const userSection = document.getElementById("userSection");
@@ -248,7 +219,6 @@
     document.getElementById("loginBtn").onclick = () => signInWithPopup(auth, provider);
     document.getElementById("logoutBtn").onclick = () => signOut(auth);
 
-    // رفع الإعلان مع الحماية
     document.getElementById("submitAd").onclick = async () => {
         const title = document.getElementById("adTitle").value;
         const desc = document.getElementById("adDesc").value;
@@ -256,7 +226,8 @@
         const file = document.getElementById("adImage").files[0];
         const status = document.getElementById("statusMsg");
 
-        if(!title || !file || !phone) return alert("يرجى تعبئة كافة الحقول الفاخرة");
+        if(!auth.currentUser) return alert("سجل دخولك أولاً");
+        if(!title || !file || !phone || !desc) return alert("يرجى تعبئة كافة الحقول الفاخرة");
         
         try {
             status.textContent = "جاري رفع إعلانك...";
@@ -264,24 +235,27 @@
             const snapshot = await uploadBytes(storageRef, file);
             const url = await getDownloadURL(snapshot.ref);
 
+            // تعديل المسميات هنا لتطابق القواعد في الصورة تماماً
             await addDoc(collection(db, "ads"), {
-                title: title.replace(/[<>]/g, ""), // حماية بسيطة من HTML
-                desc: desc.replace(/[<>]/g, ""),
+                title: title.replace(/[<>]/g, ""), 
+                description: desc.replace(/[<>]/g, ""), // تم تغييره من desc إلى description
                 phone: phone,
                 imageUrl: url,
                 author: auth.currentUser.displayName,
-                createdAt: serverTimestamp()
+                userId: auth.currentUser.uid, // إضافة معرف المستخدم للامتثال للقواعد
+                createdAt: serverTimestamp() // إضافة التوقيت الزمني للامتثال للقواعد
             });
 
             status.textContent = "✅ تم النشر بنجاح!";
             document.getElementById("adTitle").value = "";
             document.getElementById("adDesc").value = "";
+            document.getElementById("adPhone").value = "";
         } catch (e) {
-            alert("فشل الرفع، حاول مرة أخرى");
+            console.error(e);
+            alert("فشل الرفع، تأكدي من القواعد في Firebase: " + e.message);
         }
     };
 
-    // تحميل الإعلانات وعرضها في التصميم
     function loadAds() {
         const q = query(collection(db, "ads"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snap) => {
@@ -294,8 +268,8 @@
                         <img src="${d.imageUrl}" style="width:100%; height:200px; object-fit:cover">
                         <div style="padding:15px">
                             <h4 style="color:var(--gold); margin:0">${d.title}</h4>
-                            <p style="font-size:12px; opacity:0.8">${d.desc}</p>
-                            <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">دردشة فورية عبر واتساب</a>
+                            <p style="font-size:12px; opacity:0.8">${d.description || d.desc}</p>
+                            <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">دردشة عبر واتساب</a>
                         </div>
                     </div>`;
             });
