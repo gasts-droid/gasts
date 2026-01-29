@@ -101,7 +101,9 @@
             display: block; padding: 10px; margin: 10px; border-radius: 10px; font-weight: bold;
         }
 
-        footer { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 40px 20px; border-top: 1px solid var(--border); }
+        footer { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 40px 20px; border-top: 1px solid var(--border); text-align: center; }
+        .footer-email { color: var(--gold); text-decoration: none; font-size: 14px; display: block; margin-top: 10px; opacity: 0.8; }
+        
         @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
 </head>
@@ -165,7 +167,8 @@
     </div>
 
     <footer>
-        <div style="text-align: center; font-size: 13px; opacity: 0.5;">© 2026 GASTS LUXURY GROUP</div>
+        <div style="font-size: 13px; opacity: 0.5;">© 2026 GASTS LUXURY GROUP</div>
+        <a href="mailto:gasts.work@outlook.sa" class="footer-email">gasts.work@outlook.com</a>
     </footer>
 
 <script type="module">
@@ -218,17 +221,17 @@
         if(!title || !file || !phone || !desc) return alert("يرجى تعبئة كافة الحقول الفاخرة");
         
         try {
-            status.textContent = "جاري الحماية والرفع...";
+            status.textContent = "جاري الحماية والرفع الفاخر...";
             
             // 1. محاولة رفع الصورة
             const storageRef = ref(storage, `ads/${Date.now()}_${auth.currentUser.uid}`);
             const snapshot = await uploadBytes(storageRef, file);
             const url = await getDownloadURL(snapshot.ref);
 
-            // 2. إرسال البيانات (مطابقة تاماً لسطر 20-23 في القواعد)
+            // 2. إرسال البيانات (مطابقة للقواعد Rules في صورتك)
             await addDoc(collection(db, "ads"), {
-                title: title.replace(/[<>]/g, "").trim(), // فلترة العناوين
-                description: desc.replace(/[<>]/g, "").trim(), // تغيير الاسم لـ description وفلترته
+                title: title.replace(/[<>]/g, "").trim(),
+                description: desc.replace(/[<>]/g, "").trim(), // مطابقة لسطر 23 في القواعد
                 phone: phone,
                 imageUrl: url,
                 author: auth.currentUser.displayName,
@@ -243,25 +246,22 @@
             document.getElementById("adImage").value = "";
         } catch (e) {
             console.error(e);
-            // معالجة الخطأ بناءً على صورة الـ Storage التي أرسلتها
             if(e.message.includes("billing") || e.message.includes("upgrade")) {
-                alert("خطأ: حساب Storage يتطلب الترقية أو ربط بطاقة دفع لتفعيل رفع الصور.");
+                alert("تنبيه: خدمة الـ Storage تتطلب ترقية الحساب (Upgrade) كما يظهر في إعداداتك.");
             } else {
-                alert("فشل الرفع: تأكدي من تطابق البيانات مع القواعد (Firestore Rules).");
+                alert("فشل النشر: تأكدي من تطابق البيانات مع القواعد (Rules) في Firestore.");
             }
-            status.textContent = "❌ فشل النشر";
+            status.textContent = "❌ فشل العملية";
         }
     };
 
     function loadAds() {
-        // ترتيب الإعلانات حسب وقت الإنشاء كما هو مطلوب
         const q = query(collection(db, "ads"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snap) => {
             const list = document.getElementById("adsList");
             list.innerHTML = "";
             snap.forEach(doc => {
                 const d = doc.data();
-                // دعم المسميين القديم والجديد للوصف لضمان عدم اختفاء الإعلانات القديمة
                 const displayDesc = d.description || d.desc || "";
                 list.innerHTML += `
                     <div class="ad-item">
@@ -269,7 +269,7 @@
                         <div style="padding:15px">
                             <h4 style="color:var(--gold); margin:0">${d.title}</h4>
                             <p style="font-size:12px; opacity:0.8">${displayDesc}</p>
-                            <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">دردشة عبر واتساب</a>
+                            <a href="https://wa.me/${d.phone}" target="_blank" class="wa-btn">تواصل عبر واتساب</a>
                         </div>
                     </div>`;
             });
