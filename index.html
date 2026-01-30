@@ -225,8 +225,7 @@
           justify-content: center;
           z-index: 99999;
         }
-
-        .auth-box {
+                .auth-box {
           background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
           border: 1px solid var(--border);
           border-radius: 25px;
@@ -359,16 +358,14 @@
         });
     </script>
 
-    <!-- Supabase + نظام الحساب مدموج -->
+    <!-- Supabase + نظام الحساب -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Supabase client
         const supabase = window.supabase.createClient(
           "https://hdyqcgsrjnciamsyeyla.supabase.co",
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU"
         );
 
-        // فلترة
         function clean(input) {
             return input.replace(/[<>"'(){};]/g, "").trim();
         }
@@ -389,70 +386,39 @@
             return { success: true };
         }
 
-        async function protectPage() {
-            const { data } = await supabase.auth.getSession();
-            if (!data.session) window.location.href = "index.html";
-        }
-
-        async function getUser() {
-            const { data } = await supabase.auth.getUser();
-            return data.user;
-        }
-
-        async function updateEmail(newEmail) {
-            newEmail = clean(newEmail);
-            const { error } = await supabase.auth.updateUser({ email: newEmail });
-            return error ? error.message : "success";
-        }
-
-        async function updatePassword(newPass) {
-            newPass = clean(newPass);
-            const { error } = await supabase.auth.updateUser({ password: newPass });
-            return error ? error.message : "success";
-        }
-
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.href = "index.html";
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
-            const path = window.location.pathname;
+            const authBtn = document.getElementById("authBtn");
+            const authModal = document.getElementById("authModal");
+            const loginBtn = document.getElementById("loginBtn");
+            const authBox = document.getElementById("authBox");
 
-            if (path.includes("index")) {
-                const authBtn = document.getElementById("authBtn");
-                const authModal = document.getElementById("authModal");
-                const loginBtn = document.getElementById("loginBtn");
-                const authBox = document.getElementById("authBox");
+            authBtn.onclick = () => authModal.style.display = "flex";
 
-                authBtn.onclick = () => authModal.style.display = "flex";
+            authModal.onclick = (e) => {
+                if (e.target === authModal) authModal.style.display = "none";
+            };
 
-                authModal.onclick = (e) => {
-                    if (e.target === authModal) authModal.style.display = "none";
-                };
+            loginBtn.onclick = async () => {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
 
-                loginBtn.onclick = async () => {
-                    const email = document.getElementById("email").value;
-                    const password = document.getElementById("password").value;
+                const result = await loginOrSignup(email, password);
 
-                    const result = await loginOrSignup(email, password);
+                if (result.error) {
+                    authBox.classList.add("shake");
+                    setTimeout(() => authBox.classList.remove("shake"), 300);
+                    return;
+                }
 
-                    if (result.error) {
-                        authBox.classList.add("shake");
-                        setTimeout(() => authBox.classList.remove("shake"), 300);
-                        return;
-                    }
+                authModal.style.display = "none";
+                window.location.href = "account.html";
+            };
 
-                    authModal.style.display = "none";
-                    window.location.href = "account.html";
-                };
-
-                document.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" && authModal.style.display === "flex") {
-                        loginBtn.click();
-                    }
-                });
-            }
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && authModal.style.display === "flex") {
+                    loginBtn.click();
+                }
+            });
         });
     </script>
 
