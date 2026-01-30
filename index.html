@@ -354,7 +354,11 @@
         let { error } = await supabase.auth.signInWithPassword({ email, password });
 
         if (error) {
-          const { error: signUpError } = await supabase.auth.signUp({ email, password });
+          const { error: signUpError } = await supabase.auth.signUp({
+  email,
+  password
+});
+
           if (signUpError) {
             alert("خطأ في التسجيل");
             return;
