@@ -209,22 +209,6 @@
 </head>
 <body>
 
-    <!-- Auth Button -->
-    <div id="authBtn" style="
-        position:fixed;
-        top:20px;
-        right:20px;
-        z-index:9999;
-        background:#fff;
-        color:#000;
-        padding:10px 20px;
-        border-radius:30px;
-        font-weight:700;
-        cursor:pointer;
-    ">
-        تسجيل الدخول
-    </div>
-
     <div class="nebula-bg"></div>
 
     <div class="license-wrapper">
@@ -275,104 +259,114 @@
         </div>
     </footer>
 
-    <!-- Auth Modal -->
-    <div id="authModal" style="
-        display:none;
-        position:fixed;
-        top:0;left:0;
-        width:100%;height:100%;
-        background:rgba(0,0,0,0.7);
-        z-index:99999;
-        align-items:center;
-        justify-content:center;
+    <!-- زر تسجيل الدخول -->
+    <div id="authBtn" style="
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9999;
+    background:#ffffff;
+    color:#000;
+    padding:10px 20px;
+    border-radius:30px;
+    font-weight:700;
+    cursor:pointer;
     ">
-
-        <div style="
-            background:#0b0f14;
-            padding:30px;
-            border-radius:20px;
-            width:100%;
-            max-width:350px;
-            text-align:center;
-            border:1px solid rgba(212,175,55,0.3);
-        ">
-
-            <h3 style="color:#d4af37;margin-top:0;">GASTS</h3>
-
-            <input id="email" type="email" placeholder="البريد الإلكتروني"
-            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:none;">
-
-            <input id="password" type="password" placeholder="كلمة المرور"
-            style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:none;">
-
-            <button onclick="login()" style="
-                width:100%;
-                padding:12px;
-                border-radius:30px;
-                border:none;
-                background:#d4af37;
-                font-weight:800;
-                cursor:pointer;
-            ">
-                دخول / تسجيل
-            </button>
-
-            <p onclick="closeAuth()" style="margin-top:15px;cursor:pointer;opacity:0.6;">إغلاق</p>
-
-        </div>
+    تسجيل الدخول
     </div>
 
-    <script>
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
-        });
-    </script>
+    <!-- نافذة تسجيل الدخول -->
+    <div id="authModal" style="
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.7);
+    z-index:99999;
+    align-items:center;
+    justify-content:center;
+    ">
 
-    <!-- Supabase Auth Script -->
+      <div style="
+      background:#0b0f14;
+      padding:30px;
+      border-radius:20px;
+      width:100%;
+      max-width:350px;
+      text-align:center;
+      border:1px solid rgba(212,175,55,0.3);
+      ">
+
+        <h3 style="color:#d4af37;margin-top:0;">GASTS</h3>
+
+        <input id="email" type="email" placeholder="البريد الإلكتروني"
+        style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:none;">
+
+        <input id="password" type="password" placeholder="كلمة المرور"
+        style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:none;">
+
+        <button id="loginBtn" style="
+        width:100%;
+        padding:12px;
+        border-radius:30px;
+        border:none;
+        background:#d4af37;
+        font-weight:800;
+        cursor:pointer;
+        ">
+        دخول / تسجيل
+        </button>
+
+        <p id="closeAuth" style="margin-top:15px;cursor:pointer;opacity:0.6;">
+        إغلاق
+        </p>
+
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-    const supabase = window.supabase.createClient(
-      "https://hdyqcgsrjnciamsyeyla.supabase.co",
-      "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
-    );
+    document.addEventListener("DOMContentLoaded", async () => {
 
-    document.getElementById("authBtn").onclick = () => {
-      document.getElementById("authModal").style.display = "flex";
-    };
-    function closeAuth() {
-      document.getElementById("authModal").style.display = "none";
-    }
+      const supabase = window.supabase.createClient(
+        "https://hdyqcgsrjnciamsyeyla.supabase.co",
+        "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+      );
 
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const authBtn = document.getElementById("authBtn");
+      const authModal = document.getElementById("authModal");
+      const closeAuth = document.getElementById("closeAuth");
+      const loginBtn = document.getElementById("loginBtn");
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+      authBtn.onclick = () => authModal.style.display = "flex";
+      closeAuth.onclick = () => authModal.style.display = "none";
 
-      if (error) {
-        await supabase.auth.signUp({ email, password });
-      }
+      loginBtn.onclick = async () => {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-      alert("تم تسجيل الدخول بنجاح");
-      closeAuth();
-      checkAuth();
-    }
+        if (!email || !password) {
+          alert("أدخل البيانات");
+          return;
+        }
 
-    async function checkAuth() {
-      const { data } = await supabase.auth.getUser();
-      if (data.user) {
-        document.getElementById("authBtn").innerText = "حسابي";
-      }
-    }
+        let { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    checkAuth();
+        if (error) {
+          const { error: signUpError } = await supabase.auth.signUp({ email, password });
+          if (signUpError) {
+            alert("خطأ في التسجيل");
+            return;
+          }
+        }
+
+        alert("تم تسجيل الدخول");
+        authModal.style.display = "none";
+        authBtn.innerText = "حسابي";
+      };
+
+    });
     </script>
 
 </body>
