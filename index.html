@@ -60,6 +60,7 @@
             display: flex;
             justify-content: center;
         }
+
         .license-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
@@ -72,27 +73,38 @@
             transition: 0.3s;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+        .license-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
 
         header {
             text-align: center;
             padding: 40px 20px;
         }
+
         .logo-container {
             display: inline-block;
             position: relative;
         }
+
         .diamond-icon {
-            width: 80px; height: 80px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
             background-size: 200% 200%;
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
             margin: 0 auto 15px;
             display: flex;
-            align-items: center; justify-content: center;
-            color: #000; font-weight: 900; font-size: 35px;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 35px;
             animation: shimmer 3s infinite;
         }
+
         .logo-text {
             font-size: clamp(50px, 15vw, 90px);
             font-weight: 900;
@@ -114,83 +126,72 @@
             font-weight: 800;
             cursor: pointer;
         }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        /* ======= (بقية CSS كما هو بدون تغيير) ======= */
     </style>
 </head>
 
 <body>
 
-    <!-- (HTML كامل كما هو عندك بدون أي تعديل) -->
+<div class="nebula-bg"></div>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<header>
+    <div class="logo-container">
+        <div class="diamond-icon">G</div>
+        <h1 class="logo-text">GASTS</h1>
+        <button id="authBtn">تسجيل دخول</button>
+    </div>
+</header>
 
-    <script>
-        const supabaseUrl = "https://hdyqcgsrjnciamsyeyla.supabase.co";
-        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU";
+<div id="authModal">
+    <div class="auth-box" id="authBox">
+        <h3>تسجيل الدخول</h3>
+        <input id="email" type="email" placeholder="البريد الإلكتروني">
+        <input id="password" type="password" placeholder="كلمة المرور">
+        <button id="loginBtn">دخول</button>
+    </div>
+</div>
 
-        let supabaseClient = null;
-        try {
-            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-        } catch (e) {
-            console.error("Supabase init error:", e);
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        function clean(input) {
-            return String(input || "").replace(/[<>"'(){};]/g, "").trim();
-        }
+<script>
+const supabaseUrl = "https://hdyqcgsrjnciamsyeyla.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU";
 
-        /* ========= الدالة المدموجة الجديدة ========= */
-        async function loginOrSignup(email, password) {
-            if (!supabaseClient) return { error: "supabase_init" };
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-            email = clean(email);
-            password = clean(password);
+function clean(input) {
+    return String(input || "").replace(/[<>"'(){};]/g, "").trim();
+}
 
-            if (!email || !password) return { error: "empty" };
+/* ======== الدالة المدموجة الصحيحة ======== */
+async function loginOrSignup(email, password) {
+    email = clean(email);
+    password = clean(password);
 
-            let { data, error } = await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+    if (!email || !password) return { error: "empty" };
 
-            if (error) {
-                const { data: signUpData, error: signUpError } =
-                    await supabaseClient.auth.signUp({
-                        email,
-                        password
-                    });
+    let { data, error } =
+        await supabaseClient.auth.signInWithPassword({ email, password });
 
-                if (signUpError) return { error: signUpError.message };
+    if (error) {
+        const { data: signUpData, error: signUpError } =
+            await supabaseClient.auth.signUp({ email, password });
 
-                const userId = signUpData.user.id;
-                const username = email.split("@")[0];
-                const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${username}`;
+        if (signUpError) return { error: signUpError.message };
 
-                await supabaseClient.from("profiles").insert({
-                    id: userId,
-                    username: username,
-                    avatar_url: avatar
-                });
+        const userId = signUpData.user.id;
+        const username = email.split("@")[0];
+        const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${username}`;
 
-                return { success: true };
-            }
+        await supabaseClient.from("profiles").insert({
+            id: userId,
+            username,
+            avatar_url: avatar
+        });
+    }
 
-            return { success: true };
-        }
-
-        /* ========= بقية JS كما هو ========= */
-    </script>
+    return { success: true };
+}
+</script>
 
 </body>
 </html>
