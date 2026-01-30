@@ -103,6 +103,18 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
+        /* زر تسجيل الدخول */
+        #authBtn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: none;
+            background: #fff;
+            color: #000;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
         .main-content {
             flex: 1;
             display: flex;
@@ -189,22 +201,6 @@
         .contact-item:hover {
             background: rgba(212, 175, 55, 0.1);
             color: var(--gold);
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes sweep {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        @media (min-width: 768px) {
-            .license-wrapper { position: absolute; top: 30px; left: 30px; }
-            header { padding: 80px 20px 40px; }
         }
 
         /* ====== AUTH MODAL ANIMATION ====== */
@@ -294,16 +290,7 @@
             <h1 class="logo-text">GASTS</h1>
 
             <!-- زر تسجيل الدخول الجديد -->
-            <button id="authBtn" style="
-                margin-top:20px;
-                padding:10px 25px;
-                border-radius:30px;
-                border:none;
-                background:#fff;
-                color:#000;
-                font-weight:800;
-                cursor:pointer;
-            ">تسجيل دخول</button>
+            <button id="authBtn">تسجيل دخول</button>
 
         </div>
     </header>
@@ -363,15 +350,23 @@
       const loginBtn = document.getElementById("loginBtn");
       const authBox = document.getElementById("authBox");
 
+      // فتح المودال
       authBtn.onclick = () => authModal.style.display = "flex";
 
+      // إغلاق عند الضغط خارج الصندوق
       authModal.onclick = (e) => {
         if (e.target === authModal) authModal.style.display = "none";
       };
 
+      // فلترة المدخلات لمنع الثغرات
+      function clean(input) {
+        return input.replace(/[<>"'(){};]/g, "").trim();
+      }
+
+      // تسجيل الدخول
       loginBtn.onclick = async () => {
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
+        const email = clean(document.getElementById("email").value);
+        const password = clean(document.getElementById("password").value);
 
         if (!email || !password) {
           authBox.classList.add("shake");
@@ -393,6 +388,13 @@
         authModal.style.display = "none";
         authBtn.innerText = "حسابي";
       };
+
+      // دعم زر Enter
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && authModal.style.display === "flex") {
+          loginBtn.click();
+        }
+      });
 
     });
     </script>
