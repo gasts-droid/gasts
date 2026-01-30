@@ -1,132 +1,247 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GASTS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>شركة GASTS | فخامة الإعلان</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #05080a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(212, 175, 55, 0.2);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-<style>
-/* ====== تصميمك الأصلي (بدون تعديل) ====== */
-:root {
-    --gold:#d4af37;--dark:#05080a;--glass:rgba(255,255,255,.05);--border:rgba(212,175,55,.2)
-}
-*{box-sizing:border-box}
-body{
-margin:0;font-family:Cairo;background:var(--dark);color:#fff;overflow-x:hidden
-}
-.nebula-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at bottom,#1B2735,#090A0F)}
-header{text-align:center;padding:80px 20px 40px;position:relative}
-.logo-text{font-size:80px;font-weight:900;background:linear-gradient(#fff,var(--gold));
--webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.main-content{text-align:center;padding:20px}
-.btn-tiktok{background:#fff;color:#000;padding:15px 40px;border-radius:50px;
-display:inline-flex;gap:10px;text-decoration:none;font-weight:800}
-.coming-soon-card{margin:40px auto;padding:40px;border-radius:30px;
-background:rgba(255,255,255,.05);max-width:500px}
+        body {
+            margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
+            background-color: var(--dark); color: #fff;
+            min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
+            background-image: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
+        }
 
-/* ====== إضافات خفيفة جدًا ====== */
-.login-link{
-position:absolute;top:15px;right:20px;
-font-size:13px;color:var(--gold);cursor:pointer;opacity:.8
-}
-.login-link:hover{opacity:1}
+        /* خلفية السديم المتحركة الأصلية الخاصة بكِ */
+        .nebula-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
+        .nebula-bg::after {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            animation: rotateBG 180s linear infinite; opacity: 0.3;
+        }
+        @keyframes rotateBG { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-.modal{
-display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
-align-items:center;justify-content:center;z-index:999
-}
-.modal-box{
-background:#0c1116;padding:30px;border-radius:20px;width:320px
-}
-.modal-box input, .modal-box button{
-width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none
-}
-.modal-box button{background:var(--gold);font-weight:800}
-</style>
+        /* الهيدر والشعار */
+        header { text-align: center; padding: 40px 20px; }
+        .logo-container { display: inline-block; position: relative; transition: 0.1s ease-out; }
+        .diamond-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            color: #000; font-weight: 900; font-size: 35px; animation: shimmer 3s infinite;
+        }
+        .logo-text {
+            font-size: clamp(50px, 15vw, 90px); font-weight: 900; margin: 0;
+            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* لوحة النشر والفلترة */
+        .ad-form-card {
+            background: var(--glass); border: 1px solid var(--border);
+            backdrop-filter: blur(20px); padding: 30px; border-radius: 30px;
+            max-width: 500px; width: 90%; margin: 20px auto; display: none;
+        }
+        .ad-input {
+            width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border); border-radius: 12px; color: #fff;
+            text-align: center; font-family: 'Cairo';
+        }
+        .btn-gold {
+            background: var(--gold); color: #000; padding: 12px 40px;
+            border-radius: 50px; border: none; font-weight: 800; cursor: pointer;
+            transition: 0.3s; margin: 15px 0; width: 100%;
+        }
+        .btn-gold:hover { transform: scale(1.03); filter: brightness(1.1); }
+
+        /* عرض الإعلانات */
+        .ads-grid {
+            display: grid; width: 100%; max-width: 1100px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px; padding: 40px 20px; margin: 0 auto;
+        }
+        .ad-item {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; overflow: hidden; backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+        .ad-item:hover { transform: translateY(-5px); border-color: var(--gold); }
+
+        footer { background: rgba(0,0,0,0.6); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); }
+
+        @keyframes shimmer { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
+    </style>
 </head>
-
 <body>
 
-<div class="nebula-bg"></div>
+    <div class="nebula-bg"></div>
 
-<header>
-    <span class="login-link" id="loginBtn">تسجيل الدخول</span>
-    <h1 class="logo-text">GASTS</h1>
-</header>
+    <header>
+        <div class="logo-container">
+            <div class="diamond-icon">G</div>
+            <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
+            <h1 class="logo-text">GASTS</h1>
+        </div>
+    </header>
 
-<div class="main-content">
-    <a class="btn-tiktok" href="https://www.tiktok.com/@gasts.sa">تيك توك</a>
+    <div class="main-content" style="flex: 1; text-align: center;">
+        
+        <div style="margin-bottom: 20px;">
+            <span style="background: rgba(255,255,255,0.05); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--border); font-size: 13px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="15" style="vertical-align: middle;"> ترخيص عمل حر معتمد
+            </span>
+        </div>
 
-    <div class="coming-soon-card">
-        <h2>منصة GASTS</h2>
-        <p>إطلاق قريب</p>
+        <button id="loginBtn" class="btn-gold" style="max-width: 250px;">دخول المعلنين</button>
+
+        <div id="publishPanel" class="ad-form-card">
+            <h3 style="color: var(--gold); margin-top:0;">إضافة عرض فاخر</h3>
+            <input type="text" id="adTitle" placeholder="عنوان المنتج" class="ad-input">
+            <textarea id="adDesc" placeholder="تفاصيل العرض..." class="ad-input" rows="2"></textarea>
+            <input type="number" id="adPhone" placeholder="واتساب (966...)" class="ad-input">
+            <input type="file" id="adImage" accept="image/*" class="ad-input">
+            <button id="submitAd" class="btn-gold">نشر الإعلان الآن</button>
+            <p id="statusMsg" style="font-size:12px; color:var(--gold)"></p>
+            <button id="logoutBtn" style="background:none; border:none; color:#ff5555; cursor:pointer; font-family:'Cairo'; margin-top:10px;">خروج</button>
+        </div>
+
+        <div id="adsList" class="ads-grid"></div>
     </div>
-</div>
 
-<!-- ====== نافذة تسجيل الدخول ====== -->
-<div class="modal" id="authModal">
-  <div class="modal-box">
-    <h3>الدخول</h3>
-    <input id="email" type="email" placeholder="الإيميل">
-    <input id="password" type="password" placeholder="كلمة المرور">
-    <button onclick="login()">دخول</button>
-    <button onclick="register()">تسجيل جديد</button>
-  </div>
-</div>
+    <footer>
+        <div style="margin-bottom: 15px;">
+            <a href="https://www.tiktok.com/@gasts.sa" target="_blank" style="color:#fff; text-decoration:none; font-weight:bold; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px;">تيك توك GASTS ↗</a>
+        </div>
+        <div style="opacity: 0.5; font-size: 12px;">© 2026 GASTS LUXURY GROUP | نظام سوبابيس المحمي</div>
+    </footer>
 
-<!-- ====== Supabase ====== -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-/* ====== المفاتيح (ثابتة) ====== */
-const SUPABASE_URL = "https://hdyqcgsrjnciamsyeyla.supabase.co";
-const SUPABASE_KEY = "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC";
+    <script>
+        // --- ربط المفاتيح الخاصة بكِ ---
+        const SUPABASE_URL = 'https://hdyqcgsrjnciamsyeyla.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const loginBtn = document.getElementById('loginBtn');
+        const publishPanel = document.getElementById('publishPanel');
+        const statusMsg = document.getElementById('statusMsg');
 
-/* ====== أدوات أمان ====== */
-const clean = v => v.replace(/[<>]/g,"").trim();
+        // التحقق من حالة المستخدم عند فتح الصفحة
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                loginBtn.style.display = 'none';
+                publishPanel.style.display = 'block';
+            }
+        }
+        checkSession();
 
-/* ====== التحكم ====== */
-document.getElementById("loginBtn").onclick=()=>{
-  document.getElementById("authModal").style.display="flex"
-}
-window.onclick=e=>{
-  if(e.target.id==="authModal")e.target.style.display="none"
-}
+        // تسجيل الدخول
+        loginBtn.onclick = async () => {
+            const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+            if (error) alert("خطأ في الدخول: " + error.message);
+        };
 
-/* ====== تسجيل ====== */
-async function register(){
-  const email=clean(emailInput.value)
-  const pass=passwordInput.value
-  if(pass.length<6)return alert("كلمة المرور قصيرة")
+        // تسجيل الخروج
+        document.getElementById('logoutBtn').onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.reload();
+        };
 
-  const {error}=await supabase.auth.signUp({email,password:pass})
-  if(error)alert(error.message)
-  else alert("تم التسجيل")
-}
+        // رفع الإعلان مع فلترة وأمان
+        document.getElementById('submitAd').onclick = async () => {
+            const title = document.getElementById('adTitle').value.trim();
+            const desc = document.getElementById('adDesc').value.trim();
+            const phone = document.getElementById('adPhone').value.trim();
+            const file = document.getElementById('adImage').files[0];
 
-/* ====== دخول ====== */
-async function login(){
-  const {error}=await supabase.auth.signInWithPassword({
-    email:clean(emailInput.value),
-    password:passwordInput.value
-  })
-  if(error)alert("بيانات غير صحيحة")
-  else{
-    alert("تم الدخول")
-    document.getElementById("authModal").style.display="none"
-  }
-}
+            if (!title || !desc || !phone || !file) {
+                return alert("يرجى إكمال جميع الحقول بدقة");
+            }
 
-/* ====== حماية ====== */
-supabase.auth.onAuthStateChange((_,session)=>{
-  if(session){
-    console.log("مستخدم مسجل")
-  }
-})
-</script>
+            try {
+                statusMsg.textContent = "جاري حماية ومعالجة الصورة...";
+                
+                // رفع الصورة (ImgBB لضمان السرعة)
+                const formData = new FormData();
+                formData.append("image", file);
+                const res = await fetch("https://api.imgbb.com/1/upload?key=7662c57a51804b77873a0e4875466860", { method: "POST", body: formData });
+                const imgResult = await res.json();
+                
+                if(!imgResult.success) throw new Error("فشل رفع الصورة");
+                const imageUrl = imgResult.data.url;
 
+                statusMsg.textContent = "جاري تأمين البيانات في سوبابيس...";
+                
+                // إرسال البيانات للجدول
+                const { error } = await supabase
+                    .from('ads') // تأكدي أن اسم الجدول ads
+                    .insert([{ 
+                        title: title, 
+                        description: desc, 
+                        phone: phone, 
+                        image_url: imageUrl 
+                    }]);
+
+                if (error) throw error;
+
+                statusMsg.textContent = "✅ تم النشر بنجاح!";
+                document.getElementById('adTitle').value = "";
+                document.getElementById('adDesc').value = "";
+                document.getElementById('adPhone').value = "";
+                loadAds();
+            } catch (err) {
+                statusMsg.textContent = "❌ خطأ: " + err.message;
+            }
+        };
+
+        // جلب الإعلانات وتصفيتها
+        async function loadAds() {
+            const { data: ads, error } = await supabase
+                .from('ads')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) return console.error(error);
+
+            const list = document.getElementById('adsList');
+            list.innerHTML = ads.map(ad => `
+                <div class="ad-item">
+                    <img src="${ad.image_url}" style="width:100%; height:200px; object-fit:cover">
+                    <div style="padding:15px; text-align:right;">
+                        <h4 style="color:var(--gold); margin:0 0 10px 0;">${ad.title}</h4>
+                        <p style="font-size:12px; opacity:0.8; height:35px; overflow:hidden;">${ad.description}</p>
+                        <a href="https://wa.me/${ad.phone}" target="_blank" 
+                           style="display:block; background:#25d366; color:#fff; text-align:center; padding:8px; border-radius:10px; text-decoration:none; font-weight:bold; margin-top:10px;">
+                           واتساب ↗
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        loadAds();
+
+        // تحريك الشعار مع الماوس (تصميمك الأصلي)
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
 </body>
 </html>
