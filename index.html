@@ -374,15 +374,21 @@
           return;
         }
 
+        // محاولة تسجيل الدخول
         let { error } = await supabase.auth.signInWithPassword({ email, password });
 
+        // إذا فشل → نسوي تسجيل جديد
         if (error) {
           const { error: signUpError } = await supabase.auth.signUp({ email, password });
+
           if (signUpError) {
             authBox.classList.add("shake");
             setTimeout(() => authBox.classList.remove("shake"), 300);
             return;
           }
+
+          // تسجيل دخول بعد إنشاء الحساب
+          await supabase.auth.signInWithPassword({ email, password });
         }
 
         authModal.style.display = "none";
