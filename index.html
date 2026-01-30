@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>شركة GASTS | فخامة الإعلان</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --gold: #d4af37;
@@ -31,7 +32,6 @@
                 radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
         }
 
-        /* خلفية السديم المتحركة */
         .nebula-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -54,7 +54,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* بطاقة التوثيق */
         .license-wrapper {
             padding: 20px;
             display: flex;
@@ -74,7 +73,6 @@
         }
         .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-        /* الهيدر */
         header {
             text-align: center;
             padding: 40px 20px;
@@ -105,7 +103,6 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        /* زر تسجيل الدخول في الهيدر */
         #authBtn {
             margin-top: 20px;
             padding: 10px 25px;
@@ -117,7 +114,6 @@
             cursor: pointer;
         }
 
-        /* المحتوى الرئيسي */
         .main-content {
             flex: 1;
             display: flex;
@@ -134,7 +130,6 @@
             margin-bottom: 30px;
         }
 
-        /* زر تيك توك الفاخر */
         .btn-tiktok {
             background: #fff;
             color: #000;
@@ -154,7 +149,6 @@
             box-shadow: 0 0 30px rgba(255,255,255,0.3);
         }
 
-        /* كرت العرض قريباً */
         .coming-soon-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
             border: 1px solid rgba(255,255,255,0.1);
@@ -175,7 +169,6 @@
             animation: sweep 5s infinite;
         }
 
-        /* الفوتر */
         footer {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
@@ -209,7 +202,6 @@
             color: var(--gold);
         }
 
-        /* Animations */
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -221,13 +213,7 @@
             100% { left: 100%; }
         }
 
-        /* تحسينات الشاشات */
-        @media (min-width: 768px) {
-            .license-wrapper { position: absolute; top: 30px; left: 30px; }
-            header { padding: 80px 20px 40px; }
-        }
-
-        /* ====== AUTH MODAL ====== */
+        /* ========== مودال تسجيل الدخول ========== */
         #authModal {
           position: fixed;
           inset: 0;
@@ -236,7 +222,7 @@
           display: none;
           align-items: center;
           justify-content: center;
-          z-index: 9999;
+          z-index: 99999;
         }
 
         .auth-box {
@@ -292,6 +278,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="nebula-bg"></div>
@@ -312,7 +299,6 @@
             <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
             <h1 class="logo-text">GASTS</h1>
 
-            <!-- زر تسجيل الدخول -->
             <button id="authBtn">تسجيل دخول</button>
         </div>
     </header>
@@ -357,6 +343,7 @@
       </div>
     </div>
 
+    <!-- سكربت تحريك العناصر -->
     <script>
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
@@ -364,6 +351,22 @@
             document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
             document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
+    </script>
+
+    <!-- سكربت فتح/إغلاق المودال -->
+    <script>
+        const authBtn = document.getElementById("authBtn");
+        const authModal = document.getElementById("authModal");
+        const loginBtn = document.getElementById("loginBtn");
+        const authBox = document.getElementById("authBox");
+
+        authBtn.onclick = () => {
+            authModal.style.display = "flex";
+        };
+
+        authModal.onclick = (e) => {
+            if (e.target === authModal) authModal.style.display = "none";
+        };
     </script>
 
     <!-- Supabase + نظام الحساب -->
