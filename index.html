@@ -224,8 +224,9 @@
           align-items: center;
           justify-content: center;
           z-index: 99999;
-        } 
-              .auth-box {
+        }
+
+        .auth-box {
           background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
           border: 1px solid var(--border);
           border-radius: 25px;
@@ -341,7 +342,7 @@
     <!-- مودال تسجيل الدخول -->
     <div id="authModal">
       <div class="auth-box" id="authBox">
-        <h3 style="color:var(--gold)">تسجيل الدخول</h3>
+        <h3 style="color:var(--gold); margin-top:0;">تسجيل الدخول</h3>
         <input id="email" type="email" placeholder="البريد الإلكتروني">
         <input id="password" type="password" placeholder="كلمة المرور">
         <button id="loginBtn">دخول آمن</button>
@@ -351,56 +352,87 @@
     <!-- تحريك العناصر -->
     <script>
         document.addEventListener('mousemove', (e) => {
+            const logo = document.querySelector('.logo-container');
+            const card = document.querySelector('.coming-soon-card');
+            if (!logo || !card) return;
+
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
+            logo.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            card.style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
 
     <!-- Supabase + نظام الحساب -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabase = window.supabase.createClient(
-          "https://hdyqcgsrjnciamsyeyla.supabase.co",
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU"
-        );
+        // إنشاء عميل Supabase
+        const supabaseUrl = "https://hdyqcgsrjnciamsyeyla.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU";
+
+        let supabaseClient = null;
+        try {
+            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        } catch (e) {
+            console.error("Supabase init error:", e);
+        }
 
         function clean(input) {
-            return input.replace(/[<>"'(){};]/g, "").trim();
+            return String(input || "").replace(/[<>"'(){};]/g, "").trim();
         }
 
         async function loginOrSignup(email, password) {
+            if (!supabaseClient) return { error: "supabase_init" };
+
             email = clean(email);
             password = clean(password);
+
             if (!email || !password) return { error: "empty" };
 
-            let { error } = await supabase.auth.signInWithPassword({ email, password });
+            try {
+                let { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
-            if (error) {
-                const { error: signUpError } = await supabase.auth.signUp({ email, password });
-                if (signUpError) return { error: signUpError.message };
-                await supabase.auth.signInWithPassword({ email, password });
+                if (error) {
+                    const { error: signUpError } = await supabaseClient.auth.signUp({ email, password });
+                    if (signUpError) return { error: signUpError.message };
+                    await supabaseClient.auth.signInWithPassword({ email, password });
+                }
+
+                return { success: true };
+            } catch (e) {
+                console.error("Auth error:", e);
+                return { error: "unknown" };
             }
-
-            return { success: true };
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const authBtn = document.getElementById("authBtn");
+            const authBtn   = document.getElementById("authBtn");
             const authModal = document.getElementById("authModal");
-            const loginBtn = document.getElementById("loginBtn");
-            const authBox = document.getElementById("authBox");
+            const loginBtn  = document.getElementById("loginBtn");
+            const authBox   = document.getElementById("authBox");
+            const emailInp  = document.getElementById("email");
+            const passInp   = document.getElementById("password");
 
-            authBtn.onclick = () => authModal.style.display = "flex";
+            if (!authBtn || !authModal || !loginBtn || !authBox) {
+                console.error("Auth elements missing");
+                return;
+            }
 
+            // فتح المودال
+            authBtn.onclick = () => {
+                authModal.style.display = "flex";
+                if (emailInp) emailInp.focus();
+            };
+
+            // إغلاق عند الضغط خارج الصندوق
             authModal.onclick = (e) => {
                 if (e.target === authModal) authModal.style.display = "none";
             };
 
-            loginBtn.onclick = async () => {
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
+            // تنفيذ تسجيل الدخول
+            async function handleLogin() {
+                const email = emailInp ? emailInp.value : "";
+                const password = passInp ? passInp.value : "";
 
                 const result = await loginOrSignup(email, password);
 
@@ -412,11 +444,13 @@
 
                 authModal.style.display = "none";
                 window.location.href = "account.html";
-            };
+            }
+
+            loginBtn.onclick = handleLogin;
 
             document.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" && authModal.style.display === "flex") {
-                    loginBtn.click();
+                    handleLogin();
                 }
             });
         });
