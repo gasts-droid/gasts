@@ -322,6 +322,51 @@ cursor:pointer;
 
 </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://hdyqcgsrjnciamsyeyla.supabase.co",
+  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+);
+
+// فتح / إغلاق
+document.getElementById("authBtn").onclick = () => {
+  document.getElementById("authModal").style.display = "flex";
+};
+function closeAuth() {
+  document.getElementById("authModal").style.display = "none";
+}
+
+// تسجيل / دخول
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    await supabase.auth.signUp({ email, password });
+  }
+
+  alert("تم تسجيل الدخول بنجاح");
+  closeAuth();
+  checkAuth();
+}
+
+// تحقق الجلسة
+async function checkAuth() {
+  const { data } = await supabase.auth.getUser();
+  if (data.user) {
+    document.getElementById("authBtn").innerText = "حسابي";
+  }
+}
+
+checkAuth();
+</script>
 
 </body>
     <!-- Auth Button -->
