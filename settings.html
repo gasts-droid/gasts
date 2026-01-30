@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات</title>
+</head>
+
+<body>
+
+    <h1>إعدادات الحساب</h1>
+
+    <h3>تغيير البريد</h3>
+    <input id="newEmail" type="email" placeholder="البريد الجديد">
+    <button id="updateEmailBtn">تحديث البريد</button>
+
+    <h3>تغيير كلمة المرور</h3>
+    <input id="newPass" type="password" placeholder="كلمة المرور الجديدة">
+    <button id="updatePassBtn">تحديث كلمة المرور</button>
+
+    <h3>حذف الحساب</h3>
+    <button id="deleteAccountBtn" style="color:red">حذف الحساب نهائياً</button>
+
+    <button onclick="window.location.href='account.html'">رجوع</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+</html>
