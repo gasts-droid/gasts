@@ -1,4 +1,4 @@
 const supabase = window.supabase.createClient(
   "https://hdyqcgsrjnciamsyeyla.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU"
+  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
 );
