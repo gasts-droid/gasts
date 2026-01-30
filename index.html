@@ -2,122 +2,130 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>شركة GASTS | فخامة الإعلان</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GASTS</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root{
---gold:#d4af37;--dark:#05080a;--glass:rgba(255,255,255,.05);--border:rgba(212,175,55,.2)
+/* ====== تصميمك الأصلي (بدون تعديل) ====== */
+:root {
+    --gold:#d4af37;--dark:#05080a;--glass:rgba(255,255,255,.05);--border:rgba(212,175,55,.2)
 }
 *{box-sizing:border-box}
 body{
-margin:0;font-family:Cairo,sans-serif;background:var(--dark);color:#fff;min-height:100vh
+margin:0;font-family:Cairo;background:var(--dark);color:#fff;overflow-x:hidden
 }
+.nebula-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at bottom,#1B2735,#090A0F)}
+header{text-align:center;padding:80px 20px 40px;position:relative}
+.logo-text{font-size:80px;font-weight:900;background:linear-gradient(#fff,var(--gold));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.main-content{text-align:center;padding:20px}
+.btn-tiktok{background:#fff;color:#000;padding:15px 40px;border-radius:50px;
+display:inline-flex;gap:10px;text-decoration:none;font-weight:800}
+.coming-soon-card{margin:40px auto;padding:40px;border-radius:30px;
+background:rgba(255,255,255,.05);max-width:500px}
 
-/* زر تسجيل الدخول */
-.auth-btn{
-position:fixed;top:20px;right:20px;
-background:#fff;color:#000;
-padding:10px 18px;border-radius:30px;
-font-weight:800;cursor:pointer;
-z-index:9999
+/* ====== إضافات خفيفة جدًا ====== */
+.login-link{
+position:absolute;top:15px;right:20px;
+font-size:13px;color:var(--gold);cursor:pointer;opacity:.8
 }
-.auth-btn:hover{transform:scale(1.05)}
+.login-link:hover{opacity:1}
 
-/* نافذة الدخول */
 .modal{
-display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,.7);z-index:10000;
-align-items:center;justify-content:center
+display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
+align-items:center;justify-content:center;z-index:999
 }
-.modal-content{
-background:#111;border:1px solid var(--border);
-padding:25px;border-radius:20px;width:300px
+.modal-box{
+background:#0c1116;padding:30px;border-radius:20px;width:320px
 }
-.modal input{
-width:100%;padding:10px;margin-bottom:10px;
-border-radius:10px;border:none
+.modal-box input, .modal-box button{
+width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none
 }
-.modal button{
-width:100%;padding:10px;border:none;
-background:var(--gold);font-weight:900;border-radius:20px;cursor:pointer
-}
-
-/* بقية تصميمك كما هو */
+.modal-box button{background:var(--gold);font-weight:800}
 </style>
 </head>
 
 <body>
 
-<!-- زر تسجيل الدخول -->
-<div class="auth-btn" onclick="openAuth()">تسجيل الدخول</div>
+<div class="nebula-bg"></div>
 
-<!-- نافذة تسجيل الدخول -->
+<header>
+    <span class="login-link" id="loginBtn">تسجيل الدخول</span>
+    <h1 class="logo-text">GASTS</h1>
+</header>
+
+<div class="main-content">
+    <a class="btn-tiktok" href="https://www.tiktok.com/@gasts.sa">تيك توك</a>
+
+    <div class="coming-soon-card">
+        <h2>منصة GASTS</h2>
+        <p>إطلاق قريب</p>
+    </div>
+</div>
+
+<!-- ====== نافذة تسجيل الدخول ====== -->
 <div class="modal" id="authModal">
-  <div class="modal-content">
-    <h3 style="text-align:center;color:var(--gold)">تسجيل الدخول</h3>
+  <div class="modal-box">
+    <h3>الدخول</h3>
     <input id="email" type="email" placeholder="الإيميل">
     <input id="password" type="password" placeholder="كلمة المرور">
     <button onclick="login()">دخول</button>
-    <button style="margin-top:10px;background:#333;color:#fff" onclick="signup()">إنشاء حساب</button>
+    <button onclick="register()">تسجيل جديد</button>
   </div>
 </div>
 
-<!-- ====== تصميم موقعك الأصلي (مختصر هنا) ====== -->
-<header style="text-align:center;padding:100px 20px">
-<h1 style="font-size:70px;color:var(--gold)">GASTS</h1>
-<p>منصة الإعلان الفاخر – قريبًا</p>
-</header>
-
-<footer style="text-align:center;opacity:.5;padding:30px">
-© 2026 GASTS
-</footer>
-
-<!-- ================= SUPABASE ================= -->
+<!-- ====== Supabase ====== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* مفاتيحك */
-const SUPABASE_URL="https://hdyqcgsrjnciamsyeyla.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC";
+/* ====== المفاتيح (ثابتة) ====== */
+const SUPABASE_URL = "https://hdyqcgsrjnciamsyeyla.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC";
 
-const supabase=window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
-);
+const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* فتح / إغلاق النافذة */
-function openAuth(){document.getElementById("authModal").style.display="flex"}
-document.getElementById("authModal").onclick=e=>{
-if(e.target.id==="authModal")e.target.style.display="none"
+/* ====== أدوات أمان ====== */
+const clean = v => v.replace(/[<>]/g,"").trim();
+
+/* ====== التحكم ====== */
+document.getElementById("loginBtn").onclick=()=>{
+  document.getElementById("authModal").style.display="flex"
+}
+window.onclick=e=>{
+  if(e.target.id==="authModal")e.target.style.display="none"
 }
 
-/* تسجيل دخول */
+/* ====== تسجيل ====== */
+async function register(){
+  const email=clean(emailInput.value)
+  const pass=passwordInput.value
+  if(pass.length<6)return alert("كلمة المرور قصيرة")
+
+  const {error}=await supabase.auth.signUp({email,password:pass})
+  if(error)alert(error.message)
+  else alert("تم التسجيل")
+}
+
+/* ====== دخول ====== */
 async function login(){
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value.trim();
-const{error}=await supabase.auth.signInWithPassword({email,password});
-if(error){alert("بيانات غير صحيحة");return}
-alert("تم تسجيل الدخول");
-document.getElementById("authModal").style.display="none";
+  const {error}=await supabase.auth.signInWithPassword({
+    email:clean(emailInput.value),
+    password:passwordInput.value
+  })
+  if(error)alert("بيانات غير صحيحة")
+  else{
+    alert("تم الدخول")
+    document.getElementById("authModal").style.display="none"
+  }
 }
 
-/* إنشاء حساب */
-async function signup(){
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value.trim();
-const{error}=await supabase.auth.signUp({email,password});
-if(error){alert("فشل إنشاء الحساب");return}
-alert("تم إنشاء الحساب");
-}
-
-/* فحص الجلسة */
-supabase.auth.getSession().then(({data})=>{
-if(data.session){
-document.querySelector(".auth-btn").innerText="حسابي";
-}
-});
+/* ====== حماية ====== */
+supabase.auth.onAuthStateChange((_,session)=>{
+  if(session){
+    console.log("مستخدم مسجل")
+  }
+})
 </script>
 
 </body>
