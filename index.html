@@ -430,12 +430,9 @@
             };
 
             // تنفيذ تسجيل الدخول
-             async function loginOrSignup(email, password) {
+         async function loginOrSignup(email, password) {
                  email = clean(email);
                  password = clean(password);
-                const email = emailInp ? emailInp.value : "";
-                const password = passInp ? passInp.value : "";
-
                 const result = await loginOrSignup(email, password);
 
                 if (result.error) {
