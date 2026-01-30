@@ -2,206 +2,117 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>شركة GASTS | فخامة الإعلان</title>
-<!-- روابط الخطوط -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>موقع الإعلانات</title>
+<!-- الخطوط -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --gold: #d4af37;
-    --gold-light: #f9e272;
-    --dark: #05080a;
-    --glass: rgba(255, 255, 255, 0.05);
-    --border: rgba(212, 175, 55, 0.2);
-  }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
-    margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-    background-color: var(--dark);
-    color: #fff; min-height: 100vh;
-    display: flex; flex-direction: column; overflow-x: hidden;
-    background-image: 
-      radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
+    font-family: 'Cairo', sans-serif; margin: 0; background-color: #111; color: #fff;
   }
-  /* خلفية السديم */
-  .nebula-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-    overflow: hidden;
+  /* نماذج وتنسيقات عامة */
+  /* ... يمكنك إضافة أنماط مخصصة هنا حسب رغبتك ... */
+  /* تنسيق الواجهة */
+  #navbar {
+    display: flex; justify-content: space-between; padding: 10px 20px; background: rgba(0,0,0,0.4);
   }
-  .nebula-bg::after {
-    content: "";
-    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-    animation: rotateBG 180s linear infinite; opacity: 0.3;
-  }
-  @keyframes rotateBG {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  /* بطاقة التوثيق */
-  .license-wrapper {
-    padding: 20px; display: flex; justify-content: center;
-  }
-  .license-card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    padding: 8px 20px; border-radius: 100px;
-    display: flex; align-items: center; gap: 12px;
-    transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  .license-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  header {
-    text-align: center; padding: 40px 20px;
-  }
-  .logo-container {
-    display: inline-block; position: relative;
-  }
-  .diamond-icon {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
-    background-size: 200% 200%;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
-    color: #000; font-weight: 900; font-size: 35px; animation: shimmer 3s infinite;
-  }
-  .logo-text {
-    font-size: clamp(50px, 15vw, 90px);
-    font-weight: 900; margin: 0; line-height: 1;
-    background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-  }
-  /* المحتوى الرئيسي */
-  .main-content {
-    flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center;
-  }
-  .hero-desc {
-    max-width: 600px; color: rgba(255,255,255,0.7); font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;
-  }
-  /* زر تيك توك */
-  .btn-tiktok {
-    background: #fff; color: #000; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 800;
-    display: flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 40px;
-  }
-  .btn-tiktok:hover {
-    transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.3);
-  }
-  /* كرت قريباً */
-  .coming-soon-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; margin-bottom: 50px; position: relative; overflow: hidden;
-  }
-  .coming-soon-card::before {
-    content: "";
-    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-    animation: sweep 5s infinite;
-  }
-  @keyframes sweep {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-  }
-  /* الفوتر */
-  footer {
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 40px 20px; border-top: 1px solid var(--border);
-  }
-  .footer-grid {
-    max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: center;
-  }
-  .contact-item {
-    color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; padding: 15px; border-radius: 15px; transition: 0.3s; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  }
-  .contact-item:hover {
-    background: rgba(212, 175, 55, 0.1); color: var(--gold);
-  }
-  /* أنيميشن */
-  @keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  @keyframes sweep {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-  }
-  /* تحسينات الشاشة */
-  @media (min-width: 768px) {
-    .license-wrapper { position: absolute; top: 30px; left: 30px; }
-    header { padding: 80px 20px 40px; }
-  }
+  #navbar button { background: none; border: 1px solid #fff; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+  #navbar button:hover { background: #fff; color: #111; }
+
+  /* منطقتك للملف الشخصي و الإعلانات */
+  #profile, #ads, #chat, #filter-section { display: none; padding: 20px; }
+  #profile input, #ad-form input, #ad-form select, #chat-input { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: none; }
+  #ad-list, #messages { margin-top: 20px; }
+  .ad-item, .message { border: 1px solid #333; padding: 10px; margin-bottom: 10px; border-radius: 5px; background: #222; }
+  /* تصنيفات */
+  #category-select { width: 100%; padding: 8px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
-<div class="nebula-bg"></div>
-
-<div class="license-wrapper">
-  <div class="license-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="28" alt="Verified" />
-    <div>
-      <div style="font-size: 10px; opacity: 0.6;">ترخيص معتمد</div>
-      <div style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية</div>
-    </div>
+<div id="navbar">
+  <div>
+    <button onclick="showSection('login')">تسجيل الدخول</button>
+    <button onclick="showSection('register')">إنشاء حساب</button>
+    <button onclick="logout()" id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+  </div>
+  <div>
+    <button onclick="showSection('profile')">ملفي الشخصي</button>
+    <button onclick="showSection('ads')">إعلاناتي</button>
+    <button onclick="showSection('chat')">الدردشة</button>
   </div>
 </div>
 
-<header>
-  <div class="logo-container">
-    <div class="diamond-icon">G</div>
-    <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
-    <h1 class="logo-text">GASTS</h1>
-  </div>
-</header>
+<!-- أقسام الموقع -->
 
-<div class="main-content">
-  <p class="hero-desc">
-    نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم. 
-    <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
-  </p>
-
-  <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/>
-    </svg>
-    <span>عالمنا على تيك توك</span>
-  </a>
-
-  <div class="coming-soon-card">
-    <h2 style="color: var(--gold); margin-top: 0; font-weight: 900;">منصة GASTS</h2>
-    <p style="margin-bottom: 0; opacity: 0.9;">ترقبوا إطلاق أضخم منصة عرض للمنتجات الفاخرة قريباً.</p>
-  </div>
+<!-- تسجيل الدخول -->
+<div id="login" style="display:none; padding:20px;">
+  <h2>تسجيل الدخول</h2>
+  <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" />
+  <input type="password" id="loginPassword" placeholder="كلمة المرور" />
+  <button onclick="loginUser()">دخول</button>
 </div>
 
-<!-- الفوتر -->
-<footer>
-  <div class="footer-grid">
-    <div style="text-align: center; font-size: 13px; opacity: 0.5;">© 2026 GASTS LUXURY GROUP</div>
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-      <a href="mailto:gasts.work@outlook.sa" class="contact-item">
-        <span>✉</span> gasts.work@outlook.sa
-      </a>
-    </div>
-  </div>
-</footer>
-
-<!-- نماذج التسجيل/تسجيل الدخول -->
-<div id="auth-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
-  <div style="background:#fff; padding:20px; border-radius:10px; width:300px; max-width:90%; position:relative;">
-    <button style="position:absolute; top:10px; right:10px;" onclick="document.getElementById('auth-overlay').style.display='none';">✖</button>
-    <div id="auth-forms-container">
-      <!-- سيتم ملئه دينامياً بواسطة JS -->
-    </div>
-  </div>
+<!-- إنشاء حساب -->
+<div id="register" style="display:none; padding:20px;">
+  <h2>إنشاء حساب</h2>
+  <input type="text" id="regName" placeholder="اسم المستخدم" />
+  <input type="email" id="regEmail" placeholder="البريد الإلكتروني" />
+  <input type="password" id="regPassword" placeholder="كلمة المرور" />
+  <button onclick="registerUser()">تسجيل</button>
 </div>
 
-<!-- سكربتات -->
+<!-- الملف الشخصي -->
+<div id="profile" style="display:none;">
+  <h2>ملفي الشخصي</h2>
+  <input type="text" id="profileName" placeholder="اسم المستخدم" />
+  <input type="file" id="profileAvatar" />
+  <button onclick="updateProfile()">حفظ التعديلات</button>
+</div>
+
+<!-- الإعلانات -->
+<div id="ads">
+  <h2>إعلاناتي</h2>
+  <div>
+    <select id="categoryFilter" onchange="filterAds()">
+      <option value="">كل التصنيفات</option>
+      <option value="سيارات">سيارات</option>
+      <option value="عقارات">عقارات</option>
+      <option value="أجهزة">أجهزة</option>
+      <option value="أثاث">أثاث</option>
+      <option value="أراضي">أراضي</option>
+    </select>
+  </div>
+  <button onclick="showAdForm()">نشر إعلان جديد</button>
+  <div id="ad-list"></div>
+</div>
+
+<!-- نموذج نشر إعلان -->
+<div id="adFormContainer" style="display:none; padding:20px; background:#222; border-radius:10px; margin:20px 0;">
+  <h3>نشر إعلان</h3>
+  <input type="text" id="adTitle" placeholder="عنوان الإعلان" />
+  <textarea id="adDesc" placeholder="وصف الإعلان"></textarea>
+  <select id="adCategory">
+    <option value="سيارات">سيارات</option>
+    <option value="عقارات">عقارات</option>
+    <option value="أجهزة">أجهزة</option>
+    <option value="أثاث">أثاث</option>
+    <option value="أراضي">أراضي</option>
+  </select>
+  <input type="file" id="adImage" />
+  <button onclick="saveAd()">حفظ</button>
+  <button onclick="hideAdForm()">إلغاء</button>
+</div>
+
+<!-- الدردشة -->
+<div id="chat">
+  <h2>الدردشة</h2>
+  <div id="messages" style="height:300px; overflow-y:auto; background:#111; padding:10px; border-radius:10px;"></div>
+  <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
+  <button onclick="sendMessage()">إرسال</button>
+</div>
+
+<!-- استدعاء مكتبة Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
 <script>
   // إعداد الاتصال
@@ -210,208 +121,210 @@
   const supabase = createClient(supabaseUrl, supabaseKey);
   let currentUser = null;
 
-  // عرض وتخفي نماذج التسجيل/الدخول
-function showAuthForm(mode) {
-  const container = document.getElementById('auth-forms-container');
-  container.innerHTML = '';
-  if (mode === 'login') {
-    container.innerHTML = `
-      <h3>تسجيل الدخول</h3>
-      <input type="email" id="auth-email" placeholder="البريد الإلكتروني" style="width:100%; margin-bottom:10px;" />
-      <input type="password" id="auth-password" placeholder="كلمة المرور" style="width:100%; margin-bottom:10px;" />
-      <button onclick="login()">دخول</button>
-    `;
-  } else if (mode === 'signup') {
-    container.innerHTML = `
-      <h3>إنشاء حساب</h3>
-      <input type="text" id="signup-name" placeholder="الاسم" style="width:100%; margin-bottom:10px;" />
-      <input type="email" id="auth-email" placeholder="البريد الإلكتروني" style="width:100%; margin-bottom:10px;" />
-      <input type="password" id="auth-password" placeholder="كلمة المرور" style="width:100%; margin-bottom:10px;" />
-      <button onclick="signup()">تسجيل</button>
-    `;
-  }
-  document.getElementById('auth-overlay').style.display='flex';
+  // عرض الأقسام
+function showSection(section) {
+  document.querySelectorAll('div[id]').forEach(div => {
+    if (div.id === section) div.style.display='block';
+    else div.style.display='none';
+  });
+  if (section === 'login' || section === 'register') return;
+  // عند الانتقال لقسم آخر، تحديث الحالة
+  if (section === 'profile' || section === 'ads') loadUserData();
+  if (section === 'chat') loadMessages();
 }
 
-// تسجيل الدخول
-async function login() {
-  const email = document.getElementById('auth-email').value;
-  const password = document.getElementById('auth-password').value;
-  const { user, error } = await supabase.auth.signIn({ email, password });
-  if (error) { alert('خطأ: ' + error.message); return; }
-  currentUser = user;
-  document.getElementById('auth-overlay').style.display='none';
-  await loadUser();
-}
-
-// تسجيل حساب جديد
-async function signup() {
-  const email = document.getElementById('auth-email').value;
-  const password = document.getElementById('auth-password').value;
-  const name = document.getElementById('signup-name').value;
-  const { user, error } = await supabase.auth.signUp({ email, password });
-  if (error) { alert('خطأ: ' + error.message); return; }
-  // حفظ البيانات في جدول 'profiles'
-  await supabase.from('profiles').insert([{ id: user.id, name: name }]);
-  alert('تم التسجيل! سجل الدخول.');
-  document.getElementById('auth-overlay').style.display='none';
-}
-
-// تحميل المستخدم بعد تسجيل الدخول
-async function loadUser() {
-  const user = supabase.auth.user();
-  if (!user) return;
-  currentUser = user;
-  await loadProfile();
-  await loadMyAds();
-  updateUI();
-}
-
-// تحديث واجهة المستخدم
-function updateUI() {
-  if (currentUser) {
-    document.querySelector('#auth-buttons').style.display='none';
-    document.querySelector('#logout-btn').style.display='inline-block';
-    // عرض قسم الملف الشخصي والإعلانات
-    document.getElementById('profile-section').style.display='block';
-    document.getElementById('ads-section').style.display='block';
-  } else {
-    document.querySelector('#auth-buttons').style.display='block';
-    document.querySelector('#logout-btn').style.display='none';
-    document.getElementById('profile-section').style.display='none';
-    document.getElementById('ads-section').style.display='none';
-  }
-}
-
-// تسجيل الخروج
-document.getElementById('logout-btn').onclick = () => {
-  supabase.auth.signOut();
-  currentUser = null;
-  updateUI();
-}
-
-// تحميل البيانات الشخصية
-async function loadProfile() {
+async function loadUserData() {
   if (!currentUser) return;
-  const { data, error } = await supabase
+  // تحميل البيانات الشخصية
+  const { data } = await supabase
     .from('profiles')
-    .select('*')
+    .select('name, avatar_url')
     .eq('id', currentUser.id)
     .single();
   if (data) {
-    document.getElementById('profile-name').value = data.name || '';
+    document.getElementById('profileName').value = data.name || '';
     // يمكنك إضافة عرض الصورة هنا
   }
+  loadUserAds();
 }
 
-// تحديث البيانات الشخصية
+// تسجيل الدخول
+async function loginUser() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const { user, error } = await supabase.auth.signIn({ email, password });
+  if (error) { alert(error.message); return; }
+  currentUser = user;
+  showSection('profile');
+  showSection('ads');
+  loadUserData();
+  document.querySelector('#navbar').style.background='rgba(0,0,0,0.4)';
+  document.querySelector('#logoutBtn').style.display='inline-block';
+}
+
+// تسجيل حساب
+async function registerUser() {
+  const name = document.getElementById('regName').value;
+  const email = document.getElementById('regEmail').value;
+  const password = document.getElementById('regPassword').value;
+  const { user, error } = await supabase.auth.signUp({ email, password });
+  if (error) { alert(error.message); return; }
+  await supabase.from('profiles').insert([{ id: user.id, name }]);
+  alert('تم التسجيل بنجاح، سجل الدخول.');
+  showSection('login');
+}
+
+// تسجيل الخروج
+async function logout() {
+  await supabase.auth.signOut();
+  currentUser = null;
+  showSection('login');
+  document.querySelector('#logoutBtn').style.display='none';
+}
+
+// تحميل البيانات عند دخول المستخدم
+supabase.auth.onAuthStateChange(async (event, session) => {
+  if (session && session.user) {
+    currentUser = session.user;
+    showSection('profile');
+    showSection('ads');
+    loadUserData();
+  }
+});
+
+// تحديث الملف الشخصي
 async function updateProfile() {
-  if (!currentUser) return;
-  const name = document.getElementById('profile-name').value;
-  const imageInput = document.getElementById('profile-image');
-  let imageUrl = null;
-  if (imageInput.files.length > 0) {
-    const file = imageInput.files[0];
+  const name = document.getElementById('profileName').value;
+  const avatarFile = document.getElementById('profileAvatar').files[0];
+  let avatarUrl = null;
+  if (avatarFile) {
     const { data, error } = await supabase.storage
       .from('images')
-      .upload(`profiles/${currentUser.id}/${file.name}`, file);
-    if (error) { alert('خطأ في رفع الصورة: ' + error.message); return; }
-    imageUrl = data.Key;
+      .upload(`profiles/${currentUser.id}/${avatarFile.name}`, avatarFile);
+    if (error) { alert(error.message); return; }
+    avatarUrl = data.Key;
   }
-  await supabase
-    .from('profiles')
-    .upsert({ id: currentUser.id, name: name, avatar_url: imageUrl });
-  alert('تم تحديث الملف الشخصي');
-  await loadProfile();
+  await supabase.from('profiles').upsert({ id: currentUser.id, name, avatar_url: avatarUrl });
+  alert('تم تحديث الملف');
+  loadUserData();
 }
 
-// نشر إعلان جديد
-async function publishAd() {
-  const title = document.getElementById('ad-title').value;
-  const desc = document.getElementById('ad-desc').value;
-  const imageFile = document.getElementById('ad-image').files[0];
+// عرض نموذج نشر إعلان
+function showAdForm() {
+  document.getElementById('adFormContainer').style.display='block';
+}
+function hideAdForm() {
+  document.getElementById('adFormContainer').style.display='none';
+}
 
+// حفظ الإعلان
+async function saveAd() {
+  const title = document.getElementById('adTitle').value;
+  const desc = document.getElementById('adDesc').value;
+  const category = document.getElementById('adCategory').value;
+  const imageFile = document.getElementById('adImage').files[0];
   if (!title || !desc || !imageFile) { alert('املأ جميع الحقول ورفع الصورة'); return; }
 
-  // رفع الصورة
   const { data, error } = await supabase.storage
     .from('images')
     .upload(`ads/${currentUser.id}/${imageFile.name}`, imageFile);
-  if (error) { alert('خطأ في رفع الصورة: ' + error.message); return; }
+  if (error) { alert(error.message); return; }
   const imageUrl = data.Key;
 
-  // إضافة الإعلان
   await supabase.from('ads').insert([{
     user_id: currentUser.id,
-    title: title,
-    description: desc,
-    image_url: imageUrl,
+    title, desc, category, image_url: imageUrl,
     created_at: new Date()
   }]);
   alert('تم نشر الإعلان');
-  document.getElementById('ad-title').value = '';
-  document.getElementById('ad-desc').value = '';
-  document.getElementById('ad-image').value = '';
-  await loadMyAds();
+  document.getElementById('adTitle').value='';
+  document.getElementById('adDesc').value='';
+  document.getElementById('adImage').value='';
+  hideAdForm();
+  loadUserAds();
 }
 
 // تحميل إعلانات المستخدم
-async function loadMyAds() {
-  const { data, error } = await supabase
+async function loadUserAds() {
+  const { data } = await supabase
     .from('ads')
     .select('*')
     .eq('user_id', currentUser.id);
-  const container = document.getElementById('ads-list');
-  container.innerHTML = '';
-
-  if (error || !data) return;
-
+  const container = document.getElementById('ad-list');
+  container.innerHTML='';
+  if (!data) return;
   data.forEach(ad => {
-    const adDiv = document.createElement('div');
-    adDiv.style.border='1px solid #ccc'; adDiv.style.padding='10px'; adDiv.style.marginBottom='10px';
-
-    // الحصول على الرابط العام للصورة من Storage
+    const div = document.createElement('div');
+    div.className='ad-item';
     const imageUrl = supabase.storage.from('images').getPublicUrl(ad.image_url).publicURL;
-
-    adDiv.innerHTML = `
+    div.innerHTML=`
       <h4>${ad.title}</h4>
-      <img src="${imageUrl}" style="width:100px; height:auto;"/>
-      <p>${ad.description}</p>
+      <img src="${imageUrl}" style="width:150px; border-radius:8px; margin-bottom:10px;" />
+      <p>الفئة: ${ad.category}</p>
+      <p>${ad.desc}</p>
       <button onclick="deleteAd('${ad.id}')">حذف</button>
-      <button onclick="editAd('${ad.id}', '${ad.title}', '${ad.description}', '${ad.image_url}')">تعديل</button>
+      <button onclick="editAd('${ad.id}', '${ad.title}', '${ad.desc}', '${ad.category}', '${ad.image_url}')">تعديل</button>
     `;
-    container.appendChild(adDiv);
+    container.appendChild(div);
   });
 }
 
 // حذف إعلان
 async function deleteAd(id) {
-  await supabase.from('ads').delete().eq('id', id);
-  await loadMyAds();
+  await supabase.from('ads').delete().eq('id',id);
+  loadUserAds();
 }
 
-// تعديل إعلان - يظهر نافذة أو يستخدم prompt
-function editAd(id, currentTitle, currentDesc, currentImageUrl) {
-  const newTitle = prompt('تعديل العنوان', currentTitle);
-  const newDesc = prompt('تعديل الوصف', currentDesc);
-  if (newTitle && newDesc) {
+// تحرير إعلان
+function editAd(id, title, desc, category, imageUrl) {
+  const newTitle=prompt('تعديل العنوان', title);
+  const newDesc=prompt('تعديل الوصف', desc);
+  const newCategory=prompt('تعديل الفئة', category);
+  // رفع صورة جديدة إذا رغبت
+  // يمكن تطويره لاحقًا
+  if (newTitle && newDesc && newCategory) {
     supabase
-      .from('ads')
-      .update({ title: newTitle, description: newDesc })
-      .eq('id', id)
-      .then(() => loadMyAds());
+    .from('ads')
+    .update({ title: newTitle, desc: newDesc, category: newCategory })
+    .eq('id', id)
+    .then(() => loadUserAds());
   }
 }
 
-// عند تحميل الصفحة
-window.onload = () => {
-  const user = supabase.auth.user();
-  if (user) {
-    currentUser = user;
-    loadUser();
-  }
-};
-</script>
+// الدردشة
+let chatInterval;
+async function loadMessages() {
+  if (chatInterval) clearInterval(chatInterval);
+  document.getElementById('messages').innerHTML='';
+  chatInterval=setInterval(async ()=> {
+    const { data }= await supabase
+      .from('messages')
+      .select('*')
+      .order('created_at', { ascending:true });
+    const container=document.getElementById('messages');
+    container.innerHTML='';
+    data.forEach(msg => {
+      const msgDiv=document.createElement('div');
+      msgDiv.className='message';
+      msgDiv.innerHTML=`<strong>${msg.sender_name}:</strong> ${msg.message}`;
+      container.appendChild(msgDiv);
+    });
+  }, 3000);
+}
+async function sendMessage() {
+  const msg=document.getElementById('chatInput').value;
+  if (!msg || !currentUser) return;
+  await supabase.from('messages').insert([
+    {
+      sender_id: currentUser.id,
+      sender_name: (await supabase.from('profiles').select('name').eq('id', currentUser.id).single()).data.name,
+      message: msg,
+      created_at: new Date()
+    }
+  ]);
+  document.getElementById('chatInput').value='';
+}
 
+</script>
 </body>
 </html>
