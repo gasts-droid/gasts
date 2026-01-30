@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>شركة GASTS | فخامة الإعلان</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
     <style>
         :root {
@@ -276,6 +277,11 @@
           25% { transform: translateX(5px); }
           75% { transform: translateX(-5px); }
         }
+
+        @media (min-width: 768px) {
+            .license-wrapper { position: absolute; top: 30px; left: 30px; }
+            header { padding: 80px 20px 40px; }
+        }
     </style>
 </head>
 
@@ -343,7 +349,7 @@
       </div>
     </div>
 
-    <!-- سكربت تحريك العناصر -->
+    <!-- تحريك العناصر -->
     <script>
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
@@ -353,26 +359,102 @@
         });
     </script>
 
-    <!-- سكربت فتح/إغلاق المودال -->
-    <script>
-        const authBtn = document.getElementById("authBtn");
-        const authModal = document.getElementById("authModal");
-        const loginBtn = document.getElementById("loginBtn");
-        const authBox = document.getElementById("authBox");
-
-        authBtn.onclick = () => {
-            authModal.style.display = "flex";
-        };
-
-        authModal.onclick = (e) => {
-            if (e.target === authModal) authModal.style.display = "none";
-        };
-    </script>
-
-    <!-- Supabase + نظام الحساب -->
+    <!-- Supabase + نظام الحساب مدموج -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase.js"></script>
-    <script src="auth.js"></script>
+    <script>
+        // Supabase client
+        const supabase = window.supabase.createClient(
+          "https://hdyqcgsrjnciamsyeyla.supabase.co",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeXFjZ3Nyam5jaWFtc3lleWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MTc3MzYsImV4cCI6MjA4NTI5MzczNn0.VFSxi49dxLhTflMSIDLkVN1arHYCQ7ASF2UeQ2CSPNU"
+        );
+
+        // فلترة
+        function clean(input) {
+            return input.replace(/[<>"'(){};]/g, "").trim();
+        }
+
+        async function loginOrSignup(email, password) {
+            email = clean(email);
+            password = clean(password);
+            if (!email || !password) return { error: "empty" };
+
+            let { error } = await supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                const { error: signUpError } = await supabase.auth.signUp({ email, password });
+                if (signUpError) return { error: signUpError.message };
+                await supabase.auth.signInWithPassword({ email, password });
+            }
+
+            return { success: true };
+        }
+
+        async function protectPage() {
+            const { data } = await supabase.auth.getSession();
+            if (!data.session) window.location.href = "index.html";
+        }
+
+        async function getUser() {
+            const { data } = await supabase.auth.getUser();
+            return data.user;
+        }
+
+        async function updateEmail(newEmail) {
+            newEmail = clean(newEmail);
+            const { error } = await supabase.auth.updateUser({ email: newEmail });
+            return error ? error.message : "success";
+        }
+
+        async function updatePassword(newPass) {
+            newPass = clean(newPass);
+            const { error } = await supabase.auth.updateUser({ password: newPass });
+            return error ? error.message : "success";
+        }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const path = window.location.pathname;
+
+            if (path.includes("index")) {
+                const authBtn = document.getElementById("authBtn");
+                const authModal = document.getElementById("authModal");
+                const loginBtn = document.getElementById("loginBtn");
+                const authBox = document.getElementById("authBox");
+
+                authBtn.onclick = () => authModal.style.display = "flex";
+
+                authModal.onclick = (e) => {
+                    if (e.target === authModal) authModal.style.display = "none";
+                };
+
+                loginBtn.onclick = async () => {
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+
+                    const result = await loginOrSignup(email, password);
+
+                    if (result.error) {
+                        authBox.classList.add("shake");
+                        setTimeout(() => authBox.classList.remove("shake"), 300);
+                        return;
+                    }
+
+                    authModal.style.display = "none";
+                    window.location.href = "account.html";
+                };
+
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && authModal.style.display === "flex") {
+                        loginBtn.click();
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
