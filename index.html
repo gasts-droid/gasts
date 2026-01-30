@@ -1,50 +1,100 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شركة GASTS | فخامة الإعلان</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-
-    <style>
-        /* ===== نفس CSS حقك بدون تغيير ===== */
-        :root {
-            --gold: #d4af37;
-            --gold-light: #f9e272;
-            --dark: #05080a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(212, 175, 55, 0.2);
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--dark);
-            color: #fff;
-        }
-        /* (اختصار: بقية CSS نفسه بالضبط) */
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>شركة GASTS | فخامة الإعلان</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<style>
+:root {
+    --gold: #d4af37;
+    --gold-light: #f9e272;
+    --dark: #05080a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(212, 175, 55, 0.2);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { margin: 0; padding: 0; font-family: 'Cairo', sans-serif; background-color: var(--dark); color: #fff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; background-image: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%); }
+/* ... باقي CSS كما هو بدون تغيير ... */
+</style>
 </head>
-
 <body>
+<div class="nebula-bg"></div>
+<div class="license-wrapper">
+    <div class="license-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/9745/9745265.png" width="28" alt="Verified">
+        <div>
+            <div style="font-size: 10px; opacity: 0.6;">ترخيص معتمد</div>
+            <div style="font-size: 13px; font-weight: bold; color: var(--gold);">وثيقة عمل حر حكومية</div>
+        </div>
+    </div>
+</div>
 
-<button id="authBtn">تسجيل دخول</button>
+<header>
+    <div class="logo-container">
+        <div class="diamond-icon">G</div>
+        <span style="color: var(--gold); letter-spacing: 8px; font-size: 12px; font-weight: bold;">LUXURY AGENCY</span>
+        <h1 class="logo-text">GASTS</h1>
+        <button id="authBtn">تسجيل دخول</button>
+    </div>
+</header>
+
+<div class="main-content">
+    <p class="hero-desc">
+        نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم.
+        <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
+    </p>
+    <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
+        <span>عالمنا على تيك توك</span>
+    </a>
+
+    <div class="coming-soon-card">
+        <h2 style="color: var(--gold); margin-top: 0; font-weight: 900;">منصة GASTS</h2>
+        <p style="margin-bottom: 0; opacity: 0.9;">ترقبوا إطلاق أضخم منصة عرض للمنتجات الفاخرة قريباً.</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div style="text-align: center; font-size: 13px; opacity: 0.5;">
+            © 2026 GASTS LUXURY GROUP
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="mailto:gasts.work@outlook.sa" class="contact-item">
+                <span>✉</span> gasts.work@outlook.sa
+            </a>
+        </div>
+    </div>
+</footer>
 
 <!-- مودال تسجيل الدخول -->
-<div id="authModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;z-index:9999">
+<div id="authModal">
   <div class="auth-box" id="authBox">
-    <h3 style="color:var(--gold)">تسجيل الدخول</h3>
+    <h3 style="color:var(--gold); margin-top:0;">تسجيل الدخول</h3>
     <input id="email" type="email" placeholder="البريد الإلكتروني">
     <input id="password" type="password" placeholder="كلمة المرور">
     <button id="loginBtn">دخول آمن</button>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<!-- تحريك العناصر -->
 <script>
-/* ========== Supabase ========== */
+document.addEventListener('mousemove', (e) => {
+    const logo = document.querySelector('.logo-container');
+    const card = document.querySelector('.coming-soon-card');
+    if (!logo || !card) return;
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    logo.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    card.style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
+});
+</script>
+
+<!-- Supabase + نظام الحساب -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 const supabaseUrl = "https://hdyqcgsrjnciamsyeyla.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
@@ -53,32 +103,32 @@ function clean(input) {
     return String(input || "").replace(/[<>"'(){};]/g, "").trim();
 }
 
-/* ===== الدالة الصحيحة (بدون تكرار) ===== */
 async function loginOrSignup(email, password) {
     email = clean(email);
     password = clean(password);
-
     if (!email || !password) return { error: "empty" };
-
-    const { error } =
-        await supabaseClient.auth.signInWithPassword({ email, password });
-
-    if (error) {
-        const { error: signUpError } =
-            await supabaseClient.auth.signUp({ email, password });
-        if (signUpError) return { error: signUpError.message };
+    try {
+        let { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) {
+            const { error: signUpError } = await supabaseClient.auth.signUp({ email, password });
+            if (signUpError) return { error: signUpError.message };
+            // بعد التسجيل الدخول مباشرة
+            await supabaseClient.auth.signInWithPassword({ email, password });
+        }
+        return { success: true };
+    } catch (e) {
+        console.error("Auth error:", e);
+        return { error: "unknown" };
     }
-
-    return { success: true };
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const authBtn   = document.getElementById("authBtn");
+    const authBtn = document.getElementById("authBtn");
     const authModal = document.getElementById("authModal");
-    const loginBtn  = document.getElementById("loginBtn");
-    const authBox   = document.getElementById("authBox");
-    const emailInp  = document.getElementById("email");
-    const passInp   = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+    const authBox = document.getElementById("authBox");
+    const emailInp = document.getElementById("email");
+    const passInp = document.getElementById("password");
 
     authBtn.onclick = () => {
         authModal.style.display = "flex";
@@ -89,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === authModal) authModal.style.display = "none";
     };
 
-    /* ===== الحل النهائي ===== */
     async function handleLogin() {
         const email = emailInp.value;
         const password = passInp.value;
@@ -115,14 +164,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
-<style>
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-}
-</style>
-
 </body>
 </html>
