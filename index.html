@@ -372,6 +372,31 @@ document.getElementById("loginBtn").onclick = async () => {
   document.getElementById("authModal").style.display = "none";
 };
 </script>
+    <script>
+/* ========= تسجيل الدخول ========= */
+
+function openLogin() {
+  const modal = document.getElementById("loginModal");
+  if (!modal) {
+    alert("❌ نافذة تسجيل الدخول غير موجودة");
+    return;
+  }
+  modal.style.display = "flex";
+}
+
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+/* ========= إغلاق عند الضغط خارج الصندوق ========= */
+window.onclick = function (e) {
+  const modal = document.getElementById("loginModal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
 
 </body>
 </html>
