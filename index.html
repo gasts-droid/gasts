@@ -1,136 +1,177 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>GASTS | Luxury Agency</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>شركة GASTS | تعديل الحساب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #05080a;
+            --border: rgba(212, 175, 55, 0.2);
+        }
 
-  <style>
-    :root {
-      --gold:#d4af37;
-      --dark:#05080a;
-      --border:rgba(212,175,55,.2);
-    }
+        body {
+            margin: 0; font-family: 'Cairo', sans-serif;
+            background-color: var(--dark); color: #fff;
+            display: flex; flex-direction: column; align-items: center;
+        }
 
-    body {
-      margin:0;
-      font-family:'Cairo',sans-serif;
-      background:#05080a;
-      color:#fff;
-      min-height:100vh;
-      text-align:center;
-    }
+        .nebula-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
 
-    .nebula {
-      position:fixed;
-      inset:0;
-      background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%);
-      z-index:-1;
-    }
+        /* تنسيق صندوق المستخدم العلوي */
+        #userBox {
+            position: fixed; top: 15px; right: 15px;
+            display: none; align-items: center; gap: 8px;
+            background: rgba(0, 0, 0, 0.6); padding: 5px 12px;
+            border-radius: 40px; border: 1px solid var(--border);
+            z-index: 1000; backdrop-filter: blur(5px);
+        }
 
-    header { padding:80px 20px 40px; }
+        .container {
+            width: 90%; max-width: 400px; margin-top: 80px;
+            background: rgba(255,255,255,0.05); padding: 30px;
+            border-radius: 20px; border: 1px solid var(--border);
+            text-align: center; backdrop-filter: blur(10px);
+        }
 
-    h1 {
-      font-size:90px;
-      margin:0;
-      font-weight:900;
-      background:linear-gradient(#fff,var(--gold));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
+        h2 { color: var(--gold); font-weight: 900; margin-bottom: 25px; }
 
-    .btn {
-      margin:15px auto;
-      padding:16px 40px;
-      border-radius:50px;
-      font-weight:900;
-      border:none;
-      cursor:pointer;
-      width:260px;
-      font-size:16px;
-    }
+        input[type="text"] {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border-radius: 10px; border: none; background: #1a1f26; color: #fff;
+            font-family: 'Cairo'; outline: none;
+        }
 
-    .btn-gold {
-      background:var(--gold);
-      color:#000;
-    }
+        input[type="file"] { margin-bottom: 20px; font-size: 12px; color: #ccc; }
 
-    .btn-white {
-      background:#fff;
-      color:#000;
-    }
+        button {
+            width: 100%; padding: 12px; border-radius: 50px; border: none;
+            background: var(--gold); color: #000; font-weight: 900;
+            cursor: pointer; transition: 0.3s; font-family: 'Cairo';
+        }
 
-    #userBox {
-      position:fixed;
-      top:20px;
-      right:20px;
-      display:none;
-      align-items:center;
-      gap:10px;
-      background:rgba(0,0,0,.6);
-      padding:6px 16px;
-      border-radius:40px;
-      border:1px solid var(--border);
-    }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--gold); }
 
-    #userBox img {
-      width:36px;
-      height:36px;
-      border-radius:50%;
-      border:1px solid var(--gold);
-      object-fit:cover;
-    }
-  </style>
+        #status { margin-top: 15px; font-size: 14px; font-weight: bold; }
+
+        .back-link { margin-top: 20px; display: block; color: #fff; text-decoration: none; opacity: 0.6; font-size: 13px; }
+    </style>
 </head>
 <body>
 
-<div class="nebula"></div>
+    <div class="nebula-bg"></div>
 
-<div id="userBox">
-  <img id="avatar">
-  <span id="username"></span>
-</div>
+    <div id="userBox">
+        <img id="avatar" src="" width="36" height="36" style="border-radius:50%; object-fit: cover; border: 1px solid var(--gold);">
+        <span id="username"></span>
+    </div>
 
-<header>
-  <h1>GASTS</h1>
-  <p style="color:var(--gold);letter-spacing:6px;">LUXURY EXPERIENCE</p>
-</header>
+    <div class="container">
+        <h2>تعديل الحساب</h2>
+        
+        <input type="text" id="usernameInput" placeholder="اسم المستخدم">
+        
+        <div style="text-align: right; font-size: 12px; margin-bottom: 5px; color: var(--gold);">صورة الحساب:</div>
+        <input type="file" id="avatarInput" accept="image/*">
+        
+        <button onclick="saveProfile()">حفظ التغييرات</button>
+        
+        <p id="status"></p>
 
-<button id="loginBtn" class="btn btn-white" onclick="goLogin()">تسجيل الدخول</button>
-<button id="addAdBtn" class="btn btn-gold" style="display:none;">➕ إضافة إعلان</button>
+        <a href="/" class="back-link">العودة للرئيسية</a>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const supabase = window.supabase.createClient(
-  "https://hdyqcgsrjnciamsyeyla.supabase.co",
-  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
-);
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseClient = window.supabase.createClient(
+            "https://hdyqcgsrjnciamsyeyla.supabase.co",
+            "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+        );
 
-function goLogin() {
-  window.location.href = "auth.html";
-}
+        // 4️⃣ تعبئة البيانات تلقائياً عند فتح الصفحة
+        window.onload = async () => {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                window.location.href = "/"; // توجيه للرئيسية إذا لم يسجل دخول
+                return;
+            }
 
-(async () => {
-  const { data:{ user } } = await supabase.auth.getUser();
-  if (!user) return;
+            const { data: profile } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+                .single();
 
-  const { data:profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+            if (profile) {
+                document.getElementById('usernameInput').value = profile.username || '';
+                // تحديث الـ UserBox العلوي أيضاً
+                document.getElementById('username').textContent = profile.username;
+                document.getElementById('avatar').src = profile.avatar_url || 'https://i.imgur.com/8Km9tLL.png';
+                document.getElementById('userBox').style.display = 'flex';
+            }
+        };
 
-  if (profile) {
-    document.getElementById("loginBtn").style.display = "none";
-    document.getElementById("addAdBtn").style.display = "block";
-    document.getElementById("userBox").style.display = "flex";
-    document.getElementById("username").textContent = profile.username;
-    document.getElementById("avatar").src =
-      profile.avatar_url || "https://i.imgur.com/8Km9tLL.png";
-  }
-})();
-</script>
+        // 3️⃣ كود JavaScript لحفظ التعديلات
+        async function saveProfile() {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = 'جاري الحفظ...';
+            statusEl.style.color = 'white';
 
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            const username = document.getElementById('usernameInput').value;
+            const file = document.getElementById('avatarInput').files[0];
+
+            let avatarUrl = null;
+
+            // إذا رفع صورة جديدة
+            if (file) {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${user.id}.${fileExt}`;
+
+                const { error: uploadError } = await supabaseClient.storage
+                    .from('avatars')
+                    .upload(fileName, file, { upsert: true });
+
+                if (uploadError) {
+                    statusEl.textContent = 'خطأ في رفع الصورة';
+                    statusEl.style.color = '#ff4444';
+                    return;
+                }
+
+                const { data } = supabaseClient.storage
+                    .from('avatars')
+                    .getPublicUrl(fileName);
+
+                avatarUrl = data.publicUrl;
+            }
+
+            // تحديث البيانات في الجدول
+            const updateData = { username: username };
+            if (avatarUrl) updateData.avatar_url = avatarUrl;
+
+            const { error: updateError } = await supabaseClient
+                .from('profiles')
+                .update(updateData)
+                .eq('id', user.id);
+
+            if (updateError) {
+                statusEl.textContent = 'خطأ في تحديث البيانات';
+                statusEl.style.color = '#ff4444';
+            } else {
+                statusEl.textContent = '✅ تم حفظ الحساب بنجاح';
+                statusEl.style.color = var(--gold);
+                // تحديث الصورة والاسم في الهيدر فوراً
+                document.getElementById('username').textContent = username;
+                if(avatarUrl) document.getElementById('avatar').src = avatarUrl;
+            }
+        }
+    </script>
 </body>
 </html>
