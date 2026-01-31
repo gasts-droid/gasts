@@ -122,8 +122,8 @@
             margin-bottom: 30px;
         }
 
-        /* زر تيك توك الفاخر */
-        .btn-tiktok {
+        /* الأزرار الفاخرة */
+        .btn-action {
             background: #fff;
             color: #000;
             padding: 15px 40px;
@@ -132,12 +132,17 @@
             font-weight: 800;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             transition: 0.3s;
             box-shadow: 0 0 20px rgba(255,255,255,0.1);
-            margin-bottom: 40px;
+            margin-bottom: 15px;
+            width: 250px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Cairo', sans-serif;
         }
-        .btn-tiktok:hover {
+        .btn-action:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255,255,255,0.3);
         }
@@ -154,13 +159,6 @@
             margin-bottom: 50px;
             position: relative;
             overflow: hidden;
-        }
-        .coming-soon-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            animation: sweep 5s infinite;
         }
 
         /* الفوتر */
@@ -192,21 +190,11 @@
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
         }
-        .contact-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
-        }
 
-        /* Animations */
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-        @keyframes sweep {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
         }
 
         /* تحسينات الشاشات */
@@ -243,12 +231,12 @@
             نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم. 
             <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
         </p>
-        <button onclick="openLogin()" class="btn-tiktok">
-  تسجيل الدخول
-</button>
+        
+        <button onclick="openLogin()" class="btn-action">
+            <span>تسجيل الدخول</span>
+        </button>
 
-
-        <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
+        <a href="https://www.tiktok.com/@gasts.sa" class="btn-action">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
             <span>عالمنا على تيك توك</span>
         </a>
@@ -272,102 +260,65 @@
         </div>
     </footer>
 
+    <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:#0b0f14; border:1px solid rgba(212,175,55,.35); padding:30px; border-radius:20px; width:90%; max-width:380px; text-align:center;">
+            <h3 style="color:#d4af37; margin-top:0">تسجيل الدخول</h3>
+            <input id="authEmail" type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:none; background: #1a1f26; color: white;">
+            <input id="authPassword" type="password" placeholder="كلمة المرور" style="width:100%; padding:12px; margin-bottom:18px; border-radius:10px; border:none; background: #1a1f26; color: white;">
+            <button onclick="authUser()" style="width:100%; padding:12px; border-radius:50px; border:none; background:#d4af37; font-weight:900; cursor:pointer;">دخول / تسجيل</button>
+            <div onclick="closeLogin()" style="margin-top:15px; font-size:13px; opacity:.6; cursor:pointer">إغلاق</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // تهيئة Supabase Client بشكل صحيح
+        const supabaseClient = window.supabase.createClient(
+            "https://hdyqcgsrjnciamsyeyla.supabase.co",
+            "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+        );
+
+        function openLogin() {
+            document.getElementById("authModal").style.display = "flex";
+        }
+
+        function closeLogin() {
+            document.getElementById("authModal").style.display = "none";
+        }
+
+        async function authUser() {
+            const email = document.getElementById("authEmail").value;
+            const password = document.getElementById("authPassword").value;
+
+            if (!email || !password) {
+                alert("اكتب الإيميل وكلمة المرور");
+                return;
+            }
+
+            // محاولة تسجيل الدخول باستخدام supabaseClient
+            let { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                // إذا فشل الدخول، نحاول إنشاء حساب جديد
+                const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({ email, password });
+                if (signUpError) {
+                    alert("خطأ: " + signUpError.message);
+                    return;
+                }
+                alert("تم إنشاء الحساب بنجاح ✅");
+            } else {
+                alert("تم تسجيل الدخول بنجاح ✅");
+            }
+
+            closeLogin();
+        }
+
+        // تأثير الماوس
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             document.querySelector('.logo-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabase = supabase.createClient(
-  "https://hdyqcgsrjnciamsyeyla.supabase.co",
-  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
-);
-
-function openLogin() {
-  document.getElementById("authModal").style.display = "flex";
-}
-
-function closeLogin() {
-  document.getElementById("authModal").style.display = "none";
-}
-
-async function authUser() {
-  const email = document.getElementById("authEmail").value;
-  const password = document.getElementById("authPassword").value;
-
-  if (!email || !password) {
-    alert("اكتب الإيميل وكلمة المرور");
-    return;
-  }
-
-  let { error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    const { error: signUpError } = await supabase.auth.signUp({ email, password });
-    if (signUpError) {
-      alert(signUpError.message);
-      return;
-    }
-    alert("تم إنشاء الحساب ✅");
-  } else {
-    alert("تم تسجيل الدخول ✅");
-  }
-
-  closeLogin();
-}
-</script>
-
-<div id="authModal" style="
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(10px);
-z-index:9999;
-align-items:center;
-justify-content:center;
-">
-
-  <div style="
-  background:#0b0f14;
-  border:1px solid rgba(212,175,55,.35);
-  padding:30px;
-  border-radius:20px;
-  width:90%;
-  max-width:380px;
-  text-align:center;
-  ">
-
-    <h3 style="color:#d4af37;margin-top:0">تسجيل الدخول</h3>
-
-    <input id="authEmail" type="email" placeholder="البريد الإلكتروني"
-      style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:none">
-
-    <input id="authPassword" type="password" placeholder="كلمة المرور"
-      style="width:100%;padding:12px;margin-bottom:18px;border-radius:10px;border:none">
-
-    <button onclick="authUser()" style="
-      width:100%;
-      padding:12px;
-      border-radius:50px;
-      border:none;
-      background:#d4af37;
-      font-weight:900;
-      cursor:pointer;">
-      دخول / تسجيل
-    </button>
-
-    <div onclick="closeLogin()" style="margin-top:15px;font-size:13px;opacity:.6;cursor:pointer">
-      إغلاق
-    </div>
-
-  </div>
-</div>
-
 </body>
 </html>
