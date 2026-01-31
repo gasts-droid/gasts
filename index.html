@@ -5,146 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GASTS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --gold:#d4af37;
-  --dark:#05080a;
-}
-*{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:'Cairo',sans-serif;
-  background:radial-gradient(circle at top,#1b2735,#05080a);
-  color:#fff;
-  min-height:100vh;
-  text-align:center;
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    background:#05080a;
+    color:#fff;
+    text-align:center;
 }
-header{
-  padding:60px 20px 30px;
+#userBox{
+    position:fixed;
+    top:15px;
+    right:15px;
+    display:none;
+    align-items:center;
+    gap:8px;
+    background:#000;
+    padding:6px 14px;
+    border-radius:30px;
 }
-.logo{
-  font-size:90px;
-  font-weight:900;
-  background:linear-gradient(#fff,var(--gold));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+#userBox img{
+    width:32px;height:32px;border-radius:50%;
 }
 button{
-  padding:15px 35px;
-  border-radius:40px;
-  border:none;
-  cursor:pointer;
-  font-weight:800;
-  font-size:16px;
-}
-.btn-main{
-  background:#fff;
-  color:#000;
-}
-.btn-main:hover{background:var(--gold);color:#000}
-
-#userBox{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:rgba(0,0,0,.7);
-  border:1px solid rgba(212,175,55,.3);
-  padding:8px 18px;
-  border-radius:40px;
-  display:none;
-  font-weight:700;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.9);
-  align-items:center;
-  justify-content:center;
-}
-.modal-content{
-  background:#0b0f14;
-  border:1px solid rgba(212,175,55,.3);
-  padding:30px;
-  border-radius:25px;
-  width:90%;
-  max-width:360px;
-}
-input{
-  width:100%;
-  padding:14px;
-  margin-bottom:12px;
-  border-radius:12px;
-  border:none;
-  background:#161b22;
-  color:#fff;
-  font-family:'Cairo';
+    padding:14px 35px;
+    border-radius:40px;
+    border:none;
+    font-weight:800;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div id="userBox">👤 <span id="userName"></span></div>
-
-<header>
-  <div class="logo">GASTS</div>
-  <p style="opacity:.8">منصة الإعلان الفاخر</p>
-</header>
-
-<button class="btn-main" onclick="openAuth()">تسجيل الدخول</button>
-
-<!-- مودال الدخول -->
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <h3 style="color:var(--gold)">تسجيل الدخول</h3>
-    <input id="email" type="email" placeholder="البريد الإلكتروني">
-    <input id="password" type="password" placeholder="كلمة المرور">
-    <button class="btn-main" style="width:100%" onclick="login()">دخول</button>
-    <button style="margin-top:10px;background:none;border:1px solid var(--gold);color:var(--gold);width:100%" onclick="signup()">إنشاء حساب</button>
-    <div style="margin-top:15px;opacity:.6;cursor:pointer" onclick="closeAuth()">إغلاق</div>
-  </div>
+<div id="userBox">
+    <img id="avatar">
+    <span id="userName"></span>
 </div>
+
+<h1 style="font-size:80px;margin-top:120px;">GASTS</h1>
+
+<button id="loginBtn" onclick="location.href='auth.html'">
+تسجيل الدخول
+</button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const supabase = window.supabase.createClient(
+const supabase = supabaseJs.createClient(
  "https://hdyqcgsrjnciamsyeyla.supabase.co",
  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
 );
 
-function openAuth(){document.getElementById('authModal').style.display='flex'}
-function closeAuth(){document.getElementById('authModal').style.display='none'}
-
-async function login(){
- const email=email.value.trim();
- const password=password.value.trim();
- const {data,error}=await supabase.auth.signInWithPassword({email,password});
- if(error) return alert(error.message);
- loadUser();
- closeAuth();
-}
-
-async function signup(){
- const email=email.value.trim();
- const password=password.value.trim();
- const {error}=await supabase.auth.signUp({email,password});
- if(error) alert(error.message);
- else alert("تم إنشاء الحساب – سجل دخولك");
-}
-
-async function loadUser(){
- const {data:{user}}=await supabase.auth.getUser();
+(async()=>{
+ const {data:{user}} = await supabase.auth.getUser();
  if(user){
-   document.getElementById('userName').innerText=user.email.split('@')[0];
-   document.getElementById('userBox').style.display='block';
- }
-}
+   document.getElementById('loginBtn').style.display='none';
+   document.getElementById('userBox').style.display='flex';
 
-loadUser();
+   const {data:profile}=await supabase
+     .from('profiles')
+     .select('*')
+     .eq('id',user.id)
+     .single();
+
+   document.getElementById('userName').innerText =
+     profile?.username || user.email;
+
+   document.getElementById('avatar').src =
+     profile?.avatar_url || 'https://i.imgur.com/8Km9tLL.png';
+ }
+})();
 </script>
 
 </body>
