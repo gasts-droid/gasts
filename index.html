@@ -243,9 +243,6 @@
             نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم. 
             <br>وجهتكم الأولى للحلول التجارية المبتكرة لعام 2026.
         </p>
-        <button onclick="openLogin()" class="btn-tiktok">
-  تسجيل الدخول
-</button>
 
         <a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
@@ -279,199 +276,108 @@
             document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
-    <!-- Supabase Auth (Login بدون تخريب التصميم) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+/* ================== إعداد Supabase ================== */
+const SUPABASE_URL = "https://hdyqcgsrjnciamsyeyla.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC";
+
 const supabase = window.supabase.createClient(
-  "https://hdyqcgsrjnciamsyeyla.supabase.co",
-  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
-/* إنشاء نافذة تسجيل الدخول بدون لمس التصميم */
-const modalHTML = `
-<div id="authModal" style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.75);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:99999;">
-  <div style="
-  background:#0b0f14;
-  border:1px solid rgba(212,175,55,.4);
-  border-radius:22px;
-  padding:30px;
-  width:90%;
-  max-width:380px;
-  text-align:center;
-  backdrop-filter:blur(20px);
-  animation: pop .3s ease;">
-    
-    <h3 style="color:#d4af37;margin-top:0">تسجيل الدخول</h3>
+/* ================== حالة المستخدم ================== */
+let currentUser = null;
 
-    <input id="email" type="email" placeholder="البريد الإلكتروني"
-      style="width:100%;padding:12px;border-radius:12px;border:none;margin-bottom:10px">
+/* ================== عند فتح الموقع ================== */
+document.addEventListener("DOMContentLoaded", async () => {
+  const { data } = await supabase.auth.getUser();
+  if (data?.user) {
+    currentUser = data.user;
+    afterLogin();
+  }
+});
 
-    <input id="password" type="password" placeholder="كلمة المرور"
-      style="width:100%;padding:12px;border-radius:12px;border:none;margin-bottom:18px">
-
-    <button id="loginBtn" style="
-    width:100%;
-    padding:12px;
-    border-radius:50px;
-    border:none;
-    background:#d4af37;
-    font-weight:900;
-    cursor:pointer;">
-    دخول / تسجيل
-    </button>
-
-    <p style="font-size:12px;opacity:.6;margin-top:10px">
-      إذا ما عندك حساب، يتم إنشاؤه تلقائيًا
-    </p>
-  </div>
-</div>
-
-<style>
-@keyframes pop {
-  from { transform:scale(.9); opacity:0 }
-  to { transform:scale(1); opacity:1 }
-}
-</style>
-`;
-
-document.body.insertAdjacentHTML("beforeend", modalHTML);
-
-/* فتح المودال */
+/* ================== فتح نافذة تسجيل ================== */
 window.openLogin = () => {
-  document.getElementById("authModal").style.display = "flex";
+  const modal = document.getElementById("authModal");
+  if (modal) modal.style.display = "flex";
 };
 
-/* تسجيل / دخول */
-document.getElementById("loginBtn").onclick = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+/* ================== تسجيل / دخول ================== */
+window.authUser = async () => {
+  const email = document.getElementById("authEmail")?.value;
+  const password = document.getElementById("authPassword")?.value;
+  if (!email || !password) return alert("اكتب الإيميل وكلمة المرور");
 
-  if (!email || !password) {
-    alert("اكتب الإيميل وكلمة المرور");
-    return;
-  }
-
-  let { error } = await supabase.auth.signInWithPassword({ email, password });
+  let { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    const { error: signUpError } = await supabase.auth.signUp({ email, password });
-    if (signUpError) return alert(signUpError.message);
-    alert("تم إنشاء الحساب بنجاح ✅");
+    const signup = await supabase.auth.signUp({ email, password });
+    if (signup.error) return alert(signup.error.message);
+    currentUser = signup.data.user;
   } else {
-    alert("تم تسجيل الدخول ✅");
+    currentUser = data.user;
   }
 
-  document.getElementById("authModal").style.display = "none";
+  closeLogin();
+  afterLogin();
 };
-</script>
-    <script>
-/* ========= تسجيل الدخول ========= */
 
-function openLogin() {
-  const modal = document.getElementById("loginModal");
-  if (!modal) {
-    alert("❌ نافذة تسجيل الدخول غير موجودة");
-    return;
+/* ================== بعد تسجيل الدخول ================== */
+async function afterLogin() {
+  // حفظ المستخدم في جدول profiles
+  await supabase.from("profiles").upsert({
+    id: currentUser.id,
+    email: currentUser.email,
+    username: currentUser.email.split("@")[0],
+    updated_at: new Date()
+  });
+
+  // إظهار الاسم إن وجد عنصر
+  const nameBox = document.getElementById("userName");
+  if (nameBox) nameBox.textContent = currentUser.email.split("@")[0];
+
+  // إظهار صورة بروفايل إن وجد
+  const avatar = document.getElementById("userAvatar");
+  if (avatar) avatar.src = "/avatar.png";
+
+  // تحويل لصفحة الحساب
+  if (location.pathname.includes("index")) {
+    window.location.href = "account.html";
   }
-  modal.style.display = "flex";
 }
 
-function closeLogin() {
-  document.getElementById("loginModal").style.display = "none";
-}
+/* ================== تسجيل خروج ================== */
+window.logout = async () => {
+  await supabase.auth.signOut();
+  location.reload();
+};
 
-/* ========= إغلاق عند الضغط خارج الصندوق ========= */
-window.onclick = function (e) {
-  const modal = document.getElementById("loginModal");
-  if (e.target === modal) {
-    modal.style.display = "none";
-  }
+/* ================== ربط الإعلانات ================== */
+window.publishAd = async (ad) => {
+  if (!currentUser) return alert("سجل دخولك أولاً");
+
+  // حماية سبام (إعلان كل 60 ثانية)
+  const last = localStorage.getItem("lastAdTime");
+  if (last && Date.now() - last < 60000)
+    return alert("انتظر دقيقة قبل نشر إعلان آخر");
+
+  localStorage.setItem("lastAdTime", Date.now());
+
+  await supabase.from("ads").insert({
+    user_id: currentUser.id,
+    title: ad.title,
+    description: ad.description,
+    category: ad.category,
+    image_url: ad.image
+  });
+
+  alert("✅ تم نشر الإعلان");
 };
 </script>
-    <!-- نافذة تسجيل الدخول -->
-<div id="loginModal" style="
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  backdrop-filter: blur(12px);
-  z-index:99999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-">
-
-  <div style="
-    background:linear-gradient(145deg,#0b0f14,#05080a);
-    padding:32px;
-    border-radius:24px;
-    width:90%;
-    max-width:420px;
-    border:1px solid rgba(212,175,55,.35);
-    box-shadow:0 25px 60px rgba(0,0,0,.85);
-  ">
-
-    <h3 style="
-      margin-top:0;
-      text-align:center;
-      color:#d4af37;
-      font-weight:900;
-      letter-spacing:1px;
-    ">
-      دخول العملاء
-    </h3>
-
-    <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" style="
-      width:100%;
-      padding:14px;
-      border-radius:14px;
-      border:none;
-      margin-bottom:12px;
-      font-family:Cairo;
-    ">
-
-    <input id="loginPassword" type="password" placeholder="كلمة المرور" style="
-      width:100%;
-      padding:14px;
-      border-radius:14px;
-      border:none;
-      margin-bottom:22px;
-      font-family:Cairo;
-    ">
-
-    <button onclick="loginUser()" style="
-      width:100%;
-      padding:14px;
-      border-radius:40px;
-      background:linear-gradient(135deg,#f9e272,#d4af37);
-      border:none;
-      font-weight:900;
-      cursor:pointer;
-    ">
-      تسجيل الدخول
-    </button>
-
-    <div onclick="closeLogin()" style="
-      text-align:center;
-      margin-top:18px;
-      color:#aaa;
-      cursor:pointer;
-      font-size:14px;
-    ">
-      إغلاق
-    </div>
-
-  </div>
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </body>
 </html>
