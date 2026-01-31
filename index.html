@@ -396,7 +396,81 @@ window.onclick = function (e) {
   }
 };
 </script>
+    <!-- نافذة تسجيل الدخول -->
+<div id="loginModal" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+">
 
+  <div style="
+    background:linear-gradient(145deg,#0b0f14,#05080a);
+    padding:32px;
+    border-radius:24px;
+    width:90%;
+    max-width:420px;
+    border:1px solid rgba(212,175,55,.35);
+    box-shadow:0 25px 60px rgba(0,0,0,.85);
+  ">
+
+    <h3 style="
+      margin-top:0;
+      text-align:center;
+      color:#d4af37;
+      font-weight:900;
+      letter-spacing:1px;
+    ">
+      دخول العملاء
+    </h3>
+
+    <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" style="
+      width:100%;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      margin-bottom:12px;
+      font-family:Cairo;
+    ">
+
+    <input id="loginPassword" type="password" placeholder="كلمة المرور" style="
+      width:100%;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      margin-bottom:22px;
+      font-family:Cairo;
+    ">
+
+    <button onclick="loginUser()" style="
+      width:100%;
+      padding:14px;
+      border-radius:40px;
+      background:linear-gradient(135deg,#f9e272,#d4af37);
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+    ">
+      تسجيل الدخول
+    </button>
+
+    <div onclick="closeLogin()" style="
+      text-align:center;
+      margin-top:18px;
+      color:#aaa;
+      cursor:pointer;
+      font-size:14px;
+    ">
+      إغلاق
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
