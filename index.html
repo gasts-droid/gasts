@@ -81,79 +81,88 @@
   .main-content {
     flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center;
   }
-  .hero-desc {
-    max-width: 600px; color: rgba(255,255,255,0.7); font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;
+
+  /* تصميم مخصص لتسجيل الدخول و إنشاء حساب بشكل جذاب */
+  .auth-container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255,255,255,0.02);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
   }
-  /* زر تيك توك */
+  .auth-title {
+    font-size: 24px; font-weight: bold; margin-bottom: 15px; color: var(--gold);
+    text-align: center;
+  }
+  .auth-input {
+    width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color:#fff;
+  }
+  .auth-btn {
+    width: 100%; padding: 12px; border: none; border-radius: 10px; background: var(--gold); color: #000; font-weight: bold; cursor:pointer; font-size: 16px;
+    transition: background 0.3s;
+  }
+  .auth-btn:hover { background: #bfa044; }
+
+  /* مربع تيك توك */
   .btn-tiktok {
     background: #fff; color: #000; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 800;
-    display: flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 40px;
+    display: flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-top: 20px;
   }
   .btn-tiktok:hover {
     transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.3);
   }
-  /* كرت قريباً */
-  .coming-soon-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; margin-bottom: 50px; position: relative; overflow: hidden;
-  }
-  .coming-soon-card::before {
-    content: "";
-    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-    animation: sweep 5s infinite;
-  }
-  @keyframes sweep {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-  }
-  /* الفوتر */
-  footer {
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 40px 20px; border-top: 1px solid var(--border);
-  }
-  .footer-grid {
-    max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: center;
-  }
-  .contact-item {
-    color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; padding: 15px; border-radius: 15px; transition: 0.3s; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  }
-  .contact-item:hover {
-    background: rgba(212, 175, 55, 0.1); color: var(--gold);
-  }
-  /* أنيميشن */
-  @keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  @keyframes sweep {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-  }
-  /* تحسينات الشاشة */
-  @media (min-width: 768px) {
-    .license-wrapper { position: absolute; top: 30px; left: 30px; }
-    header { padding: 80px 20px 40px; }
-  }
 
-  /* أنماط إضافية للموديلات الوظيفية */
-  #auth-overlay {
-    position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7);
-    display:flex; justify-content:center; align-items:center; z-index:9999;
+  /* إعلاناتي بعد الدخول */
+  #ads {
+    display: none;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
   }
-  #auth-box {
-    background:#222; padding:20px; border-radius:10px; width:300px; max-width:90%;
-    position:relative;
+  #ads h2 {
+    color: var(--gold);
+    margin-bottom: 15px;
   }
-  #auth-box button.close { position:absolute; top:10px; right:10px; background:none; border:none; font-size:20px; cursor:pointer; color:#fff; }
+  #ad-list {
+    margin-top: 15px;
+  }
+  /* نموذج نشر إعلان */
+  #adFormContainer {
+    display: none;
+    background: rgba(255,255,255,0.02);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+  #adFormContainer input, #adFormContainer textarea, #adFormContainer select {
+    width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color:#fff;
+  }
+  #adFormContainer button {
+    width: 48%; padding: 12px; border: none; border-radius: 10px; background: var(--gold); color: #000; font-weight: bold; cursor:pointer; font-size: 14px;
+    margin-right: 4%;
+  }
+  #adFormContainer button:hover { background:#bfa044; }
 
-  /* نماذج الإدخال */
-  input[type="text"], input[type="email"], input[type="password"], textarea, select {
-    width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:none;
-  }
+  /* الدردشة */
+#chat {
+  display:none; margin-top:30px; width:100%; max-width:800px; background: rgba(255,255,255,0.02); padding:20px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+#messages {
+  height:300px; overflow-y:auto; background:#111; padding:10px; border-radius:10px; margin-bottom:10px;
+}
+#chat-input {
+  width: calc(100% - 80px);
+  padding:12px; border-radius:10px; border:none; background: rgba(255,255,255,0.1); color:#fff;
+}
+#send-btn {
+  padding:12px 20px; border:none; border-radius:10px; background: var(--gold); color:#000; font-weight:bold; cursor:pointer; margin-left:10px;
+}
+#send-btn:hover { background:#bfa044; }
+  /* العناصر الأخرى تبقى على نفس حالها */
 </style>
 </head>
 <body>
@@ -182,7 +191,7 @@
 </header>
 
 <!-- شريط التنقل -->
-<div id="navbar">
+<div id="navbar" style="text-align:center; margin-top:20px; display:flex; justify-content: center; gap:10px;">
   <button onclick="showSection('login')">تسجيل الدخول</button>
   <button onclick="showSection('register')">إنشاء حساب</button>
   <button onclick="logout()" id="logoutBtn" style="display:none;">تسجيل الخروج</button>
@@ -192,38 +201,42 @@
 </div>
 
 <!-- المحتوى الرئيسي -->
-<div class="main-content">
+<div class="main-content" style="margin-top:30px; width:100%; display:flex; flex-direction:column; align-items:center;">
 
   <!-- تسجيل الدخول -->
-  <div id="login" style="display:none;">
-    <h2>تسجيل الدخول</h2>
-    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" />
-    <input type="password" id="loginPassword" placeholder="كلمة المرور" />
-    <button onclick="loginUser()">دخول</button>
+  <div id="login" class="auth-container">
+    <div class="auth-title">تسجيل الدخول</div>
+    <input class="auth-input" type="email" id="loginEmail" placeholder="البريد الإلكتروني" />
+    <input class="auth-input" type="password" id="loginPassword" placeholder="كلمة المرور" />
+    <button class="auth-btn" onclick="loginUser()">دخول</button>
   </div>
 
   <!-- إنشاء حساب -->
-  <div id="register" style="display:none;">
-    <h2>إنشاء حساب</h2>
-    <input type="text" id="regName" placeholder="اسم المستخدم" />
-    <input type="email" id="regEmail" placeholder="البريد الإلكتروني" />
-    <input type="password" id="regPassword" placeholder="كلمة المرور" />
-    <button onclick="registerUser()">تسجيل</button>
+  <div id="register" class="auth-container" style="display:none;">
+    <div class="auth-title">إنشاء حساب</div>
+    <input class="auth-input" type="text" id="regName" placeholder="اسم المستخدم" />
+    <input class="auth-input" type="email" id="regEmail" placeholder="البريد الإلكتروني" />
+    <input class="auth-input" type="password" id="regPassword" placeholder="كلمة المرور" />
+    <button class="auth-btn" onclick="registerUser()">تسجيل</button>
   </div>
 
-  <!-- الملف الشخصي -->
-  <div id="profile" style="display:none;">
-    <h2>ملفي الشخصي</h2>
-    <input type="text" id="profileName" placeholder="اسم المستخدم" />
-    <input type="file" id="profileAvatar" />
-    <button onclick="updateProfile()">حفظ التعديلات</button>
+  <!-- حساب المستخدم بعد تسجيل الدخول -->
+  <div id="profile" style="display:none; width:100%; max-width:500px; padding:20px; background: rgba(255,255,255,0.02); border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+    <h3 style="color:var(--gold); text-align:center;">حسابك</h3>
+    <div style="margin-top:10px; text-align:center;">
+      <div style="margin-bottom:10px;">اسمك: <span id="userNameDisplay"></span></div>
+      <div style="margin-bottom:10px;">البريد: <span id="userEmailDisplay"></span></div>
+      <div style="margin-bottom:10px;">صورة الشخصي (اختياري):</div>
+      <input type="file" id="avatarUpload" style="margin-bottom:10px;"/>
+      <button onclick="updateProfile()" style="background:var(--gold); color:#000; padding:10px; border:none; border-radius:10px; cursor:pointer;">حفظ التعديلات</button>
+    </div>
   </div>
 
-  <!-- الإعلانات -->
-  <div id="ads" style="display:none;">
+  <!-- إعلانات المستخدم -->
+  <div id="ads" style="display:none; width:100%; max-width:800px; padding:20px;">
     <h2>إعلاناتي</h2>
-    <div>
-      <select id="categoryFilter" onchange="filterAds()">
+    <div style="margin-bottom:10px;">
+      <select id="categoryFilter" onchange="filterAds()" style="width:100%; padding:10px; border-radius:10px; border:none; background:rgba(255,255,255,0.1); color:#fff;">
         <option value="">كل التصنيفات</option>
         <option value="سيارات">سيارات</option>
         <option value="عقارات">عقارات</option>
@@ -232,33 +245,37 @@
         <option value="أراضي">أراضي</option>
       </select>
     </div>
-    <button onclick="showAdForm()">نشر إعلان جديد</button>
-    <div id="ad-list"></div>
+    <button onclick="showAdForm()" style="background:var(--gold); color:#000; padding:10px; border:none; border-radius:10px; cursor:pointer; margin-bottom:20px;">نشر إعلان جديد</button>
+    <div id="ad-list" style="margin-top:10px;"></div>
   </div>
 
   <!-- نموذج نشر إعلان -->
-  <div id="adFormContainer" style="display:none; padding:20px; background:#222; border-radius:10px; margin:20px 0;">
-    <h3>نشر إعلان</h3>
-    <input type="text" id="adTitle" placeholder="عنوان الإعلان" />
-    <textarea id="adDesc" placeholder="وصف الإعلان"></textarea>
-    <select id="adCategory">
+  <div id="adFormContainer" style="display:none; margin-top:20px;">
+    <h3 style="color: var(--gold); text-align:center;">نشر إعلان</h3>
+    <input id="adTitle" placeholder="عنوان الإعلان" />
+    <textarea id="adDesc" placeholder="وصف الإعلان" style="width:100%; height:80px; margin-bottom:10px; border-radius:10px; padding:10px; border:none; background:rgba(255,255,255,0.1); color:#fff;"></textarea>
+    <select id="adCategory" style="width:100%; padding:10px; border-radius:10px; border:none; background:rgba(255,255,255,0.1); color:#fff; margin-bottom:10px;">
       <option value="سيارات">سيارات</option>
       <option value="عقارات">عقارات</option>
       <option value="أجهزة">أجهزة</option>
       <option value="أثاث">أثاث</option>
       <option value="أراضي">أراضي</option>
     </select>
-    <input type="file" id="adImage" />
-    <button onclick="saveAd()">حفظ</button>
-    <button onclick="hideAdForm()">إلغاء</button>
+    <input type="file" id="adImage" style="margin-bottom:10px;"/>
+    <div style="display:flex; justify-content: space-between;">
+      <button onclick="saveAd()" style="background:var(--gold); padding:10px; border:none; border-radius:10px; cursor:pointer;">حفظ</button>
+      <button onclick="hideAdForm()" style="background:#999; padding:10px; border:none; border-radius:10px; cursor:pointer;">إلغاء</button>
+    </div>
   </div>
 
   <!-- الدردشة -->
-  <div id="chat" style="display:none;">
-    <h2>الدردشة</h2>
-    <div id="messages" style="height:300px; overflow-y:auto; background:#111; padding:10px; border-radius:10px;"></div>
-    <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
-    <button onclick="sendMessage()">إرسال</button>
+  <div id="chat" style="display:none; width:100%; max-width:800px; padding:20px;">
+    <h2 style="color:var(--gold); text-align:center;">الدردشة</h2>
+    <div id="messages" style="height:300px; overflow-y:auto; background:#111; padding:10px; border-radius:10px; margin-bottom:10px;"></div>
+    <div style="display:flex; gap:10px;">
+      <input type="text" id="chatInput" placeholder="اكتب رسالتك..." style="flex:1; padding:12px; border-radius:10px; border:none; background: rgba(255,255,255,0.1); color:#fff;"/>
+      <button id="send-btn" onclick="sendMessage()">إرسال</button>
+    </div>
   </div>
 
 </div>
@@ -271,17 +288,21 @@
   const supabaseKey = 'sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC';
   const supabase = createClient(supabaseUrl, supabaseKey);
   let currentUser = null;
-  let chatInterval;
+  let chatInterval = null;
 
   // عرض الأقسام
 function showSection(section) {
-  document.querySelectorAll('div[id^=""]').forEach(div => {
+  document.querySelectorAll('.main-content > div').forEach(div => {
     if (div.id === section) div.style.display='block';
     else div.style.display='none';
   });
-  if (section === 'login' || section === 'register') return;
-  if (section === 'profile' || section==='ads') loadUserData();
-  if (section==='chat') { loadMessages(); }
+  if (section==='login' || section==='register') return;
+  if (section==='profile' || section==='ads') {
+    loadUserData();
+  }
+  if (section==='chat') {
+    loadMessages();
+  }
 }
 
 // تسجيل الدخول
@@ -297,9 +318,9 @@ async function loginUser() {
   loadUserData();
 }
 
-// تسجيل حساب
+// تسجيل حساب جديد
 async function registerUser() {
-  const name = document.getElementById('regName').value;
+  const name = prompt("ادخل اسمك:");
   const email = document.getElementById('regEmail').value;
   const password = document.getElementById('regPassword').value;
   const { user, error } = await supabase.auth.signUp({ email, password });
@@ -317,7 +338,7 @@ async function logout() {
   showSection('login');
 }
 
-// عند دخول المستخدم
+// عند تغير الحالة
 supabase.auth.onAuthStateChange(async (event, session) => {
   if (session && session.user) {
     currentUser = session.user;
@@ -328,7 +349,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
   }
 });
 
-// تحميل البيانات الشخصية
+// تحميل بيانات المستخدم
 async function loadUserData() {
   if (!currentUser) return;
   const { data } = await supabase
@@ -337,15 +358,15 @@ async function loadUserData() {
     .eq('id', currentUser.id)
     .single();
   if (data) {
-    document.getElementById('profileName').value = data.name || '';
+    document.getElementById('userNameDisplay').innerText = data.name || '';
+    document.getElementById('userEmailDisplay').innerText = currentUser.email || '';
   }
-  loadUserAds();
 }
 
 // تحديث الملف الشخصي
 async function updateProfile() {
-  const name = document.getElementById('profileName').value;
-  const avatarFile = document.getElementById('profileAvatar').files[0];
+  const name = document.getElementById('userNameDisplay').innerText;
+  const avatarFile = document.getElementById('avatarUpload').files[0];
   let avatarUrl = null;
   if (avatarFile) {
     const { data, error } = await supabase.storage
@@ -355,7 +376,7 @@ async function updateProfile() {
     avatarUrl = data.Key;
   }
   await supabase.from('profiles').upsert({ id: currentUser.id, name, avatar_url: avatarUrl });
-  alert('تم تحديث الملف');
+  alert('تم تحديث الحساب');
   loadUserData();
 }
 
@@ -402,7 +423,6 @@ async function loadUserAds() {
     .eq('user_id', currentUser.id);
   const container = document.getElementById('ad-list');
   container.innerHTML='';
-  if (!data) return;
   // تصفية حسب الفلتر
   const filterVal = document.getElementById('categoryFilter').value;
   const filteredData = filterVal ? data.filter(ad => ad.category===filterVal) : data;
@@ -479,7 +499,7 @@ async function sendMessage() {
   document.getElementById('chatInput').value='';
 }
 
-// عند التحميل
+// عند تحميل الصفحة
 window.onload = () => {
   const user = supabase.auth.user();
   if (user) {
@@ -491,6 +511,5 @@ window.onload = () => {
   }
 };
 </script>
-
 </body>
 </html>
