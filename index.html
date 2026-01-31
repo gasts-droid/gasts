@@ -3,218 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شركة GASTS | المنصة الرسمية</title>
+    <title>GASTS | الفخامة الرقمية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark: #05080a;
-            --border: rgba(212, 175, 55, 0.2);
-            --glass: rgba(255, 255, 255, 0.03);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Cairo', sans-serif; }
-
-        body {
-            margin: 0; padding: 0; background-color: var(--dark); color: #fff;
-            min-height: 100vh; overflow-x: hidden;
-            background-image: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
-        }
-
-        .nebula-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-        }
+        :root { --gold: #d4af37; --dark: #05080a; --border: rgba(212, 175, 55, 0.2); }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { margin: 0; background: var(--dark); color: #fff; min-height: 100vh; overflow-x: hidden; text-align: center; }
+        
+        /* الخلفية واللوقو */
+        .nebula { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
+        header { padding: 60px 20px 20px; }
+        .logo { font-size: 70px; font-weight: 900; background: linear-gradient(#fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        
+        .verification { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,175,55,0.1); padding: 6px 15px; border-radius: 20px; border: 1px solid var(--border); font-size: 11px; color: var(--gold); margin-bottom: 30px; }
 
         /* صندوق المستخدم العلوي */
-        #userBox {
-            position: fixed; top: 15px; right: 15px;
-            display: none; align-items: center; gap: 10px;
-            background: rgba(0, 0, 0, 0.6); padding: 6px 14px;
-            border-radius: 40px; border: 1px solid var(--border);
-            z-index: 1000; backdrop-filter: blur(10px);
-        }
+        #userBox { position: fixed; top: 15px; right: 15px; display: none; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); padding: 5px 12px; border-radius: 40px; border: 1px solid var(--border); z-index: 1001; backdrop-filter: blur(10px); }
 
-        header { text-align: center; padding: 50px 20px 20px; }
-        .logo-text {
-            font-size: clamp(50px, 15vw, 90px); font-weight: 900;
-            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin: 0; letter-spacing: -2px;
-        }
+        /* الأزرار الرئيسية */
+        .btn-action { background: #fff; color: #000; padding: 15px 40px; border-radius: 50px; font-weight: 800; width: 260px; cursor: pointer; border: none; margin: 10px auto; display: block; transition: 0.3s; }
+        .btn-gold { background: var(--gold); color: #000; font-weight: 900; border: none; padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 900; }
 
-        /* قسم التوثيق الحكومي */
-        .verification-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(212, 175, 55, 0.1); padding: 5px 15px;
-            border-radius: 20px; border: 1px solid var(--border);
-            margin-top: 10px; font-size: 11px; color: var(--gold);
-        }
-
-        .main-content { display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center; margin-top: 20px; }
-        
-        .btn-action {
-            background: #fff; color: #000; padding: 15px 40px; border-radius: 50px;
-            font-weight: 800; width: 260px; cursor: pointer; border: none;
-            margin-bottom: 12px; transition: 0.3s;
-        }
-
-        /* المربع الإعلاني السفلي (GASTS Advertising Interface) */
-        .ad-interface-box {
-            width: 90%; max-width: 500px;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px; padding: 25px;
-            margin-top: 40px; backdrop-filter: blur(15px);
-            position: relative; overflow: hidden;
-        }
-        .ad-interface-box::before {
-            content: "GASTS ADVERTISING";
-            position: absolute; top: 5px; left: 10px;
-            font-size: 8px; opacity: 0.3; letter-spacing: 2px;
-        }
-
-        /* أيقونات التواصل */
-        .social-links { display: flex; gap: 20px; margin-top: 20px; }
-        .social-icon { 
-            color: #fff; text-decoration: none; font-size: 13px; 
-            display: flex; align-items: center; gap: 5px; opacity: 0.7; transition: 0.3s;
-        }
-        .social-icon:hover { opacity: 1; color: var(--gold); }
+        /* الواجهة الإعلانية */
+        .ad-box { width: 90%; max-width: 500px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin: 40px auto; backdrop-filter: blur(15px); }
 
         /* المودالات */
-        .modal {
-            display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85);
-            backdrop-filter:blur(15px); z-index:9999; align-items:center; justify-content:center;
-        }
-        .modal-content {
-            background:#0b0f14; border: 1px solid var(--border);
-            padding:30px; border-radius:25px; width:90%; max-width:400px; text-align:center;
-        }
-        input, select, textarea {
-            width:100%; padding:14px; margin-bottom:12px; border-radius:12px;
-            border:1px solid rgba(255,255,255,0.1); background: #1a1f26; color: white; outline: none;
-        }
-        .btn-gold {
-            width:100%; padding:14px; border-radius:50px; border:none; 
-            background:var(--gold); font-weight:900; cursor:pointer; color: #000;
-        }
+        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center; padding: 20px; }
+        .modal-content { background:#0b0f14; border: 1px solid var(--border); padding: 30px; border-radius: 25px; width: 100%; max-width: 380px; }
+        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: #1a1f26; color: white; outline: none; }
+
+        /* شاشة الحظر */
+        #spamLayer { display: none; position: fixed; inset: 0; background: #000; z-index: 10002; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-    <div class="nebula-bg"></div>
+    <div class="nebula"></div>
 
-    <div id="userBox">
-        <img id="avatarImg" src="" width="34" height="34" style="border-radius:50%; border: 1px solid var(--gold); object-fit: cover;">
-        <span id="usernameLabel" style="font-size: 14px;"></span>
+    <div id="spamLayer">
+        <h1 style="color:var(--gold)">⚠️ تم التقييد</h1>
+        <p>محاولات كثيرة خاطئة. يرجى الانتظار 30 دقيقة.</p>
+        <button class="btn-action" onclick="location.reload()">تحديث</button>
+    </div>
+
+    <div id="userBox" onclick="openUserOptions()">
+        <img id="headAvatar" src="" width="35" height="35" style="border-radius:50%; object-fit: cover;">
+        <span id="headName" style="font-size: 13px;"></span>
     </div>
 
     <header>
-        <h1 class="logo-text">GASTS</h1>
-        <div class="verification-badge">
-            <span style="font-size: 14px;">🇸🇦</span>
-            وثيقة عمل حر حكومية معتمدة: <strong>FL-28491035</strong>
-        </div>
+        <h1 class="logo">GASTS</h1>
+        <div class="verification">🇸🇦 وثيقة عمل حر معتمدة: FL-28491035</div>
     </header>
 
-    <div class="main-content">
-        <button id="mainAuthBtn" onclick="openLogin()" class="btn-action">تسجيل الدخول</button>
-        <button id="addAdBtn" class="btn-action" style="display:none; background: var(--gold);" onclick="openAdModal()">➕ إضافة إعلان</button>
-
-        <div class="ad-interface-box">
-            <h4 style="margin: 0 0 10px 0; color: var(--gold);">واجهة قاستس الإعلانية</h4>
-            <p style="font-size: 13px; opacity: 0.8; line-height: 1.6; margin: 0;">
-                مرحباً بك في عالم GASTS. هنا تلتقي الفخامة بالتقنية. نحن نوفر لك واجهة إعلانية متطورة تضمن وصول إعلانك لجمهورنا النخبة بأعلى معايير الجودة الرقمية لعام 2026.
-            </p>
+    <div id="mainUI">
+        <button id="authBtn" class="btn-action" onclick="toggleModal('authModal', true)">تسجيل دخول / انضمام</button>
+        <button id="adBtn" class="btn-action" style="display:none; background:var(--gold);" onclick="toggleModal('adModal', true)">➕ إضافة إعلان</button>
+        
+        <div class="ad-box">
+            <h3 style="color:var(--gold); margin-top:0;">واجهة قاستس الإعلانية</h3>
+            <p style="font-size: 13px; opacity: 0.7; line-height: 1.6;">بوابة الإعلانات الفاخرة لعام 2026. انشر إعلانك الآن ليصل إلى نخبة المجتمع.</p>
         </div>
 
-        <div class="social-links">
-            <a href="mailto:info@gasts.sa" class="social-icon">✉️ info@gasts.sa</a>
-            <a href="https://tiktok.com/@gasts" target="_blank" class="social-icon">📱 TikTok</a>
+        <div style="margin-top:20px; font-size: 12px; opacity: 0.5;">
+            ✉️ info@gasts.sa | 📱 TikTok: @gasts
         </div>
     </div>
 
     <div id="authModal" class="modal">
         <div class="modal-content">
-            <h3 style="color:var(--gold)">انضم إلينا</h3>
-            <input id="authEmail" type="email" placeholder="البريد الإلكتروني">
-            <input id="authPassword" type="password" placeholder="كلمة المرور">
-            <button class="btn-gold" onclick="authUser()">دخول / تسجيل</button>
-            <div onclick="closeLogin()" style="margin-top:15px; font-size:12px; opacity:.5; cursor:pointer">إغلاق</div>
+            <h3 style="color:var(--gold)">بوابة الوصول</h3>
+            <input id="email" type="email" placeholder="البريد الإلكتروني">
+            <input id="pass" type="password" placeholder="كلمة المرور">
+            <button class="btn-gold" onclick="handleAuth('in')">تسجيل دخول</button>
+            <button class="btn-outline" onclick="handleAuth('up')">إنشاء حساب جديد</button>
+            <p onclick="toggleModal('authModal', false)" style="cursor:pointer; opacity:0.5; font-size:12px; margin-top:15px;">إغلاق</p>
         </div>
     </div>
 
-    <div id="profileSetup" class="modal">
-      <div class="modal-content">
-        <h3 style="color:var(--gold)">إعداد البروفايل</h3>
-        <input id="usernameInput" type="text" placeholder="اسمك الكريم">
-        <input type="file" id="avatarInput" accept="image/*">
-        <button class="btn-gold" onclick="saveProfile()">حفظ التعديلات</button>
-      </div>
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">أهلاً بك في GASTS</h3>
+            <p style="font-size:12px; opacity:0.7;">يرجى إكمال بياناتك للمتابعة</p>
+            <input id="nick" type="text" placeholder="اسمك الكريم">
+            <input id="avatar" type="file" accept="image/*">
+            <button class="btn-gold" onclick="updateProfile()">حفظ ومتابعة</button>
+            <p id="upStatus" style="font-size:11px; margin-top:10px;"></p>
+        </div>
+    </div>
+
+    <div id="optionsModal" class="modal">
+        <div class="modal-content">
+            <h3 id="optTitle" style="color:var(--gold)">خياراتي</h3>
+            <button class="btn-gold" style="background:#fff" onclick="toggleModal('optionsModal', false); toggleModal('profileModal', true)">تعديل الملف</button>
+            <button class="btn-gold" style="background:#ff4444; color:#fff" onclick="logout()">تسجيل الخروج</button>
+            <p onclick="toggleModal('optionsModal', false)" style="cursor:pointer; opacity:0.5; font-size:12px; margin-top:15px;">تراجع</p>
+        </div>
+    </div>
+
+    <div id="adModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">نشر إعلان جديد</h3>
+            <select id="cat"><option value="">اختر القسم</option><option>سيارات</option><option>عقارات</option></select>
+            <input id="title" placeholder="عنوان الإعلان">
+            <textarea id="desc" placeholder="التفاصيل..." style="height:80px;"></textarea>
+            <button class="btn-gold" onclick="sendAd()">نشر الآن</button>
+            <p onclick="toggleModal('adModal', false)" style="cursor:pointer; opacity:0.5; font-size:12px; margin-top:15px;">إلغاء</p>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabaseClient = window.supabase.createClient(
-            "https://hdyqcgsrjnciamsyeyla.supabase.co",
-            "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
-        );
+        const client = window.supabase.createClient("https://hdyqcgsrjnciamsyeyla.supabase.co", "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC");
+        let user = null;
+        let tries = 0;
 
-        let currentUser = null;
+        // التحقق من الحظر
+        if(localStorage.getItem('g_block') > Date.now()) document.getElementById('spamLayer').style.display='flex';
 
-        (async () => {
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            if (user) { currentUser = user; syncUI(user); }
-        })();
+        // مراقبة الدخول
+        client.auth.onAuthStateChange((event, session) => {
+            if(session) {
+                user = session.user;
+                refreshUI();
+            }
+        });
 
-        async function authUser() {
-            const email = document.getElementById("authEmail").value;
-            const password = document.getElementById("authPassword").value;
-            let { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-            if (error) await supabaseClient.auth.signUp({ email, password });
+        async function handleAuth(type) {
+            const e = document.getElementById('email').value;
+            const p = document.getElementById('pass').value;
+            if(!e || !p) return alert("أدخل البيانات");
+
+            const { data, error } = (type === 'in') 
+                ? await client.auth.signInWithPassword({email:e, password:p})
+                : await client.auth.signUp({email:e, password:p});
+
+            if(error) {
+                tries++;
+                if(tries >= 5) { localStorage.setItem('g_block', Date.now() + 1800000); location.reload(); }
+                return alert(error.message);
+            }
+            if(type === 'up') alert("تم الإنشاء! سجل دخولك الآن بنفس البيانات.");
+            toggleModal('authModal', false);
+        }
+
+        async function refreshUI() {
+            if(!user) return;
+            document.getElementById('authBtn').style.display = 'none';
+            document.getElementById('adBtn').style.display = 'block';
+
+            const { data: prof } = await client.from('profiles').select('*').eq('id', user.id).single();
             
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            if (user) {
-                await supabaseClient.from('profiles').upsert({ id: user.id, username: user.email.split('@')[0] });
-                currentUser = user;
-                syncUI(user);
-            }
-            closeLogin();
-        }
-
-        async function syncUI(user) {
-            document.getElementById("mainAuthBtn").innerHTML = "👤 حسابي";
-            document.getElementById("addAdBtn").style.display = "block";
-            const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
-            if (profile) {
-                document.getElementById('usernameLabel').textContent = profile.username;
-                document.getElementById('avatarImg').src = profile.avatar_url || 'https://i.imgur.com/8Km9tLL.png';
+            // إذا كان المستخدم جديداً تماماً أو لم يكمل بياناته
+            if(!prof || prof.username === user.email.split('@')[0]) {
+                toggleModal('profileModal', true);
+            } else {
+                document.getElementById('headName').innerText = prof.username;
+                document.getElementById('headAvatar').src = prof.avatar_url || 'https://i.imgur.com/8Km9tLL.png';
                 document.getElementById('userBox').style.display = 'flex';
-                if (profile.username === user.email.split('@')[0]) document.getElementById("profileSetup").style.display = "flex";
+                document.getElementById('optTitle').innerText = prof.username;
             }
         }
 
-        async function saveProfile() {
-            const username = document.getElementById("usernameInput").value.trim();
-            const file = document.getElementById("avatarInput").files[0];
-            let avatarUrl = null;
+        async function updateProfile() {
+            const name = document.getElementById('nick').value;
+            const file = document.getElementById('avatar').files[0];
+            const stat = document.getElementById('upStatus');
+            if(!name) return alert("الاسم مطلوب");
 
-            if (file) {
-                const path = `${currentUser.id}.png`;
-                await supabaseClient.storage.from("avatars").upload(path, file, { upsert: true });
-                avatarUrl = supabaseClient.storage.from("avatars").getPublicUrl(path).data.publicUrl;
+            stat.innerText = "جاري الحفظ والرفع...";
+            let url = null;
+
+            if(file) {
+                const path = `av_${user.id}_${Date.now()}.png`;
+                const { error: upErr } = await client.storage.from('avatars').upload(path, file);
+                if(!upErr) url = client.storage.from('avatars').getPublicUrl(path).data.publicUrl;
             }
 
-            await supabaseClient.from("profiles").upsert({
-                id: currentUser.id, username, avatar_url: avatarUrl, updated_at: new Date()
+            const { error } = await client.from('profiles').upsert({
+                id: user.id, username: name, avatar_url: url, updated_at: new Date()
             });
-            document.getElementById("profileSetup").style.display = "none";
-            syncUI(currentUser);
+
+            if(!error) {
+                toggleModal('profileModal', false);
+                refreshUI();
+            } else {
+                stat.innerText = "خطأ في الحفظ، حاول ثانية";
+            }
         }
 
-        function openLogin() { document.getElementById("authModal").style.display = "flex"; }
-        function closeLogin() { document.getElementById("authModal").style.display = "none"; }
+        async function sendAd() {
+            const c = document.getElementById('cat').value;
+            const t = document.getElementById('title').value;
+            const d = document.getElementById('desc').value;
+            if(!c || !t || !d) return alert("أكمل تفاصيل الإعلان");
+
+            const { error } = await client.from('ads').insert({ user_id: user.id, title: t, description: d, category: c });
+            if(!error) { alert("تم النشر بنجاح!"); toggleModal('adModal', false); }
+        }
+
+        function logout() { client.auth.signOut(); location.reload(); }
+        function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
+        function openUserOptions() { toggleModal('optionsModal', true); }
     </script>
 </body>
 </html>
