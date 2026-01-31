@@ -1,167 +1,136 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GASTS | Luxury Ads</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>GASTS | Luxury Agency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-<style>
-:root{
---gold:#d4af37;
---dark:#05080a;
---border:rgba(212,175,55,.25);
-}
-*{box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{
-margin:0;background:var(--dark);color:#fff;min-height:100vh;
-background:radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
-}
-button{cursor:pointer;border:none;border-radius:50px;font-weight:900}
-input,textarea,select{
-width:100%;padding:14px;border-radius:14px;
-border:1px solid rgba(255,255,255,.1);
-background:#161b22;color:#fff
-}
-.modal{
-display:none;position:fixed;inset:0;
-background:rgba(0,0,0,.9);
-backdrop-filter:blur(12px);
-align-items:center;justify-content:center;z-index:9999
-}
-.modal-content{
-background:#0b0f14;padding:30px;border-radius:30px;
-border:1px solid var(--border);width:90%;max-width:400px
-}
-#userBox{
-position:fixed;top:15px;right:15px;
-display:none;align-items:center;gap:10px;
-background:rgba(0,0,0,.6);padding:6px 14px;
-border-radius:40px;border:1px solid var(--border)
-}
-</style>
+  <style>
+    :root {
+      --gold:#d4af37;
+      --dark:#05080a;
+      --border:rgba(212,175,55,.2);
+    }
+
+    body {
+      margin:0;
+      font-family:'Cairo',sans-serif;
+      background:#05080a;
+      color:#fff;
+      min-height:100vh;
+      text-align:center;
+    }
+
+    .nebula {
+      position:fixed;
+      inset:0;
+      background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%);
+      z-index:-1;
+    }
+
+    header { padding:80px 20px 40px; }
+
+    h1 {
+      font-size:90px;
+      margin:0;
+      font-weight:900;
+      background:linear-gradient(#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .btn {
+      margin:15px auto;
+      padding:16px 40px;
+      border-radius:50px;
+      font-weight:900;
+      border:none;
+      cursor:pointer;
+      width:260px;
+      font-size:16px;
+    }
+
+    .btn-gold {
+      background:var(--gold);
+      color:#000;
+    }
+
+    .btn-white {
+      background:#fff;
+      color:#000;
+    }
+
+    #userBox {
+      position:fixed;
+      top:20px;
+      right:20px;
+      display:none;
+      align-items:center;
+      gap:10px;
+      background:rgba(0,0,0,.6);
+      padding:6px 16px;
+      border-radius:40px;
+      border:1px solid var(--border);
+    }
+
+    #userBox img {
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      border:1px solid var(--gold);
+      object-fit:cover;
+    }
+  </style>
 </head>
-
 <body>
 
-<div id="userBox" onclick="open('options')">
-<img id="avatar" width="34" height="34" style="border-radius:50%;border:1px solid var(--gold)">
-<span id="username"></span>
+<div class="nebula"></div>
+
+<div id="userBox">
+  <img id="avatar">
+  <span id="username"></span>
 </div>
 
-<div style="text-align:center;padding:80px 20px">
-<h1 style="font-size:80px;color:var(--gold);margin:0">GASTS</h1>
-<p>منصة الإعلانات الفاخرة</p>
+<header>
+  <h1>GASTS</h1>
+  <p style="color:var(--gold);letter-spacing:6px;">LUXURY EXPERIENCE</p>
+</header>
 
-<button id="authBtn" onclick="open('auth')" style="padding:15px 50px">تسجيل الدخول</button>
-<button id="addBtn" onclick="open('ad')" style="display:none;padding:15px 50px;background:var(--gold);color:#000">➕ إعلان جديد</button>
-</div>
-
-<!-- AUTH -->
-<div id="auth" class="modal">
-<div class="modal-content">
-<h3>تسجيل الدخول</h3>
-<input id="email" type="email" placeholder="الإيميل">
-<input id="pass" type="password" placeholder="كلمة المرور">
-<button onclick="login()" style="width:100%;padding:14px;background:var(--gold);color:#000">دخول / تسجيل</button>
-</div>
-</div>
-
-<!-- PROFILE -->
-<div id="profile" class="modal">
-<div class="modal-content">
-<h3>الملف الشخصي</h3>
-<input id="nameIn" placeholder="اسم المستخدم">
-<input id="imgIn" type="file" accept="image/*">
-<button onclick="saveProfile()" style="width:100%;padding:14px;background:var(--gold)">حفظ</button>
-</div>
-</div>
-
-<!-- OPTIONS -->
-<div id="options" class="modal">
-<div class="modal-content">
-<button onclick="open('profile')" style="width:100%;margin-bottom:10px">تعديل الحساب</button>
-<button onclick="logout()" style="width:100%;background:#ff4444;color:#fff">تسجيل الخروج</button>
-</div>
-</div>
-
-<!-- AD -->
-<div id="ad" class="modal">
-<div class="modal-content">
-<select id="cat">
-<option value="">القسم</option>
-<option>سيارات</option>
-<option>عقارات</option>
-<option>ساعات</option>
-</select>
-<input id="title" placeholder="العنوان">
-<textarea id="desc" placeholder="الوصف"></textarea>
-<button onclick="sendAd()" style="width:100%;padding:14px;background:var(--gold)">نشر</button>
-</div>
-</div>
+<button id="loginBtn" class="btn btn-white" onclick="goLogin()">تسجيل الدخول</button>
+<button id="addAdBtn" class="btn btn-gold" style="display:none;">➕ إضافة إعلان</button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const supabase = supabaseJs.createClient(
-"https://hdyqcgsrjnciamsyeyla.supabase.co",
-"sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+const supabase = window.supabase.createClient(
+  "https://hdyqcgsrjnciamsyeyla.supabase.co",
+  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
 );
 
-let user=null;
+function goLogin() {
+  window.location.href = "auth.html";
+}
 
-function open(id){close();document.getElementById(id).style.display='flex'}
-function close(){document.querySelectorAll('.modal').forEach(m=>m.style.display='none')}
+(async () => {
+  const { data:{ user } } = await supabase.auth.getUser();
+  if (!user) return;
 
-(async()=>{
-const {data:{session}}=await supabase.auth.getSession();
-if(session){user=session.user;sync()}
+  const { data:profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  if (profile) {
+    document.getElementById("loginBtn").style.display = "none";
+    document.getElementById("addAdBtn").style.display = "block";
+    document.getElementById("userBox").style.display = "flex";
+    document.getElementById("username").textContent = profile.username;
+    document.getElementById("avatar").src =
+      profile.avatar_url || "https://i.imgur.com/8Km9tLL.png";
+  }
 })();
-
-async function login(){
-const email=email.value,pass=pass.value;
-let {error}=await supabase.auth.signInWithPassword({email,password:pass});
-if(error){
-await supabase.auth.signUp({email,password:pass});
-}
-const {data:{user:u}}=await supabase.auth.getUser();
-user=u;sync();close();
-}
-
-async function sync(){
-authBtn.style.display='none';
-addBtn.style.display='inline-block';
-const {data:p}=await supabase.from('profiles').select('*').eq('id',user.id).single();
-if(!p){
-await supabase.from('profiles').insert({id:user.id,username:user.email.split('@')[0]});
-open('profile');
-}else{
-username.innerText=p.username;
-avatar.src=p.avatar_url||'https://i.imgur.com/8Km9tLL.png';
-userBox.style.display='flex';
-}
-}
-
-async function saveProfile(){
-let name=nameIn.value,file=imgIn.files[0],url=null;
-if(file){
-const path=`${user.id}.png`;
-await supabase.storage.from('avatars').upload(path,file,{upsert:true});
-url=supabase.storage.from('avatars').getPublicUrl(path).data.publicUrl;
-}
-await supabase.from('profiles').upsert({id:user.id,username:name,avatar_url:url});
-sync();close();
-}
-
-async function sendAd(){
-await supabase.from('ads').insert({
-user_id:user.id,title:title.value,description:desc.value,category:cat.value
-});
-alert("تم النشر");close();
-}
-
-async function logout(){
-await supabase.auth.signOut();location.reload();
-}
 </script>
+
 </body>
 </html>
