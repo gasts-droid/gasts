@@ -16,108 +16,68 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
         body {
-            margin: 0; padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--dark);
-            color: #fff;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(26, 42, 68, 0.3) 0%, transparent 40%);
+            margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
+            background-color: var(--dark); color: #fff; min-height: 100vh;
+            display: flex; flex-direction: column; overflow-x: hidden;
+            background-image: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
         }
 
-        .nebula-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            overflow: hidden;
-        }
-        .nebula-bg::after {
-            content: ""; position: absolute; inset: -50%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            animation: rotateBG 180s linear infinite; opacity: 0.3;
-        }
+        /* التصميم الأساسي (الخلفية واللوجو) */
+        .nebula-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); overflow: hidden; }
+        .nebula-bg::after { content: ""; position: absolute; inset: -50%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); animation: rotateBG 180s linear infinite; opacity: 0.3; }
         @keyframes rotateBG { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        header { text-align: center; padding: 50px 20px 30px; }
-        .logo-container { display: inline-block; position: relative; transition: 0.1s ease-out; }
-        
+        header { text-align: center; padding: 60px 20px 30px; }
+        .logo-container { display: inline-block; position: relative; transition: 0.1s ease-out; cursor: default; }
         .diamond-icon {
-            width: 70px; height: 70px;
-            background: var(--gold-gradient);
-            background-size: 200% 200%;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            margin: 0 auto 15px;
+            width: 75px; height: 75px; background: var(--gold-gradient); background-size: 200% 200%;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); margin: 0 auto 15px;
             display: flex; align-items: center; justify-content: center;
-            color: #000; font-weight: 900; font-size: 30px;
-            animation: shimmer 3s infinite;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            color: #000; font-weight: 900; font-size: 32px; animation: shimmer 3s infinite;
         }
-
-        .luxury-label {
-            color: var(--gold); letter-spacing: 6px; font-size: 11px;
-            font-weight: 700; text-transform: uppercase; display: block;
-            margin-bottom: 5px; opacity: 0.8;
-        }
-
         .logo-text {
-            font-size: clamp(60px, 18vw, 100px); font-weight: 900; margin: 0; line-height: 0.85;
+            font-size: clamp(65px, 20vw, 110px); font-weight: 900; margin: 0; line-height: 0.8;
             background: linear-gradient(to bottom, #fff 30%, var(--gold) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); letter-spacing: -4px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); letter-spacing: -5px;
         }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center; position: relative; z-index: 10; }
-        
-        .hero-desc {
-            max-width: 650px; color: #f0f0f0; font-size: 1.35rem;
-            font-weight: 300; line-height: 1.7; margin: 25px 0 40px;
-        }
+        /* شاشة السبام */
+        #spamLayer { display: none; position: fixed; inset: 0; background: #000; z-index: 20000; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+        /* الأزرار والمحتوى */
+        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 20px; text-align: center; z-index: 100; }
+        .hero-desc { max-width: 650px; color: #f0f0f0; font-size: 1.4rem; font-weight: 300; line-height: 1.7; margin: 25px 0 40px; }
         .hero-desc span { color: var(--gold); font-weight: 700; }
 
         .btn-action {
             background: #fff; color: #000; padding: 18px 45px; border-radius: 60px;
             font-weight: 800; font-size: 17px; display: flex; align-items: center;
             justify-content: center; gap: 12px; transition: 0.4s;
-            margin-bottom: 18px; width: 280px; cursor: pointer; border: none;
+            margin-bottom: 18px; width: 290px; cursor: pointer; border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-decoration: none;
         }
         .btn-action:hover { transform: translateY(-5px); background: var(--gold); color: #fff; }
 
+        /* واجهة الإعلانات الفاخرة */
         .coming-soon-card {
             background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
             border: 1px solid var(--border); backdrop-filter: blur(20px);
-            padding: 40px 30px; border-radius: 40px; max-width: 550px; width: 100%; margin: 30px 0 50px;
-            position: relative; overflow: hidden;
+            padding: 45px 35px; border-radius: 40px; max-width: 580px; width: 100%; margin: 30px 0 50px;
+            position: relative; overflow: hidden; text-align: right;
         }
-        .coming-soon-card::before { content: ""; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--gold); }
-        .coming-soon-card h2 { color: var(--gold); margin: 0 0 15px; font-weight: 900; font-size: 1.8rem; }
-        .coming-soon-card p { margin: 0; opacity: 0.9; font-size: 15px; line-height: 1.8; color: #e0e0e0; }
+        .coming-soon-card::before { content: ""; position: absolute; top: 0; right: 0; width: 5px; height: 100%; background: var(--gold); }
+        .coming-soon-card h2 { color: var(--gold); margin: 0 0 15px; font-weight: 900; font-size: 1.9rem; }
+        .coming-soon-card p { margin: 0; opacity: 0.9; font-size: 16px; line-height: 1.8; color: #e0e0e0; }
 
-        /* مصلح المودال لضمان الاستجابة */
-        .modal {
-            display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95);
-            backdrop-filter:blur(15px); z-index:10000; align-items:center; justify-content:center;
-        }
-        .modal-content {
-            background:#0b0f14; border:1px solid var(--border);
-            padding:40px; border-radius:35px; width:90%; max-width:400px; text-align:center;
-        }
-
-        input {
-            width:100%; padding:15px; margin-bottom:15px; border-radius:15px;
-            border: 1px solid rgba(255,255,255,0.05); background: #161b22; color: white; outline: none; font-family: 'Cairo';
-        }
-
-        #userBox {
-            position: fixed; top: 20px; right: 20px;
-            display: none; align-items: center; gap: 12px;
-            background: rgba(0, 0, 0, 0.85); padding: 8px 20px;
-            border-radius: 50px; border: 1px solid var(--border);
-            z-index: 1001; backdrop-filter: blur(15px); cursor: pointer;
-        }
+        /* المودالات المحدثة */
+        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.96); backdrop-filter:blur(20px); z-index:10000; align-items:center; justify-content:center; }
+        .modal-content { background:#0b0f14; border:1px solid var(--border); padding:40px; border-radius:35px; width:92%; max-width:400px; text-align:center; }
+        
+        input, select, textarea { width:100%; padding:16px; margin-bottom:15px; border-radius:15px; border: 1px solid rgba(255,255,255,0.05); background: #161b22; color: white; outline: none; font-family: 'Cairo'; }
+        
+        #userBox { position: fixed; top: 25px; right: 25px; display: none; align-items: center; gap: 12px; background: rgba(0,0,0,0.85); padding: 8px 22px; border-radius: 50px; border: 1px solid var(--border); z-index: 1001; backdrop-filter: blur(15px); cursor: pointer; }
 
         @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
@@ -126,15 +86,22 @@
 
     <div class="nebula-bg"></div>
 
-    <div id="userBox" onclick="openModal('optionsModal')">
-        <img id="headAvatar" src="" width="34" height="34" style="border-radius:50%; object-fit: cover; border: 1px solid var(--gold);">
-        <span id="headName" style="font-size: 15px; font-weight: 700;"></span>
+    <div id="spamLayer">
+        <h1 style="color:var(--gold); font-size: 80px;">⚠️</h1>
+        <h2>تم تقييد الوصول مؤقتاً</h2>
+        <p style="opacity:0.7">يرجى الانتظار 30 دقيقة لحماية بياناتك.</p>
+        <button class="btn-action" style="margin-top:20px" onclick="location.reload()">تحديث</button>
+    </div>
+
+    <div id="userBox" onclick="openM('optionsModal')">
+        <img id="headAvatar" src="" width="36" height="36" style="border-radius:50%; object-fit: cover; border: 2px solid var(--gold);">
+        <span id="headName" style="font-size: 15px; font-weight: 700; color: #fff;"></span>
     </div>
 
     <header>
         <div class="logo-container">
             <div class="diamond-icon">G</div>
-            <span class="luxury-label">Luxury Agency</span>
+            <span style="color:var(--gold); letter-spacing:8px; font-size:11px; font-weight:700;">LUXURY AGENCY</span>
             <h1 class="logo-text">GASTS</h1>
         </div>
     </header>
@@ -144,22 +111,16 @@
             نحن لا نصنع الإعلانات فحسب، بل نصنع <span>الهوية الفاخرة</span> التي تليق بطموحاتكم الرقمية لعام 2026.
         </p>
         
-        <button id="mainAuthBtn" onclick="openModal('authModal')" class="btn-action">
-            <span>تسجيل الدخول</span>
-        </button>
-
-        <button id="addAdBtn" class="btn-action" style="display:none; background: var(--gold-gradient); color: #000;" onclick="openModal('adModal')">
-            <span>➕ إضافة إعلان فاخر</span>
-        </button>
-
-        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" class="btn-action" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); text-decoration: none;">
-            <span>عالمنا على تيك توك</span>
-        </a>
+        <button id="mainAuthBtn" onclick="openM('authModal')" class="btn-action"><span>تسجيل الدخول</span></button>
+        <button id="addAdBtn" class="btn-action" style="display:none; background: var(--gold-gradient); color: #000;" onclick="openM('adModal')"><span>➕ إضافة إعلان فاخر</span></button>
+        <a href="https://www.tiktok.com/@gasts.sa" target="_blank" class="btn-action" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);"><span>عالمنا على تيك توك</span></a>
 
         <div class="coming-soon-card">
             <h2>واجهة قاستس الإعلانية</h2>
-            <p>بوابة الإعلانات الفاخرة لعام 2026. انشر إعلانك الآن ليصل إلى نخبة المجتمع بأعلى معايير الجودة.</p>
+            <p>مرحباً بك في GASTS. حيث تلتقي الفخامة بالتقنية. نحن نوفر لك منصة متطورة تضمن وصول إعلانك لنخبة المجتمع بأعلى معايير الجودة العالمية.</p>
         </div>
+
+        <div style="opacity: 0.5; font-size: 13px; margin-bottom: 40px;">✉️ info@gasts-droid.github.io | GASTS 2026</div>
     </div>
 
     <div id="authModal" class="modal">
@@ -167,28 +128,39 @@
             <h3 style="color:var(--gold)">بوابة الوصول</h3>
             <input id="authEmail" type="email" placeholder="البريد الإلكتروني">
             <input id="authPassword" type="password" placeholder="كلمة المرور">
-            <button class="btn-action" style="width:100%; background:var(--gold); color:#000;" onclick="handleAuthAction('in')">دخول</button>
-            <button class="btn-action" style="width:100%; background:transparent; border:1px solid var(--gold); color:var(--gold);" onclick="handleAuthAction('up')">انضمام</button>
-            <div onclick="closeAllModals()" style="margin-top:20px; cursor:pointer; opacity:0.6;">إغلاق</div>
+            <button class="btn-action" style="width:100%; background:var(--gold); color:#000;" onclick="auth('in')">دخول</button>
+            <button class="btn-action" style="width:100%; background:transparent; border:1px solid var(--gold); color:var(--gold);" onclick="auth('up')">انضمام جديد</button>
+            <div onclick="closeM()" style="margin-top:20px; cursor:pointer; opacity:0.6; font-size:14px;">إغلاق</div>
+        </div>
+    </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">تعديل الملف</h3>
+            <input id="nickIn" type="text" placeholder="الاسم الكريم">
+            <label style="display:block; font-size:12px; color:var(--gold); margin-bottom:10px; text-align:right;">اختر صورة شخصية:</label>
+            <input id="fileIn" type="file" accept="image/*">
+            <button class="btn-action" style="width:100%; background:var(--gold);" onclick="saveP()">حفظ التغييرات</button>
         </div>
     </div>
 
     <div id="optionsModal" class="modal">
         <div class="modal-content">
-            <h3 style="color:var(--gold)">حسابي</h3>
-            <button class="btn-action" style="width:100%;" onclick="closeAllModals(); openModal('profileModal')">تعديل الملف</button>
-            <button class="btn-action" style="width:100%; background:#ff4444; color:#fff;" onclick="logout()">خروج</button>
-            <div onclick="closeAllModals()" style="margin-top:20px; cursor:pointer; opacity:0.6;">إغلاق</div>
+            <h3 id="optName" style="color:var(--gold)"></h3>
+            <button class="btn-action" style="width:100%; background:#fff;" onclick="closeM(); openM('profileModal')">تحديث البيانات</button>
+            <button class="btn-action" style="width:100%; background:#ff4444; color:#fff;" onclick="logout()">تسجيل الخروج</button>
+            <div onclick="closeM()" style="margin-top:20px; cursor:pointer; opacity:0.6;">إغلاق</div>
         </div>
     </div>
 
     <div id="adModal" class="modal">
         <div class="modal-content">
-            <h3 style="color:var(--gold)">إعلان جديد</h3>
-            <input id="adTitle" placeholder="العنوان">
-            <textarea id="adDesc" placeholder="التفاصيل" style="width:100%; height:100px; background:#161b22; color:#fff; border-radius:15px; border:none; padding:15px; font-family:'Cairo';"></textarea>
-            <button class="btn-action" style="width:100%; background:var(--gold); margin-top:15px;" onclick="publishAd()">نشر الآن</button>
-            <div onclick="closeAllModals()" style="margin-top:20px; cursor:pointer; opacity:0.6;">إلغاء</div>
+            <h3 style="color:var(--gold)">نشر إعلان</h3>
+            <select id="adCat"><option value="">اختر القسم</option><option>سيارات</option><option>عقارات</option><option>أجهزة</option></select>
+            <input id="adTit" placeholder="عنوان الإعلان">
+            <textarea id="adDe" placeholder="وصف الإعلان..." style="height:100px; resize:none;"></textarea>
+            <button class="btn-action" style="width:100%; background:var(--gold);" onclick="sendAd()">نشر الآن</button>
+            <div onclick="closeM()" style="margin-top:20px; cursor:pointer; opacity:0.6;">إلغاء</div>
         </div>
     </div>
 
@@ -199,65 +171,105 @@
             "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
         );
 
-        let user = null;
+        let currentUser = null;
+        let tries = 0;
 
-        // دوال فتح وإغلاق المودالات المصلحة
-        function openModal(id) {
-            document.getElementById(id).style.display = 'flex';
-        }
-        function closeAllModals() {
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        // التحقق من الحظر
+        if(localStorage.getItem('g_block') > Date.now()) {
+            document.getElementById('spamLayer').style.display = 'flex';
         }
 
-        // فحص الجلسة عند البداية
+        // فتح وإغلاق المودالات
+        function openM(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeM() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+
+        // التحقق من الجلسة
         (async () => {
             const { data: { session } } = await supabase.auth.getSession();
-            if (session) { user = session.user; syncUI(); }
+            if (session) { currentUser = session.user; syncUI(); }
         })();
 
-        // منطق تسجيل الدخول / التسجيل
-        async function handleAuthAction(type) {
+        // نظام المصادقة المطور
+        async function auth(type) {
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
-            
-            if(!email || !password) return alert("يرجى إدخال البيانات");
+            if(!email || !password) return alert("يرجى إكمال البيانات");
 
             if(type === 'up') {
                 const { error } = await supabase.auth.signUp({ email, password });
-                if(error) alert(error.message); else alert("تم الإنشاء! سجل دخولك الآن.");
+                if(error) alert(error.message); else alert("تم إنشاء الحساب! سجل دخولك الآن.");
             } else {
                 const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-                if(error) alert("البيانات خاطئة أو الحساب غير موجود.");
-                else { user = data.user; syncUI(); closeAllModals(); }
+                if(error) {
+                    alert("خطأ في البيانات أو الحساب غير موجود.");
+                    tries++;
+                    if(tries >= 5) { localStorage.setItem('g_block', Date.now() + 1800000); location.reload(); }
+                } else {
+                    currentUser = data.user;
+                    syncUI(); closeM();
+                }
             }
         }
 
+        // تحديث الواجهة والربط بالقاعدة
         async function syncUI() {
-            if(!user) return;
+            if(!currentUser) return;
             document.getElementById('mainAuthBtn').style.display = 'none';
             document.getElementById('addAdBtn').style.display = 'flex';
             
-            const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-            if(profile) {
+            const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
+            if(!profile) {
+                // إنشاء بروفايل أولي
+                await supabase.from('profiles').upsert({ id: currentUser.id, username: currentUser.email.split('@')[0] });
+                openM('profileModal');
+            } else {
                 document.getElementById('headName').innerText = profile.username;
+                document.getElementById('optName').innerText = profile.username;
                 document.getElementById('headAvatar').src = profile.avatar_url || 'https://i.imgur.com/8Km9tLL.png';
                 document.getElementById('userBox').style.display = 'flex';
             }
         }
 
-        async function publishAd() {
-            const title = document.getElementById('adTitle').value;
-            if(!title) return alert("اكتب العنوان");
-            const { error } = await supabase.from('ads').insert({ user_id: user.id, title });
-            if(!error) { alert("تم النشر"); closeAllModals(); }
+        // حفظ البروفايل مع التخزين (Storage)
+        async function saveP() {
+            const name = document.getElementById('nickIn').value.trim();
+            const file = document.getElementById('fileIn').files[0];
+            if(!name) return alert("الاسم مطلوب");
+
+            let avUrl = null;
+            if(file) {
+                const path = `avatars/${currentUser.id}_${Date.now()}.png`;
+                const { error: upErr } = await supabase.storage.from('avatars').upload(path, file);
+                if(!upErr) avUrl = supabase.storage.from('avatars').getPublicUrl(path).data.publicUrl;
+            }
+
+            const { error } = await supabase.from('profiles').upsert({
+                id: currentUser.id, username: name, avatar_url: avUrl || undefined
+            });
+
+            if(!error) { alert("تم الحفظ"); closeM(); syncUI(); }
+        }
+
+        // نشر الإعلان
+        async function sendAd() {
+            const title = document.getElementById('adTit').value;
+            const desc = document.getElementById('adDe').value;
+            const cat = document.getElementById('adCat').value;
+            if(!title || !cat) return alert("يرجى ملء العنوان والقسم");
+
+            const { error } = await supabase.from('ads').insert({
+                user_id: currentUser.id, title, description: desc, category: cat
+            });
+
+            if(!error) { alert("✅ تم نشر إعلانك بنجاح"); closeM(); }
         }
 
         function logout() { supabase.auth.signOut(); location.reload(); }
 
-        // انيميشن اللوجو الأصلي
+        // حركة اللوجو التفاعلية
         document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.012;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.012;
             const logo = document.querySelector('.logo-container');
             if(logo) logo.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
