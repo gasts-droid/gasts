@@ -276,5 +276,99 @@
             document.querySelector('.coming-soon-card').style.transform = `perspective(1000px) rotateY(${-moveX}deg) rotateX(${moveY}deg)`;
         });
     </script>
+    <!-- Supabase Auth (Login بدون تخريب التصميم) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://hdyqcgsrjnciamsyeyla.supabase.co",
+  "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
+);
+
+/* إنشاء نافذة تسجيل الدخول بدون لمس التصميم */
+const modalHTML = `
+<div id="authModal" style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:99999;">
+  <div style="
+  background:#0b0f14;
+  border:1px solid rgba(212,175,55,.4);
+  border-radius:22px;
+  padding:30px;
+  width:90%;
+  max-width:380px;
+  text-align:center;
+  backdrop-filter:blur(20px);
+  animation: pop .3s ease;">
+    
+    <h3 style="color:#d4af37;margin-top:0">تسجيل الدخول</h3>
+
+    <input id="email" type="email" placeholder="البريد الإلكتروني"
+      style="width:100%;padding:12px;border-radius:12px;border:none;margin-bottom:10px">
+
+    <input id="password" type="password" placeholder="كلمة المرور"
+      style="width:100%;padding:12px;border-radius:12px;border:none;margin-bottom:18px">
+
+    <button id="loginBtn" style="
+    width:100%;
+    padding:12px;
+    border-radius:50px;
+    border:none;
+    background:#d4af37;
+    font-weight:900;
+    cursor:pointer;">
+    دخول / تسجيل
+    </button>
+
+    <p style="font-size:12px;opacity:.6;margin-top:10px">
+      إذا ما عندك حساب، يتم إنشاؤه تلقائيًا
+    </p>
+  </div>
+</div>
+
+<style>
+@keyframes pop {
+  from { transform:scale(.9); opacity:0 }
+  to { transform:scale(1); opacity:1 }
+}
+</style>
+`;
+
+document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+/* فتح المودال */
+window.openLogin = () => {
+  document.getElementById("authModal").style.display = "flex";
+};
+
+/* تسجيل / دخول */
+document.getElementById("loginBtn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("اكتب الإيميل وكلمة المرور");
+    return;
+  }
+
+  let { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    const { error: signUpError } = await supabase.auth.signUp({ email, password });
+    if (signUpError) return alert(signUpError.message);
+    alert("تم إنشاء الحساب بنجاح ✅");
+  } else {
+    alert("تم تسجيل الدخول ✅");
+  }
+
+  document.getElementById("authModal").style.display = "none";
+};
+</script>
+
 </body>
 </html>
