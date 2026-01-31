@@ -106,9 +106,9 @@
             background:#0b0f14; border:1px solid var(--border);
             padding:30px; border-radius:20px; width:90%; max-width:380px; text-align:center;
         }
-        input {
+        input, select, textarea {
             width:100%; padding:12px; margin-bottom:10px; border-radius:10px;
-            border:none; background: #1a1f26; color: white; outline: none;
+            border:none; background: #1a1f26; color: white; outline: none; font-family: 'Cairo';
         }
 
         @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -150,6 +150,10 @@
             <span>تسجيل الدخول</span>
         </button>
 
+        <button id="addAdBtn" class="btn-action" style="display:none;" onclick="openAdModal()">
+            ➕ إضافة إعلان
+        </button>
+
         <a href="https://www.tiktok.com/@gasts.sa" class="btn-action">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V15.5c0 1.93-.78 3.81-2.13 5.16s-3.23 2.13-5.16 2.13c-1.97 0-3.86-.79-5.21-2.14C4.48 19.3 3.69 17.41 3.69 15.44c0-1.97.79-3.86 2.14-5.21 1.35-1.35 3.24-2.14 5.21-2.14.31 0 .62.03.92.07V12.3c-.3-.04-.61-.06-.92-.06-1.11 0-2.17.44-2.95 1.22s-1.22 1.84-1.22 2.95c0 1.11.44 2.17 1.22 2.95s1.84 1.22 2.95 1.22c1.11 0 2.17-.44 2.95-1.22.78-.78 1.22-1.84 1.22-2.95V0l.3-.02h-.25z"/></svg>
             <span>عالمنا على تيك توك</span>
@@ -181,6 +185,24 @@
         </div>
     </div>
 
+    <div id="adModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:#d4af37;margin-top:0">إضافة إعلان</h3>
+            <select id="adCategory">
+                <option value="">اختر القسم</option>
+                <option value="سيارات">سيارات</option>
+                <option value="أراضي">أراضي</option>
+                <option value="أجهزة إلكترونية">أجهزة إلكترونية</option>
+                <option value="أثاث">أثاث</option>
+                <option value="عمائر">عمائر</option>
+            </select>
+            <input id="adTitle" placeholder="عنوان الإعلان">
+            <textarea id="adDesc" placeholder="وصف الإعلان" style="resize:none; height:100px; margin-bottom:10px"></textarea>
+            <button onclick="publishAd()" style="width:100%;padding:12px;border-radius:50px;border:none;background:#d4af37;font-weight:900;cursor:pointer">نشر الإعلان</button>
+            <div onclick="closeAdModal()" style="margin-top:15px;font-size:13px;opacity:.6;cursor:pointer">إغلاق</div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const supabaseClient = window.supabase.createClient(
@@ -188,27 +210,38 @@
             "sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC"
         );
 
+        let currentUser = null;
+
         // التحقق عند التحميل
         (async () => {
           const { data: { session } } = await supabaseClient.auth.getSession();
           if (session) showUserUI(session.user);
         })();
 
+        // تحديث الواجهة للمستخدم
         function showUserUI(user) {
+          currentUser = user;
           const btn = document.getElementById("mainAuthBtn");
           btn.innerHTML = "👤 حسابي";
           btn.onclick = () => openUserModal(user);
+
+          // إظهار زر الإعلان
+          document.getElementById("addAdBtn").style.display = "flex";
         }
 
         function openLogin() { document.getElementById("authModal").style.display = "flex"; }
         function closeLogin() { document.getElementById("authModal").style.display = "none"; }
-        
         function openUserModal(user) {
             document.getElementById("userEmailLabel").innerText = user.email;
             document.getElementById("userModal").style.display = "flex";
         }
         function closeUserModal() { document.getElementById("userModal").style.display = "none"; }
 
+        // فتح / إغلاق مودال الإعلان
+        function openAdModal() { document.getElementById("adModal").style.display = "flex"; }
+        function closeAdModal() { document.getElementById("adModal").style.display = "none"; }
+
+        // تسجيل الدخول
         async function authUser() {
             const email = document.getElementById("authEmail").value;
             const password = document.getElementById("authPassword").value;
@@ -227,7 +260,39 @@
 
         async function signOut() {
             await supabaseClient.auth.signOut();
-            location.reload(); // إعادة تحميل لتصفير الواجهة
+            location.reload();
+        }
+
+        // نشر الإعلان في Supabase
+        async function publishAd() {
+            const category = document.getElementById("adCategory").value;
+            const title = document.getElementById("adTitle").value;
+            const desc = document.getElementById("adDesc").value;
+
+            if (!category || !title || !desc) {
+                alert("كمل كل البيانات");
+                return;
+            }
+
+            const { error } = await supabaseClient.from("ads").insert({
+                user_id: currentUser.id,
+                title: title,
+                description: desc,
+                category: category
+            });
+
+            if (error) {
+                alert("خطأ: " + error.message);
+                return;
+            }
+
+            alert("✅ تم نشر الإعلان");
+            closeAdModal();
+
+            // تصفير الحقول
+            document.getElementById("adTitle").value = "";
+            document.getElementById("adDesc").value = "";
+            document.getElementById("adCategory").value = "";
         }
 
         // انيميشن اللوجو
