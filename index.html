@@ -2,116 +2,139 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>شركة GASTS | فخامة الإعلان</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<title>GASTS | قريباً</title>
 
 <style>
-:root{
---gold:#d4af37;
---dark:#05080a;
---glass:rgba(255,255,255,.05);
---border:rgba(212,175,55,.2);
+:root {
+    --gold: #d4af37;
+    --dark: #0b0b0b;
+    --glass: rgba(255,255,255,0.06);
 }
 
-*{box-sizing:border-box;font-family:'Cairo',sans-serif}
-
-body{
-margin:0;
-background:var(--dark);
-color:#fff;
-min-height:100vh;
-overflow-x:hidden;
+body {
+    margin: 0;
+    font-family: "Cairo", sans-serif;
+    background: var(--dark);
+    color: white;
+    overflow-x: hidden;
 }
 
-.nebula-bg{
-position:fixed;
-inset:0;
-z-index:-1;
-background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%);
+/* ===== الخلفية ===== */
+.nebula-bg {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(212,175,55,0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06), transparent 40%);
+    z-index: -1;
 }
 
-header{text-align:center;padding:70px 20px}
-
-.logo-text{
-font-size:80px;
-font-weight:900;
-background:linear-gradient(to bottom,#fff,var(--gold));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+/* ===== بطاقة الوثيقة الحكومية ===== */
+.license-wrapper {
+    position: fixed;
+    top: 15px;
+    left: 15px;
 }
 
-.main-content{text-align:center;padding:20px}
-
-.btn-tiktok{
-background:#fff;
-color:#000;
-padding:15px 40px;
-border-radius:50px;
-text-decoration:none;
-font-weight:800;
-display:inline-flex;
-align-items:center;
-gap:10px;
+.license-card {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.6;
 }
 
-footer{
-padding:40px;
-text-align:center;
-opacity:.6;
+/* ===== المحتوى ===== */
+.main-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 
-/* زر الدخول */
-#loginBtn{
-position:fixed;
-top:20px;
-right:20px;
-background:linear-gradient(135deg,var(--gold),#fff);
-border:none;
-padding:10px 22px;
-border-radius:30px;
-font-weight:800;
-cursor:pointer;
-z-index:999;
+/* ===== كرت قريباً ===== */
+.coming-soon-card {
+    background: var(--glass);
+    border-radius: 18px;
+    padding: 30px;
+    max-width: 420px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
 
-/* نافذة الدخول */
-#authModal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.75);
-z-index:9999;
-justify-content:center;
-align-items:center;
+/* ===== زر ===== */
+.btn-main {
+    margin-top: 20px;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), #f5d76e);
+    color: #000;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-#authBox{
-background:#0b0f14;
-padding:30px;
-border-radius:25px;
-width:90%;
-max-width:360px;
-text-align:center;
+.btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(212,175,55,0.4);
 }
 
-#authBox input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:12px;
-border:none;
+/* ===== نافذة التسجيل ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
-#authBox button{
-width:100%;
-padding:12px;
-border-radius:20px;
-border:none;
-background:var(--gold);
-font-weight:900;
-cursor:pointer;
+.modal-box {
+    background: #111;
+    padding: 25px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 360px;
+    text-align: center;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.modal-box button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: var(--gold);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ===== الفوتر ===== */
+footer {
+    padding: 20px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.contact-item {
+    color: white;
+    text-decoration: none;
 }
 </style>
 </head>
@@ -120,70 +143,52 @@ cursor:pointer;
 
 <div class="nebula-bg"></div>
 
-<button id="loginBtn">تسجيل دخول</button>
-
-<header>
-<h1 class="logo-text">GASTS</h1>
-</header>
+<div class="license-wrapper">
+    <div class="license-card">
+        وثيقة عمل حر<br>
+        رقم: 123456789<br>
+        صادرة من وزارة الموارد البشرية
+    </div>
+</div>
 
 <div class="main-content">
-<p>
-نحن لا نصنع الإعلانات فحسب، بل نصنع الهوية الفاخرة التي تليق بطموحاتكم
-</p>
+    <div class="coming-soon-card">
+        <h2 style="color: var(--gold); margin-top:0;">منصة GASTS</h2>
+        <p>
+            ترقبوا إطلاق منصة بيع وشراء متكاملة مع إعلانات ودردشة مباشرة
+        </p>
 
-<a href="https://www.tiktok.com/@gasts.sa" class="btn-tiktok">
-عالمنا على تيك توك
-</a>
+        <a href="#" class="btn-main" id="openRegister">
+            تسجيل دخول
+        </a>
+    </div>
 </div>
 
 <footer>
-© 2026 GASTS LUXURY GROUP
+    <a href="mailto:gasts.work@outlook.sa" class="contact-item">
+        ✉ gasts.work@outlook.sa
+    </a>
 </footer>
 
-<!-- نافذة تسجيل الدخول -->
-<div id="authModal">
-<div id="authBox">
-<h3 style="color:var(--gold)">تسجيل الدخول</h3>
-<input id="email" placeholder="البريد الإلكتروني">
-<input id="password" type="password" placeholder="كلمة المرور">
-<button onclick="login()">دخول / إنشاء حساب</button>
+<!-- ===== نافذة تسجيل ===== -->
+<div class="modal" id="registerModal">
+    <div class="modal-box">
+        <h3>تسجيل دخول</h3>
+        <input type="email" placeholder="البريد الإلكتروني">
+        <input type="password" placeholder="كلمة المرور">
+        <button>دخول</button>
+        <p style="font-size:12px;opacity:.6;">الحسابات تُفعّل قريباً</p>
+    </div>
 </div>
-</div>
-
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL="https://hdyqcgsrjnciamsyeyla.supabase.co";
-const SUPABASE_KEY="sb_publishable_tlwDSDSqkIpBdKGe_oA4Gg_twuI4nJC";
-
-const supabase=window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-const modal=document.getElementById("authModal");
-document.getElementById("loginBtn").onclick=()=>modal.style.display="flex";
-
-async function login(){
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value.trim();
-
-if(!email||password.length<6){
-alert("بيانات غير صحيحة");
-return;
-}
-
-let {error}=await supabase.auth.signInWithPassword({email,password});
-
-if(error){
-const res=await supabase.auth.signUp({email,password});
-if(res.error){alert("فشل التسجيل");return;}
-}
-
-modal.style.display="none";
-alert("تم تسجيل الدخول بنجاح");
-}
+const modal = document.getElementById("registerModal");
+document.getElementById("openRegister").onclick = () => {
+    modal.style.display = "flex";
+};
+modal.onclick = (e) => {
+    if (e.target === modal) modal.style.display = "none";
+};
 </script>
 
 </body>
